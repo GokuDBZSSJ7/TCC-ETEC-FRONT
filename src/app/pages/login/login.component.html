@@ -1,0 +1,33 @@
+<main>
+    <div class="center shadow">
+        <h1>Login</h1>
+        <p>Digite seus dados de login abaixo:</p>
+
+        <form class="w-full" [formGroup]="form">
+            <div class="flex flex-col w-full mt-[10%]">
+                <label class="pb-1 text-[16px]">E-mail</label>
+                <mat-form-field class="rounded-lg">
+                    <input matInput formControlName="email" />
+                </mat-form-field>
+                <label class="pb-1 text-[16px]">Senha</label>
+                <mat-form-field class="rounded-lg">
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <button type="button" mat-icon-button matSuffix (click)="toggleHide()">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="flex justify-between items-center">
+                    <mat-checkbox color="primary">Lembrar de mim</mat-checkbox>
+                    <p class="flex items-center text-[14px]" style="margin-bottom: 0;">Esqueci a senha</p>
+                </div>
+                <button type="button"
+                    class="bg-[#1B4588] hover:bg-[#163970] transition w-full block mx-auto h-[56px] text-white mt-20 rounded-[10px] cursor-pointer text-[18px]"
+                    (click)="login()">
+                    ENTRAR
+                </button>
+                <p class="pt-3">Não tem uma conta? <span class="text-[#1B4588] font-bold cursor-pointer"
+                        routerLink="/register">Crie aqui!</span></p>
+            </div>
+        </form>
+    </div>
+</main>
