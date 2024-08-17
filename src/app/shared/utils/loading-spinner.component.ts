@@ -3,29 +3,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-loading-spinner',
-  standalone: true,
-  imports: [],
   template: `
-    <!-- <div class="loading-container">
-      <mat-spinner></mat-spinner>
-      <p>{{ data.message }}</p>
-    </div> -->
     <div class="loader"></div>
+    
   `,
   styles: [
     `
-      // .loading-container {
-      //   display: flex;
-      //   flex-direction: column;
-      //   align-items: center;
-      //   justify-content: center;
-      //   padding: 24px;
-
-      // }
-      // mat-spinner {
-      //   margin-bottom: 16px;
-      // }
-
       .loader {
         width: 50px;
         margin: 20px;
@@ -46,8 +29,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
           transform: rotate(1turn);
         }
       }
-    `,
-  ],
+    `
+  ]
 })
 export class LoadingSpinnerComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
