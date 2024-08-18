@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { LoginService } from '../../services/login.service';
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
   form!: FormGroup;
   errorMsg: string = '';
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) { }
+  constructor(private fb: FormBuilder, private loginService: AuthService) { }
   
   ngOnInit(): void {
     this.createForm();
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit{
   createForm() {
     this.form = this.fb.group({
       email: [null, Validators.required],
-      password: [null, Validators.required, Validators.min(6)]
+      password: [null, [Validators.required, Validators.min(6)]]
     });
   }
 

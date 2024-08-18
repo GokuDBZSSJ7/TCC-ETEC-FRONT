@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { LoginService } from './login.service';
+import { AuthService } from './auth.service';
 
-describe('LoginService', () => {
-  let service: LoginService;
+describe('AuthService', () => {
+  let service: AuthService;
   let httpMock: HttpTestingController
 
   beforeEach(() => {
@@ -11,9 +11,9 @@ describe('LoginService', () => {
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [LoginService]
+      providers: [AuthService]
     });
-    service = TestBed.inject(LoginService);
+    service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
