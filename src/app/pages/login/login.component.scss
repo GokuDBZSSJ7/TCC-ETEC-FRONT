@@ -1,56 +1,56 @@
-main {
-  background: linear-gradient(135deg, #2c3e50, #4c5c68);
-  padding: 2% 0;
-  height: 100vh;
-}
+// main {
+//   background: linear-gradient(135deg, #2c3e50, #4c5c68);
+//   padding: 2% 0;
+//   height: 100vh;
+// }
 
-.center {
-  width: 40%;
-  display: block;
-  margin: 0 auto;
-  background-color: #fff;
-  height: 100%;
-  border-radius: 3px;
-  padding: 3%;
+// .center {
+//   width: 40%;
+//   display: block;
+//   margin: 0 auto;
+//   background-color: #fff;
+//   height: 100%;
+//   border-radius: 3px;
+//   padding: 3%;
 
-  h1 {
-    font-weight: normal;
-  }
+//   h1 {
+//     font-weight: normal;
+//   }
 
-  p {
-    font-weight: lighter;
-  }
-}
+//   p {
+//     font-weight: lighter;
+//   }
+// }
 
-.title {
-  font-size: 20px;
-  font-weight: 700;
-}
+// .title {
+//   font-size: 20px;
+//   font-weight: 700;
+// }
 
-.subtitle {
-  color: #919aa3;
-  font-size: 14px;
-}
+// .subtitle {
+//   color: #919aa3;
+//   font-size: 14px;
+// }
 
-.forgot-password {
-  text-align: end;
-  text-decoration: none;
-  color: #555555;
-  font-size: 14px;
-}
+// .forgot-password {
+//   text-align: end;
+//   text-decoration: none;
+//   color: #555555;
+//   font-size: 14px;
+// }
 
-.login-button {
-  height: 46px !important;
-  border-radius: 5px;
-}
+// .login-button {
+//   height: 46px !important;
+//   border-radius: 5px;
+// }
 
-.col-lg-8 {
-  min-height: 100vh;
-  background-image: url("/assets/img/login-banner.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+// .col-lg-8 {
+//   min-height: 100vh;
+//   background-image: url("/assets/img/login-banner.png");
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
 
 .btn {
   transition: all 0.3s ease;
@@ -61,11 +61,11 @@ main {
   transform: translateY(-2px); /* Leve elevação ao passar o mouse */
 }
 
-span {
-  transition: color 0.3s ease, text-decoration 0.3s ease;
-}
+// span {
+//   transition: color 0.3s ease, text-decoration 0.3s ease;
+// }
 
-span:hover {
-  color: #ff6600; /* Altera a cor ao passar o mouse (um tom de laranja) */
-    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
-}
+// span:hover {
+//   color: #ff6600; /* Altera a cor ao passar o mouse (um tom de laranja) */
+//     text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+// }

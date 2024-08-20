@@ -1,6 +1,6 @@
+@use "@angular/material" as mat;
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -11,7 +11,38 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$TCC-FRONT-primary: mat.define-palette(mat.$indigo-palette);
+$TCC-FRONT-primary: mat.define-palette((
+  50: #e3e8f3,
+  100: #bac6e0,
+  200: #8da1cb,
+  300: #5f7bb5,
+  400: #3e60a4,
+  500: #1B4588,
+  600: #183e80,
+  700: #143474,
+  800: #102a69,
+  900: #081956,
+  A100: #bac6e0,
+  A200: #8da1cb,
+  A400: #3e60a4,
+  A700: #143474,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(255, 255, 255, 0.87),
+    500: rgba(255, 255, 255, 0.87),
+    600: rgba(255, 255, 255, 0.87),
+    700: rgba(255, 255, 255, 0.87),
+    800: rgba(255, 255, 255, 0.87),
+    900: rgba(255, 255, 255, 0.87),
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: rgba(255, 255, 255, 0.87),
+    A700: rgba(255, 255, 255, 0.87),
+  ),
+));
 $TCC-FRONT-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).

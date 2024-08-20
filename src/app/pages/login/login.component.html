@@ -1,4 +1,43 @@
-<main>
+<main class="md:bg-gray-100 flex justify-center items-center min-h-screen">
+    <div
+        class="content bg-white md:shadow rounded-lg md:p-8 flex flex-col gap-1 justify-center items-center max-md:w-full p-5">
+        <h1 class="text-[2rem] font-medium">Login</h1>
+        <p class="text-[1rem] font-normal mb-5">Digite seu e-mail e senha para efetuar o login</p>
+
+        <form class="w-full" [formGroup]="form">
+            <div class="flex flex-col w-full">
+                <!-- <label class="pb-1 text-[16px]">E-mail</label> -->
+                <mat-form-field>
+                    <mat-label>E-mail</mat-label>
+                    <input matInput placeholder="Digite seu e-mail" formControlName="email">
+                </mat-form-field>
+                <!-- <label class="pb-1 text-[16px]">Senha</label> -->
+                <mat-form-field>
+                    <mat-label>Senha</mat-label>
+                    <input matInput placeholder="Digite sua senha" [type]="hide ? 'password' : 'text'"
+                        formControlName="password">
+                    <button mat-icon-button matSuffix class="me-4" (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="flex justify-between items-center">
+                    <mat-checkbox color="primary">Lembrar de mim</mat-checkbox>
+                    <span class="text-[14px] text-[#1B4588] font-normal cursor-pointer hover:underline"
+                        style="margin-bottom: 0;">Esqueci a senha</span>
+                </div>
+                <button mat-flat-button
+                    class="bg-[#1B4588] text-white w-full block mx-auto h-[56px] rounded-lg text-[18px] my-5 btn"
+                    (click)="login()">
+                    ENTRAR
+                </button>
+                <p>Não tem uma conta? <span class="text-[#1B4588] font-normal cursor-pointer"
+                        routerLink="/register">Crie aqui!</span></p>
+            </div>
+        </form>
+    </div>
+</main>
+<!-- <main>
     <div class="center shadow">
         <h1 class="text-[2em] font-bold">Login</h1>
         <p class="text-[1em] font-semibold">Digite seus dados de login abaixo:</p>
@@ -6,23 +45,26 @@
         <form class="w-full" [formGroup]="form">
             <div class="flex flex-col w-full mt-[5%]">
                 <label class="pb-1 text-[16px]">E-mail</label>
-                <mat-form-field class="rounded-lg">
-                    <input matInput formControlName="email" />
+                <mat-form-field>
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email">
                 </mat-form-field>
                 <label class="pb-1 text-[16px] mt-5">Senha</label>
-                <mat-form-field class="rounded-lg">
+                <mat-form-field>
+                    <mat-label>Senha</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-                    <button type="button" mat-icon-button matSuffix (click)="toggleHide()">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
                 <div class="flex justify-between items-center mt-5">
                     <mat-checkbox color="primary">Lembrar de mim</mat-checkbox>
-                    <span class="text-[14px] text-[#1B4588] font-bold cursor-pointer hover:underline" style="margin-bottom: 0;">Esqueci a senha</span>
+                    <span class="text-[14px] text-[#1B4588] font-bold cursor-pointer hover:underline"
+                        style="margin-bottom: 0;">Esqueci a senha</span>
                 </div>
-                <button type="button"
-                    class="bg-[#1B4588] hover:bg-[#163970] transition w-full block mx-auto h-[56px] text-white mt-10 rounded-[15px] cursor-pointer text-[18px] btn"
-                    (click)="login()">
+                <button mat-flat-button color="primary"
+                    class="w-full block mx-auto h-[56px] mt-10 rounded-[15px] text-[18px]" (click)="login()">
                     ENTRAR
                 </button>
                 <p class="pt-3">Não tem uma conta? <span class="text-[#1B4588] font-bold cursor-pointer"
@@ -30,4 +72,4 @@
             </div>
         </form>
     </div>
-</main>
+</main> -->
