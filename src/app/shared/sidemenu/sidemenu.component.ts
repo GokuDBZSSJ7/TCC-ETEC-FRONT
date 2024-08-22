@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
 
 
 const DASHBOARD_ICON =
@@ -101,9 +102,9 @@ export class SidemenuComponent {
         route: '/dashboard'
       },
       {
-        label: 'Feed',
+        label: 'Políticos',
         icon: 'feed_icon',
-        route: '/feed'
+        route: '/politicians'
       },
       {
         label: 'Candidatos',
@@ -131,11 +132,6 @@ export class SidemenuComponent {
         route: '/parties'
       },
       {
-        label: 'Cargo',
-        icon: 'role_icon',
-        route: '/positions'
-      },
-      {
         label: 'Campanha',
         icon: 'candidate_speech_icon',
         route: '/'
@@ -145,11 +141,6 @@ export class SidemenuComponent {
         icon: 'check_circle_icon',
         route: '/approve-candidates'
       },
-      {
-        label: 'Área do Candidato',
-        icon: 'candidate_icon',
-        route: '/'
-      }
     ]
   },
   ];
@@ -174,6 +165,7 @@ export class SidemenuComponent {
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
+    private authService: AuthService
   ) {
     iconRegistry.addSvgIconLiteral('dashboard_icon', sanitizer.bypassSecurityTrustHtml(DASHBOARD_ICON));
     iconRegistry.addSvgIconLiteral('feed_icon', sanitizer.bypassSecurityTrustHtml(FEED_ICON));
@@ -188,4 +180,6 @@ export class SidemenuComponent {
   // logout() {
   //   this.authService.logout();
   // }
+
+
 }

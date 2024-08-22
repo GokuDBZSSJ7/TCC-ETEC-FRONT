@@ -35,4 +35,12 @@ export class AuthService {
       })
     );
   }
+
+  refresh(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/refresh`, {});
+  }
+
+  me(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/me`);
+  }
 }
