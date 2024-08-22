@@ -6,7 +6,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +35,14 @@ export class RegisterComponent {
   form!: FormGroup;
   errorMsg: string = '';
 
-  constructor(private fb: FormBuilder, private loginService: AuthService) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private loginService: AuthService,
+    private _snackBar: MatSnackBar,
+  ) { }
   
   ngOnInit(): void {
     this.createForm();
@@ -52,12 +65,23 @@ export class RegisterComponent {
       this.loginService.register(this.form.value).subscribe({
         next: res => {
           console.log("Deu certo");
-          
+          this._snackBar.open('Cadastrado com sucesso!', 'Fechar', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            panelClass: ['snackbar-success'],
+            duration: 4000,
+          });
+          this.router.navigate(['/login']);
         }
       })
-    } catch(error: any) {
+    } catch (error: any) {
+      this._snackBar.open('Ocorreu um erro ao realizar o cadastro', 'Fechar', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        panelClass: ['snackbar-error'],
+        duration: 4000,
+      });
       console.log(error);
-      
     }
   }
 }

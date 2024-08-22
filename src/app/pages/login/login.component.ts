@@ -23,13 +23,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   hide = true;
   form!: FormGroup;
   errorMsg: string = '';
 
-  constructor(private fb: FormBuilder, private loginService: AuthService) { }
-  
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private loginService: AuthService,
+  ) { }
+
   ngOnInit(): void {
     this.createForm();
   }
@@ -50,12 +54,12 @@ export class LoginComponent implements OnInit{
       this.loginService.login(this.form.value).subscribe({
         next: res => {
           console.log("Deu certo");
-          
+          this.router.navigate(['/politicians']);
         }
       })
-    } catch(error: any) {
+    } catch (error: any) {
       console.log(error);
-      
+
     }
   }
 }

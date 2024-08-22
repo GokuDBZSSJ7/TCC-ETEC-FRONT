@@ -15,7 +15,10 @@ export const routes: Routes = [
         component: LoggedComponent,
         canActivate: [AuthGuard],
         children: [
-
+            {
+                path: 'politicians',
+                loadComponent: () => import('./pages/logged/politicians/politicians.component').then((c) => c.PoliticiansComponent)
+            }
         ]
     },
     {
