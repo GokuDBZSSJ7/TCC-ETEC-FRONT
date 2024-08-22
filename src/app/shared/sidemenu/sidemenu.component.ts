@@ -181,5 +181,5 @@ export class SidemenuComponent {
   //   this.authService.logout();
   // }
 
-
+  user = this.authService.getUser();
 }

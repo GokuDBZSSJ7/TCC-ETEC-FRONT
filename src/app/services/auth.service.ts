@@ -43,4 +43,9 @@ export class AuthService {
   me(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/me`);
   }
+
+  getUser(): any {
+    const userString = localStorage.getItem('user');
+    return userString ? JSON.parse(userString) : null;
+  }
 }

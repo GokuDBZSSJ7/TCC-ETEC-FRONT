@@ -18,6 +18,10 @@ export const routes: Routes = [
             {
                 path: 'politicians',
                 loadComponent: () => import('./pages/logged/politicians/politicians.component').then((c) => c.PoliticiansComponent)
+            },
+            {
+                path: 'parties',
+                loadComponent: () => import('./pages/logged/parties/parties.component').then((c) => c.PartiesComponent)
             }
         ]
     },
