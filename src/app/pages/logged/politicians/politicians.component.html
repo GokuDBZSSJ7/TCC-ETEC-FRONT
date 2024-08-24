@@ -1,18 +1,89 @@
-<main class="py-[3%] px-[3%]">
-   <h1>Busque por um político</h1>
-
-   <div class="politicans">
-      <div class="flex">
-         @for (user of users; track user) {
-         <div class="card">
-            <h1>Teste</h1>
-            <img src="http://127.0.0.1:8000/storage/images/nome-da-imagem.jpg" alt="">
+<div class="container mx-auto px-8 py-6">
+   <div class="container-header flex justify-between items-center mb-5">
+      <h1>Políticos</h1>
+      <div class="flex justify-center items-center gap-1 cursor-pointer" (click)="showFilters = !showFilters">
+         <mat-icon>filter_list</mat-icon>
+         <span>Filtrar</span>
+      </div>
+   </div>
+   @if (showFilters) {
+   <div class="filters">
+      <p>abcd</p>
+   </div>
+   }
+   <div class="politicians">
+      <div class="grid grid-cols-12 gap-4">
+         <div class="col-span-12 md:col-span-3">
+            <div class="bg-white rounded-lg shadow-md">
+               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
+                  class="politician-image w-full h-auto">
+               <div class="d-flex flex-column p-3 gap-2">
+                  <div>
+                     <h2 class="text-lg font-bold">Nome 3</h2>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Cargo 3</p>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Partido 3</p>
+                  </div>
+               </div>
+            </div>
          </div>
-         }
 
-         <div class="card">
-            <h1>Teste</h1>
+         <div class="col-span-12 md:col-span-3">
+            <div class="bg-white rounded-lg shadow-md">
+               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
+                  class="politician-image w-full h-auto">
+               <div class="d-flex flex-column p-3 gap-2">
+                  <div>
+                     <h2 class="text-lg font-bold">Nome 3</h2>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Cargo 3</p>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Partido 3</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-span-12 md:col-span-3">
+            <div class="bg-white rounded-lg shadow-md">
+               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
+                  class="politician-image w-full h-auto">
+               <div class="d-flex flex-column p-3 gap-2">
+                  <div>
+                     <h2 class="text-lg font-bold">Nome 3</h2>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Cargo 3</p>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Partido 3</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-span-12 md:col-span-3">
+            <div class="bg-white rounded-lg shadow-md">
+               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
+                  class="politician-image w-full h-auto">
+               <div class="d-flex flex-column p-3 gap-2">
+                  <div>
+                     <h2 class="text-lg font-bold">Nome 3</h2>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Cargo 3</p>
+                  </div>
+                  <div>
+                     <p class="text-gray-700">Partido 3</p>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
-</main>
+</div>

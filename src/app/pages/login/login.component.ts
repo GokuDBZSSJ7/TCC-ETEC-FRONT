@@ -7,6 +7,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -28,10 +33,13 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   errorMsg: string = '';
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private loginService: AuthService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -54,10 +62,22 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.form.value).subscribe({
         next: res => {
           console.log("Deu certo");
+          this._snackBar.open('Logado com sucesso!', 'Fechar', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            panelClass: ['snackbar-success'],
+            duration: 4000,
+          });
           this.router.navigate(['/politicians']);
         }
       })
     } catch (error: any) {
+      this._snackBar.open('Ocorreu um erro ao realizar o login', 'Fechar', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        panelClass: ['snackbar-error'],
+        duration: 4000,
+      });
       console.log(error);
 
     }
