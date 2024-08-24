@@ -3,5 +3,11 @@ main {
 }
 
 .card {
-  width: 33%;
+  width: 20%;
+  display: block;
+  text-align: center;
+  background-color: #fff;
+  img {
+    width: 100%;
+  }
 }
