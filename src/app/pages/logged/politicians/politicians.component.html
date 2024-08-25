@@ -1,36 +1,79 @@
 <div class="container mx-auto px-8 py-6">
-   <div class="container-header flex justify-between items-center mb-5">
+   <div class="container-header flex justify-between items-center">
       <h1>Políticos</h1>
       <div class="flex justify-center items-center gap-1 cursor-pointer" (click)="showFilters = !showFilters">
          <mat-icon>filter_list</mat-icon>
          <span>Filtrar</span>
       </div>
    </div>
-   @if (showFilters) {
-   <div class="filters">
-      <p>abcd</p>
+   @if (showFilters)
+   {
+   <div class="filters mt-2">
+      <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
+         <div class="w-full md:w-8/12 px-2">
+            <mat-label>Pesquisar</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <input matInput placeholder="Buscar pelo nome do político">
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Partido</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <mat-select placeholder="Selecione um partido">
+                  <mat-option value="">Select Option 1</mat-option>
+               </mat-select>
+            </mat-form-field>
+         </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-2 mt-3 gap-3 md:gap-0">
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Estado</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <mat-select placeholder="Selecione um estado">
+                  <mat-option value="">Select Option 2</mat-option>
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Cidade</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <mat-select placeholder="Selecione um cidade">
+                  <mat-option value="">Select Option 3</mat-option>
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2 mt-2 md:mt-0 flex items-end">
+            <button mat-flat-button
+               class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn">
+               Filtrar
+            </button>
+         </div>
+      </div>
    </div>
    }
-   <div class="politicians">
-      <div class="grid grid-cols-12 gap-4">
+
+   <div class="politicians mt-5">
+      <div class="grid grid-cols-10 gap-4">
          @for(user of users; track user) {
-            <div class="col-span-12 md:col-span-3">
-               <div class="bg-white rounded-lg shadow-md">
-                  <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
-                     class="politician-image w-full h-auto">
-                  <div class="d-flex flex-column p-3 gap-2">
-                     <div>
-                        <h2 class="text-lg font-bold">{{user.name}}</h2>
-                     </div>
-                     <div>
-                        <p class="text-gray-700">{{user.role}}</p>
-                     </div>
-                     <div>
-                        <p class="text-gray-700">Partido 3</p>
-                     </div>
+         <div class="col-span-12 md:col-span-2">
+            <div class="card bg-white rounded-lg shadow cursor-pointer">
+               <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/70/2022-09-07_Desfile_C%C3%ADvico-Militar_por_ocasi%C3%A3o_das_Comemora%C3%A7%C3%B5es_do_Bicenten%C3%A1rio_da_Independ%C3%AAncia_do_Brasil_-_52341366768_%28cropped%29.jpg"
+                  alt="Placeholder Image" class="politician-image w-full h-auto">
+               <div class="d-flex flex-column p-3 gap-2">
+                  <div>
+                     <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
+                  </div>
+                  <div class="pb-2">
+                     <p class="text-[16px] text-gray-700">Presidente do Brasil</p>
+                  </div>
+                  <div>
+                     <p class="text-[15px] text-gray-700">Partido Liberal - PL</p>
                   </div>
                </div>
             </div>
+         </div>
          }
       </div>
    </div>

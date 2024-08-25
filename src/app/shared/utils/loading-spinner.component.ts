@@ -14,9 +14,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         margin: 20px;
         aspect-ratio: 1;
         border-radius: 50%;
-        background: radial-gradient(farthest-side, #544e97 94%, #0000) top/8px
+        background: radial-gradient(farthest-side, #315FA5 94%, #0000) top/8px
             8px no-repeat,
-          conic-gradient(#0000 30%, #544e97);
+          conic-gradient(#0000 30%, #315FA5);
         -webkit-mask: radial-gradient(
           farthest-side,
           #0000 calc(100% - 8px),

@@ -71,6 +71,7 @@ body {
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: 'Mulish', Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -113,23 +114,14 @@ body {
   }
 }
 
-body {
-  background-color: #f6f6f6;
+.mat-drawer-container {
+  min-height: 100vh;
 }
 
 .mdc-text-field--outlined .mdc-notched-outline__leading,
 .mdc-text-field--outlined .mdc-notched-outline__trailing {
   border-color: #E2E2E2 !important;
   border-radius: 12px;
-}
-
-input[matInput] {
-  font-size: 14px !important;
-  color: #525160 !important;
-
-  &::placeholder {
-    color: #E2E2E2 !important;
-  }
 }
 
 mat-form-field {
@@ -169,3 +161,35 @@ mat-label {
   font-weight: 500 !important;
   margin-left: 4px;
 }
+
+.btn {
+  transition: all .3s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adicionar sombra ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
+
+.mat-mdc-menu-item:hover {
+  background: #f3f3f3 !important;
+  border-radius: 10px;
+}
+
+.active {
+  background-color: #efefef !important;
+  border-radius: 10px;
+}
+
+// ng-select {
+//   height: 40px;
+//   border: 1px solid #e2e2e2;
+// }
+
+// ::ng-deep .ng-select.ng-select-single .ng-select-container {
+//   height: 40px;
+// }
+
+// ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+//   top: 8.5px;
+// }

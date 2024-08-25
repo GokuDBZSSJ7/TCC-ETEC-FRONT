@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, contentChild, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
@@ -8,25 +8,6 @@ import { RouterModule } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
-
-
-const DASHBOARD_ICON =
-  `
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-<path d="M12 2.66669H5.33335C3.86059 2.66669 2.66669 3.86059 2.66669 5.33335V14.6667C2.66669 16.1394 3.86059 17.3334 5.33335 17.3334H12C13.4728 17.3334 14.6667 16.1394 14.6667 14.6667V5.33335C14.6667 3.86059 13.4728 2.66669 12 2.66669Z" fill="black"/>
-<path d="M26.6666 2.66669H20C18.5272 2.66669 17.3333 3.86059 17.3333 5.33335V9.33335C17.3333 10.8061 18.5272 12 20 12H26.6666C28.1394 12 29.3333 10.8061 29.3333 9.33335V5.33335C29.3333 3.86059 28.1394 2.66669 26.6666 2.66669Z" fill="black"/>
-<path d="M12 20H5.33335C3.86059 20 2.66669 21.1939 2.66669 22.6667V26.6667C2.66669 28.1394 3.86059 29.3333 5.33335 29.3333H12C13.4728 29.3333 14.6667 28.1394 14.6667 26.6667V22.6667C14.6667 21.1939 13.4728 20 12 20Z" fill="black"/>
-<path d="M26.6666 14.6667H20C18.5272 14.6667 17.3333 15.8606 17.3333 17.3334V26.6667C17.3333 28.1394 18.5272 29.3334 20 29.3334H26.6666C28.1394 29.3334 29.3333 28.1394 29.3333 26.6667V17.3334C29.3333 15.8606 28.1394 14.6667 26.6666 14.6667Z" fill="black"/>
-</svg>
-`
-
-const FEED_ICON =
-  `
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M4 13.3333C4 8.30497 4 5.79083 5.56209 4.22872C7.1242 2.66663 9.63835 2.66663 14.6667 2.66663H17.3333C22.3616 2.66663 24.8759 2.66663 26.4379 4.22872C28 5.79083 28 8.30497 28 13.3333V18.6666C28 23.6949 28 26.2092 26.4379 27.7712C24.8759 29.3333 22.3616 29.3333 17.3333 29.3333H14.6667C9.63835 29.3333 7.1242 29.3333 5.56209 27.7712C4 26.2092 4 23.6949 4 18.6666V13.3333ZM8 16C8 14.1144 8 13.1715 8.58579 12.5857C9.17157 12 10.1144 12 12 12H20C21.8856 12 22.8284 12 23.4143 12.5857C24 13.1715 24 14.1144 24 16V21.3333C24 23.2189 24 24.1617 23.4143 24.7476C22.8284 25.3333 21.8856 25.3333 20 25.3333H12C10.1144 25.3333 9.17157 25.3333 8.58579 24.7476C8 24.1617 8 23.2189 8 21.3333V16ZM9.33333 6.99996C8.78105 6.99996 8.33333 7.44768 8.33333 7.99996C8.33333 8.55224 8.78105 8.99996 9.33333 8.99996H16C16.5523 8.99996 17 8.55224 17 7.99996C17 7.44768 16.5523 6.99996 16 6.99996H9.33333Z" fill="black"/>
-</svg>
-`
-
 
 const CANDIDATE_ICON =
   `
@@ -53,23 +34,14 @@ const CANDIDATE_SPEECH_ICON =
 </svg>
 `
 
-const FLAG_ICON =
-  `
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-<path d="M7.66669 1.33337C8.21897 1.33337 8.66669 1.78109 8.66669 2.33337V4.80004L10.9609 4.3412C13.1616 3.90105 15.4428 4.11049 17.5266 4.944L18.0776 5.16443C19.9775 5.92435 22.0684 6.06627 24.0535 5.56999C24.8948 5.35967 25.5704 6.27151 25.1243 7.01513L23.4196 9.85632C22.9643 10.6152 22.7366 10.9946 22.6826 11.4074C22.6602 11.5795 22.6602 11.7539 22.6826 11.9261C22.7366 12.3388 22.9643 12.7182 23.4196 13.4771L25.5004 16.9452C25.9148 17.6359 25.5443 18.5307 24.7628 18.726L24.6294 18.7594C22.2699 19.3492 19.7847 19.1806 17.5266 18.2774C15.4428 17.4438 13.1616 17.2344 10.9609 17.6746L8.66669 18.1334V29C8.66669 29.5523 8.21897 30 7.66669 30C7.11441 30 6.66669 29.5523 6.66669 29V2.33337C6.66669 1.78109 7.11441 1.33337 7.66669 1.33337Z" fill="black"/>
-</svg>
-`
-
-const ROLE_ICON =
-  `
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-<path d="M28 29H4C2.896 29 2 28.104 2 27V18H6V21H10V18H22V21H26V18H30V27C30 28.104 29.104 29 28 29ZM23 20V16H25V20H23ZM7 20V16H9V20H7ZM26 15H22V17H10V15H6V17H2V10C2 8.896 2.896 8 4 8H28C29.104 8 30 8.896 30 10V17H26V15ZM19 4.979H13V7H11V6.021H12V3H20.021V6H21V7H19V4.979Z" fill="black"/>
-</svg>
-`
-
 const CHECK_CIRCLE_ICON =
   `
 <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#000000"><path d="M422-297.33 704.67-580l-49.34-48.67L422-395.33l-118-118-48.67 48.66L422-297.33ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Z"/></svg>
+`
+
+const PROPOSALS =
+  `
+  <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#000000"><path d="M320-280q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 320h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Z"/></svg>
 `
 
 const LOGOUT_ICON =
@@ -92,91 +64,126 @@ const LOGOUT_ICON =
   templateUrl: './sidemenu.component.html',
   styleUrl: './sidemenu.component.scss'
 })
-export class SidemenuComponent {
+export class SidemenuComponent implements OnInit {
+  menus: any[] = [];
+  userMenu: any[] = []
   user = this.authService.getUser();
-
-  menus: any[] = [{
-    title: 'Módulos Gerais',
-    contentMenus: [
-      {
-        label: 'Dashboard',
-        icon: 'dashboard_icon',
-        route: '/dashboard'
-      },
-      {
-        label: 'Políticos',
-        icon: 'feed_icon',
-        route: '/politicians'
-      },
-      {
-        label: 'Candidatos',
-        icon: 'candidate_icon',
-        route: '/candidates'
-      },
-      {
-        label: 'Campanhas',
-        icon: 'candidate_speech_icon',
-        route: '/campaigns'
-      },
-      {
-        label: 'Partidos',
-        icon: 'flag_icon',
-        route: '/'
-      },
-    ],
-  },
-  {
-    title: 'Módulos Administrativos',
-    contentMenus: [
-      {
-        label: 'Partido',
-        icon: 'flag_icon',
-        route: '/parties'
-      },
-      {
-        label: 'Campanha',
-        icon: 'candidate_speech_icon',
-        route: '/'
-      },
-      {
-        label: 'Aprovar Político',
-        icon: 'check_circle_icon',
-        route: '/approve-politicians'
-      },
-    ]
-  },
-  ];
-  userMenu: any[] = [
-    {
-      label: 'Meu Perfil',
-      icon: 'account_circle',
-      route: '/my-user'
-    },
-    // {
-    //   label: 'Sair',
-    //   icon: 'logout_icon',
-    //   route: '/',
-    //   classPanel: 'logout-btn',
-    //   handler: () => {
-    //     console.log('Logout handler called');
-    //     this.logout();
-    //   }
-    // }
-  ];
 
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private authService: AuthService
   ) {
-    iconRegistry.addSvgIconLiteral('dashboard_icon', sanitizer.bypassSecurityTrustHtml(DASHBOARD_ICON));
-    iconRegistry.addSvgIconLiteral('feed_icon', sanitizer.bypassSecurityTrustHtml(FEED_ICON));
     iconRegistry.addSvgIconLiteral('candidate_icon', sanitizer.bypassSecurityTrustHtml(CANDIDATE_ICON));
     iconRegistry.addSvgIconLiteral('candidate_speech_icon', sanitizer.bypassSecurityTrustHtml(CANDIDATE_SPEECH_ICON));
-    iconRegistry.addSvgIconLiteral('flag_icon', sanitizer.bypassSecurityTrustHtml(FLAG_ICON));
-    iconRegistry.addSvgIconLiteral('role_icon', sanitizer.bypassSecurityTrustHtml(ROLE_ICON));
     iconRegistry.addSvgIconLiteral('check_circle_icon', sanitizer.bypassSecurityTrustHtml(CHECK_CIRCLE_ICON));
+    iconRegistry.addSvgIconLiteral('proposals_icon', sanitizer.bypassSecurityTrustHtml(PROPOSALS));
     iconRegistry.addSvgIconLiteral('logout_icon', sanitizer.bypassSecurityTrustHtml(LOGOUT_ICON));
+  }
+
+  ngOnInit() {
+    this.menus = this.accessTypeMenus(this.user.type)
+    this.userMenu = [
+      {
+        label: 'Meu Perfil',
+        icon: 'account_circle',
+        route: '/'
+      },
+      // {
+      //   label: 'Sair',
+      //   icon: 'logout_icon',
+      //   route: '/',
+      //   classPanel: 'logout-btn',
+      //   handler: () => {
+      //     console.log('Logout handler called');
+      //     this.logout();
+      //   }
+      // }
+    ];
+  }
+
+  accessTypeMenus(accessType: any) {
+    if (accessType === 1) {
+      return [{
+
+        title: 'Módulos Gerais',
+        contentMenus: [
+          {
+            label: 'Políticos',
+            icon: 'candidate_icon',
+            route: '/politicians'
+          }
+        ]
+      }];
+    } else if (accessType === 2 || accessType === 4) {
+      return [{
+        title: 'Módulos Gerais',
+        contentMenus: [
+          {
+            label: 'Políticos',
+            icon: 'candidate_icon',
+            route: '/politicians'
+          }
+        ]
+      },
+      {
+        title: 'Módulos Administrativos',
+        contentMenus: [
+          {
+            label: 'Propostas do Político',
+            icon: 'proposals_icon',
+            route: '/'
+          },
+          // {
+          //   label: 'Área do Político',
+          //   icon: 'candidate_icon',
+          //   route: '/'
+          // }
+        ]
+      }];
+    } else if (accessType === 3) {
+      return [{
+        title: 'Módulos Gerais',
+        contentMenus: [
+          {
+            label: 'Políticos',
+            icon: 'candidate_icon',
+            route: '/politicians'
+          }
+        ]
+      },
+      {
+        title: 'Módulos Administrativos',
+        contentMenus: [
+          {
+            label: 'Aprovar Político',
+            icon: 'check_circle_icon',
+            route: '/'
+          }
+        ]
+      }]
+    } else {
+      return [{
+        title: 'Módulos Gerais',
+        contentMenus: [
+          {
+            label: 'Políticos',
+            icon: 'candidate_icon',
+            route: '/politicians'
+          }
+        ]
+      },
+      {
+        title: 'Módulos Administrativos',
+        contentMenus: [
+          {
+            label: 'Aprovar Político',
+            icon: 'check_circle_icon',
+            route: '/'
+          }
+        ]
+      }]
+    }
   }
 
   // logout() {

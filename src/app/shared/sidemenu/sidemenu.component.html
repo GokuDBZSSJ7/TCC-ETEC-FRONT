@@ -1,54 +1,59 @@
 <mat-menu></mat-menu>
 
 <div class="fuse-vertical-navigation-wrapper sidemenu flex flex-col justify-between">
-   <div class="flex items-center justify-center w-full p-3">
-      <div class="">
-         <h1 class="m-0 py-3" style="margin: 0;">System</h1>
-      </div>
-   </div>
-
    <div>
-      @for (menu of menus; track menu) {
-      <div class="mt-2">
-         <div class="mx-2.5">
-            <div class="menu-title-alignment">
-               <div class="fuse-vertical-navigation-item-title-wrapper">
-                  <div class="fuse-vertical-navigation-item-title">
-                     <div class="menu-title">
-                        <span>{{ menu.title }}</span>
+      <div class="flex items-center justify-center w-full p-3">
+         <div class="">
+            <h1 class="m-0 py-3 text-[24px]" style="margin: 0;">System</h1>
+         </div>
+      </div>
+
+      <div>
+         @for (menu of menus; track menu) {
+         <div class="mt-2">
+            <div class="mx-2.5">
+               <div class="menu-title-alignment">
+                  <div class="fuse-vertical-navigation-item-title-wrapper">
+                     <div class="fuse-vertical-navigation-item-title">
+                        <div class="menu-title">
+                           <span class="text-[12.5px] font-[700]">{{ menu.title | uppercase }}</span>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
-      </div>
 
-      <div style="margin: 0 10px 4px 10px; font-size: 16px; padding-bottom: 8px;">
-         @for (submenu of menu.contentMenus; track submenu) {
-         @if (!submenu.handler) {
-         <button mat-menu-item [routerLink]="submenu.route" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            <mat-icon [svgIcon]="submenu.icon" aria-hidden="false"></mat-icon>
-            <span>{{ submenu.label }}</span>
-         </button>
-         }
-         @if (submenu.handler) {
-         <button mat-menu-item (click)="submenu.handler()" [class]="submenu.classPanel">
-            <mat-icon [svgIcon]="submenu.icon" aria-hidden="false"></mat-icon>
-            <span>{{ submenu.label }}</span>
-         </button>
-         }
+         <div class="text-[16px] pb-[8px]" style="margin: 0 10px 4px 10px">
+            @for (submenu of menu.contentMenus; track submenu) {
+            @if (!submenu.handler) {
+            <button mat-menu-item [routerLink]="submenu.route" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }">
+               <mat-icon [svgIcon]="submenu.icon" aria-hidden="false"></mat-icon>
+               <span>{{ submenu.label }}</span>
+            </button>
+            }
+            @if (submenu.handler) {
+            <button mat-menu-item (click)="submenu.handler()" [class]="submenu.classPanel">
+               <mat-icon [svgIcon]="submenu.icon" aria-hidden="false"></mat-icon>
+               <span>{{ submenu.label }}</span>
+            </button>
+            }
+            }
+         </div>
          }
       </div>
-      }
-      <mat-divider style="width: 230px; margin: 0 auto !important; border-top-color: #C6C6C6 !important;"></mat-divider>
    </div>
 
-   <div class="profile-data py-3 px-4" style="margin: 0 10px">
+   <div class="profile-data py-3 px-3" style="margin: 0 10px">
+      <mat-divider
+         style="width: 230px; margin: 0 auto !important; border-top-color: #C6C6C6 !important; padding-bottom: 10px;"></mat-divider>
       <div class="flex justify-between">
          <div class="left-align flex">
-            <img src="/assets/img/avatar_default.svg" alt="Profile Picture"
-               class="w-12 h-12 rounded-full object-cover object-center border-[2px] border-gray-300">
+            <div class="my-auto">
+               <img src="/assets/img/avatar_default.svg" alt="Profile Picture"
+                  class="w-10 h-10 rounded-full object-cover object-center border-[2px] border-gray-300">
+            </div>
             <div class="flex flex-col justify-evenly ps-2">
                <span class="name font-bold truncate" style="font-size: 13px; width: 110px;">{{user.name}}</span>
                <span class="position text-gray-500" style="font-size: 12px;">{{user.role}}</span>
