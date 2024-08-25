@@ -13,77 +13,25 @@
    }
    <div class="politicians">
       <div class="grid grid-cols-12 gap-4">
-         <div class="col-span-12 md:col-span-3">
-            <div class="bg-white rounded-lg shadow-md">
-               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
-                  class="politician-image w-full h-auto">
-               <div class="d-flex flex-column p-3 gap-2">
-                  <div>
-                     <h2 class="text-lg font-bold">Nome 3</h2>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Cargo 3</p>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Partido 3</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="col-span-12 md:col-span-3">
-            <div class="bg-white rounded-lg shadow-md">
-               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
-                  class="politician-image w-full h-auto">
-               <div class="d-flex flex-column p-3 gap-2">
-                  <div>
-                     <h2 class="text-lg font-bold">Nome 3</h2>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Cargo 3</p>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Partido 3</p>
+         @for(user of users; track user) {
+            <div class="col-span-12 md:col-span-3">
+               <div class="bg-white rounded-lg shadow-md">
+                  <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
+                     class="politician-image w-full h-auto">
+                  <div class="d-flex flex-column p-3 gap-2">
+                     <div>
+                        <h2 class="text-lg font-bold">{{user.name}}</h2>
+                     </div>
+                     <div>
+                        <p class="text-gray-700">{{user.role}}</p>
+                     </div>
+                     <div>
+                        <p class="text-gray-700">Partido 3</p>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
-
-         <div class="col-span-12 md:col-span-3">
-            <div class="bg-white rounded-lg shadow-md">
-               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
-                  class="politician-image w-full h-auto">
-               <div class="d-flex flex-column p-3 gap-2">
-                  <div>
-                     <h2 class="text-lg font-bold">Nome 3</h2>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Cargo 3</p>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Partido 3</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="col-span-12 md:col-span-3">
-            <div class="bg-white rounded-lg shadow-md">
-               <img src="https://via.placeholder.com/300x400" alt="Placeholder Image"
-                  class="politician-image w-full h-auto">
-               <div class="d-flex flex-column p-3 gap-2">
-                  <div>
-                     <h2 class="text-lg font-bold">Nome 3</h2>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Cargo 3</p>
-                  </div>
-                  <div>
-                     <p class="text-gray-700">Partido 3</p>
-                  </div>
-               </div>
-            </div>
-         </div>
+         }
       </div>
    </div>
 </div>

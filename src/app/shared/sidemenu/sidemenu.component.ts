@@ -93,6 +93,8 @@ const LOGOUT_ICON =
   styleUrl: './sidemenu.component.scss'
 })
 export class SidemenuComponent {
+  user = this.authService.getUser();
+
   menus: any[] = [{
     title: 'Módulos Gerais',
     contentMenus: [
@@ -137,9 +139,9 @@ export class SidemenuComponent {
         route: '/'
       },
       {
-        label: 'Aprovar Candidato',
+        label: 'Aprovar Político',
         icon: 'check_circle_icon',
-        route: '/approve-candidates'
+        route: '/approve-politicians'
       },
     ]
   },
@@ -181,5 +183,4 @@ export class SidemenuComponent {
   //   this.authService.logout();
   // }
 
-  user = this.authService.getUser();
 }

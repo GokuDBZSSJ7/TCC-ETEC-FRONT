@@ -12,6 +12,6 @@ export class UserService {
   constructor(private http: HttpClient, private loadingService: LoadingService) { }
 
   all(): Observable<any> {
-    return this.http.get(`${this.apiUrl}users`);
+    return this.http.get(`${this.apiUrl}getPoliticians`);
   }
 }

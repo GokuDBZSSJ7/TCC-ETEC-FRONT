@@ -1,1 +1,23 @@
-<p>parties works!</p>
+<div class="container mx-auto px-8 py-6">
+   <div class="container-header flex justify-between items-center mb-5">
+      <h1>Políticos</h1>
+      <div class="flex items-center gap-10">
+         <div class="flex justify-center items-center gap-1 cursor-pointer" (click)="showFilters = !showFilters">
+            <mat-icon>filter_list</mat-icon>
+            <span>Filtrar</span>
+         </div>
+         @if(user.type === 5) {
+            <button>Criar Partido</button>
+         }
+      </div>
+   </div>
+   @if (showFilters) {
+   <div class="filters grid grid-cols-12">
+      <div class="col-span-4">
+         <mat-form-field appearance="outline">
+            <input matInput placeholder="Nome">
+         </mat-form-field>
+      </div>
+   </div>
+   }
+</div>
