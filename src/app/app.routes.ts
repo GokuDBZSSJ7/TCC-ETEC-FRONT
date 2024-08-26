@@ -22,6 +22,10 @@ export const routes: Routes = [
             {
                 path: 'parties',
                 loadComponent: () => import('./pages/logged/parties/parties.component').then((c) => c.PartiesComponent)
+            },
+            {
+                path: 'parties/create-party',
+                loadComponent: () => import('./pages/logged/parties/create-party/create-party.component').then((c) => c.CreatePartyComponent)
             }
         ]
     },

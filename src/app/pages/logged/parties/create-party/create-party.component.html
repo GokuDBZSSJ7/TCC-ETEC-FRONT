@@ -1,0 +1,51 @@
+<main class="container mx-auto px-8 py-6">
+    <h1>Criar Partido</h1>
+
+    <div class="inputs grid grid-cols-12 gap-3">
+        <div class="col-span-6">
+            <mat-label>Nome</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Nome do Partido">
+            </mat-form-field>
+        </div>
+        <div class="col-span-6">
+            <mat-label>Líder do Partido</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-select placeholder="Selecione um usuário">
+                    @for (user of users; track user) {
+                    <mat-option [value]="user.id">{{user.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-span-4">
+            <mat-label>Estado</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
+                    (valueChange)="onStateChange()">
+                    @for(state of states; track state){
+                    <mat-option [value]="state">{{state.name}} - {{state.uf}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-span-8">
+            <mat-label>Cidade</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null">
+                    @for(city of cities; track city){
+                    <mat-option [value]="city.id">{{city.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-span-3">
+            <mat-label>Sigla</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Sigla do Partido">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <button class="create-btn">Cadastrar Partido</button>
+</main>

@@ -7,16 +7,58 @@
             <span>Filtrar</span>
          </div>
          @if(user.type === 5) {
-            <button>Criar Partido</button>
+         <button routerLink="/parties/create-party">Criar Partido</button>
          }
       </div>
    </div>
    @if (showFilters) {
-   <div class="filters grid grid-cols-12">
-      <div class="col-span-4">
-         <mat-form-field appearance="outline">
-            <input matInput placeholder="Nome">
-         </mat-form-field>
+   <div class="filters mt-2">
+      <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
+         <div class="w-full md:w-8/12 px-2">
+            <mat-label>Pesquisar</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <input matInput placeholder="Buscar pelo nome do político">
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Partido</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <mat-select placeholder="Selecione um partido">
+                  <mat-option value="">Select Option 1</mat-option>
+               </mat-select>
+            </mat-form-field>
+         </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-2 mt-3 gap-3 md:gap-0">
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Estado</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
+                  (valueChange)="onStateChange()">
+                  <mat-option>TESTE</mat-option>
+                  @for(state of states; track state){
+                  <mat-option [value]="state">{{state.name}} - {{state.uf}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Cidade</mat-label>
+            <mat-form-field appearance="outline" class="w-full">
+               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null">
+                  @for(city of cities; track city){
+                  <mat-option value="">{{city.name}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2 mt-2 md:mt-0 flex items-end">
+            <button mat-flat-button
+               class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn">
+               Filtrar
+            </button>
+         </div>
       </div>
    </div>
    }
