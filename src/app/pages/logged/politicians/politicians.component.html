@@ -20,7 +20,9 @@
             <mat-label>Partido</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select placeholder="Selecione um partido">
-                  <mat-option value="">Select Option 1</mat-option>
+                  @for(party of parties; track party){
+                  <mat-option [value]="party.id">{{party.name}}</mat-option>
+                  }
                </mat-select>
             </mat-form-field>
          </div>

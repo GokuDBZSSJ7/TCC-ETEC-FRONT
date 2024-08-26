@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../../services/auth.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { StateService } from '../../../services/state.service';
-import { CityService } from '../../../services/city.service';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { UserService } from '../../../../services/user.service';
+import { CityService } from '../../../../services/city.service';
+import { StateService } from '../../../../services/state.service';
 
 @Component({
-  selector: 'app-parties',
+  selector: 'app-create-party',
   standalone: true,
   imports: [
     MatIconModule,
@@ -25,25 +24,33 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     RouterModule
   ],
-  templateUrl: './parties.component.html',
-  styleUrl: './parties.component.scss'
+  templateUrl: './create-party.component.html',
+  styleUrl: './create-party.component.scss'
 })
-export class PartiesComponent implements OnInit {
-  showFilters = false;
+export class CreatePartyComponent implements OnInit {
+
+  users: any[] = [];
   selectedStateId: any;
   cities: any[] = []
   states: any[] = []
-  user = this.authService.getUser();
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private stateService: StateService,
     private cityService: CityService
   ) { }
 
   ngOnInit(): void {
-    this.listStates()
+    this.listUsers();
+    this.listStates();
+  }
 
+  listUsers() {
+    this.userService.all().subscribe({
+      next: res => {
+        this.users = res
+      }
+    })
   }
 
   onStateChange(): void {
@@ -65,4 +72,5 @@ export class PartiesComponent implements OnInit {
       }
     })
   }
+
 }

@@ -177,6 +177,11 @@ export class SidemenuComponent implements OnInit {
         title: 'Módulos Administrativos',
         contentMenus: [
           {
+            label: 'partidos',
+            icon: '',
+            route: '/parties'
+          },
+          {
             label: 'Aprovar Político',
             icon: 'check_circle_icon',
             route: '/'
