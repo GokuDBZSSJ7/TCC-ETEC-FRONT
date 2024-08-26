@@ -140,7 +140,7 @@ export class SidemenuComponent implements OnInit {
           //   route: '/'
           // }
         ]
-      }];
+        }];
     } else if (accessType === 3) {
       return [{
         title: 'Módulos Gerais',
@@ -158,8 +158,8 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Aprovar Político',
             icon: 'check_circle_icon',
-            route: '/'
-          }
+            route: '/approve-politician'
+          },
         ]
       }]
     } else {

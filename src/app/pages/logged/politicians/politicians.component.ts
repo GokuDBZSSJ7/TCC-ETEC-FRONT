@@ -56,7 +56,7 @@ export class PoliticiansComponent implements OnInit {
     console.log(this.selectedStateId);
 
     if (this.selectedStateId) {
-      this.cityService.all(this.selectedStateId.id).subscribe(data => {
+      this.cityService.all(this.selectedStateId).subscribe(data => {
         this.cities = data;
       });
     } else {

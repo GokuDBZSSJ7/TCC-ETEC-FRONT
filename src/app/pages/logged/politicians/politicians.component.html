@@ -12,13 +12,13 @@
       <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
          <div class="w-full md:w-8/12 px-2">
             <mat-label>Pesquisar</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <input matInput placeholder="Buscar pelo nome do político">
             </mat-form-field>
          </div>
          <div class="w-full md:w-4/12 px-2">
             <mat-label>Partido</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select placeholder="Selecione um partido">
                   <mat-option value="">Select Option 1</mat-option>
                </mat-select>
@@ -29,22 +29,21 @@
       <div class="flex flex-wrap -mx-2 mt-3 gap-3 md:gap-0">
          <div class="w-full md:w-4/12 px-2">
             <mat-label>Estado</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
-                  (valueChange)="onStateChange()">
-                  <mat-option>TESTE</mat-option>
+                  (selectionChange)="onStateChange()">
                   @for(state of states; track state){
-                  <mat-option [value]="state">{{state.name}} - {{state.uf}}</mat-option>
+                  <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
                   }
                </mat-select>
             </mat-form-field>
          </div>
          <div class="w-full md:w-4/12 px-2">
             <mat-label>Cidade</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null">
                   @for(city of cities; track city){
-                  <mat-option value="">{{city.name}}</mat-option>
+                  <mat-option [value]="city.id">{{city.name}}</mat-option>
                   }
                </mat-select>
             </mat-form-field>

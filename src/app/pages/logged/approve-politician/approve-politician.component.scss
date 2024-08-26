@@ -1,0 +1,14 @@
+h1 {
+   font-size: 26px;
+}
+
+.politician-image {
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+}
+
+input[matInput] {
+   &::placeholder {
+      color: #646464 !important;
+   }
+}

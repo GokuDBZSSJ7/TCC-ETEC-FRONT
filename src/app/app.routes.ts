@@ -22,6 +22,10 @@ export const routes: Routes = [
             {
                 path: 'parties',
                 loadComponent: () => import('./pages/logged/parties/parties.component').then((c) => c.PartiesComponent)
+            },
+            {
+                path: 'approve-politician',
+                loadComponent: () => import('./pages/logged/approve-politician/approve-politician.component').then((c) => c.ApprovePoliticianComponent)
             }
         ]
     },
