@@ -28,14 +28,14 @@
             @for (submenu of menu.contentMenus; track submenu) {
             @if (!submenu.handler) {
             <button mat-menu-item [routerLink]="submenu.route" routerLinkActive="active"
-               [routerLinkActiveOptions]="{ exact: true }">
+               [routerLinkActiveOptions]="{ exact: true }" [matTooltip]="submenu.tooltip">
                <mat-icon [svgIcon]="submenu.icon" aria-hidden="false"></mat-icon>
                <span>{{ submenu.label }}</span>
             </button>
             }
             @if (submenu.handler) {
             <button mat-menu-item (click)="submenu.handler()" [class]="submenu.classPanel">
-               <mat-icon [svgIcon]="submenu.icon" aria-hidden="false"></mat-icon>
+               <mat-icon [svgIcon]="submenu.icon" aria-hidden="false" [matTooltip]="submenu.tooltip"></mat-icon>
                <span>{{ submenu.label }}</span>
             </button>
             }

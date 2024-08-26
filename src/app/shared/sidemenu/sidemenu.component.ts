@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const CANDIDATE_ICON =
   `
@@ -60,6 +61,7 @@ const LOGOUT_ICON =
     MatDividerModule,
     RouterModule,
     MatIconModule,
+    MatTooltipModule,
   ],
   templateUrl: './sidemenu.component.html',
   styleUrl: './sidemenu.component.scss'
@@ -82,11 +84,13 @@ export class SidemenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.user);
     this.menus = this.accessTypeMenus(this.user.type)
     this.userMenu = [
       {
         label: 'Meu Perfil',
         icon: 'account_circle',
+        tooltip: '',
         route: '/'
       },
       // {
@@ -111,6 +115,7 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Políticos',
             icon: 'candidate_icon',
+            tooltip: '',
             route: '/politicians'
           }
         ]
@@ -122,6 +127,7 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Políticos',
             icon: 'candidate_icon',
+            tooltip: '',
             route: '/politicians'
           }
         ]
@@ -132,6 +138,7 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Propostas do Político',
             icon: 'proposals_icon',
+            tooltip: '',
             route: '/'
           },
           // {
@@ -140,7 +147,7 @@ export class SidemenuComponent implements OnInit {
           //   route: '/'
           // }
         ]
-        }];
+      }];
     } else if (accessType === 3) {
       return [{
         title: 'Módulos Gerais',
@@ -148,6 +155,7 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Políticos',
             icon: 'candidate_icon',
+            tooltip: '',
             route: '/politicians'
           }
         ]
@@ -156,8 +164,9 @@ export class SidemenuComponent implements OnInit {
         title: 'Módulos Administrativos',
         contentMenus: [
           {
-            label: 'Aprovar Político',
+            label: 'Controle de Políticos',
             icon: 'check_circle_icon',
+            tooltip: 'Aprovar políticos e designar a partidos.',
             route: '/approve-politician'
           },
         ]
@@ -169,6 +178,7 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Políticos',
             icon: 'candidate_icon',
+            tooltip: '',
             route: '/politicians'
           }
         ]
@@ -179,11 +189,13 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'partidos',
             icon: '',
+            tooltip: '',
             route: '/parties'
           },
           {
-            label: 'Aprovar Político',
+            label: 'Controle de Políticos',
             icon: 'check_circle_icon',
+            tooltip: 'Aprovar políticos e designar a partidos.',
             route: '/'
           }
         ]
