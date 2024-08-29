@@ -8,18 +8,18 @@
    </div>
    @if (showFilters)
    {
-   <div class="filters mt-2">
+   <div class="filters mt-2" [formGroup]="form">
       <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
          <div class="w-full md:w-8/12 px-2">
             <mat-label>Pesquisar</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-               <input matInput placeholder="Buscar pelo nome do político">
+               <input matInput placeholder="Buscar pelo nome do político" formControlName="name">
             </mat-form-field>
          </div>
          <div class="w-full md:w-4/12 px-2">
             <mat-label>Partido</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-               <mat-select placeholder="Selecione um partido">
+               <mat-select placeholder="Selecione um partido" formControlName="party_id">
                   @for(party of parties; track party){
                   <mat-option [value]="party.id">{{party.name}}</mat-option>
                   }
@@ -33,7 +33,7 @@
             <mat-label>Estado</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
-                  (selectionChange)="onStateChange()">
+                  (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
                   @for(state of states; track state){
                   <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
                   }
@@ -43,7 +43,8 @@
          <div class="w-full md:w-4/12 px-2">
             <mat-label>Cidade</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null">
+               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
+                  formControlName="city_id">
                   @for(city of cities; track city){
                   <mat-option [value]="city.id">{{city.name}}</mat-option>
                   }
@@ -52,7 +53,8 @@
          </div>
          <div class="w-full md:w-4/12 px-2 mt-2 md:mt-0 flex items-end">
             <button mat-flat-button
-               class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn">
+               class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn"
+               (click)="applyFilter()">
                Filtrar
             </button>
          </div>
@@ -76,7 +78,7 @@
                      <p class="text-[16px] text-gray-700">Presidente do Brasil</p>
                   </div>
                   <div>
-                     <p class="text-[14px] text-gray-700">{{ user?.party.name }} - {{ user?.party.acronym }}</p>
+                     <p class="text-[14px] text-gray-700">{{ user?.party?.name }} - {{ user?.party?.acronym }}</p>
                   </div>
                </div>
             </div>

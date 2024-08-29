@@ -8,7 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { StateService } from '../../../services/state.service';
 import { CommonModule } from '@angular/common';
 import { CityService } from '../../../services/city.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PartyService } from '../../../services/party.service';
 
 @Component({
@@ -21,7 +21,8 @@ import { PartyService } from '../../../services/party.service';
     MatInputModule,
     NgSelectModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './politicians.component.html',
   styleUrl: './politicians.component.scss'
@@ -31,6 +32,7 @@ export class PoliticiansComponent implements OnInit {
   states: any[] = []
   cities: any[] = []
   parties: any[] = []
+  form!: FormGroup;
   showFilters = false;
   selectedStateId: any;
 
@@ -38,13 +40,24 @@ export class PoliticiansComponent implements OnInit {
     private userService: UserService,
     private stateService: StateService,
     private cityService: CityService,
-    private partyService: PartyService
+    private partyService: PartyService,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.listUsers();
     this.listStates();
-    this.listParties()
+    this.listParties();
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = this.fb.group({
+      name: null,
+      city_id: null,
+      state_id: null,
+      party_id: null
+    });
   }
 
   listUsers() {
@@ -58,6 +71,10 @@ export class PoliticiansComponent implements OnInit {
 
   onStateChange(): void {
     console.log(this.selectedStateId);
+
+    this.form.patchValue({
+      state_id: this.selectedStateId
+    })
 
     if (this.selectedStateId) {
       this.cityService.all(this.selectedStateId).subscribe(data => {
@@ -82,5 +99,16 @@ export class PoliticiansComponent implements OnInit {
         this.parties = res;
       }
     })
+  }
+
+  applyFilter() {
+    if (this.form.value) {
+      this.userService.filterUser(this.form.value).subscribe({
+        next: res => {
+          this.users = res
+
+        }
+      })
+    }
   }
 }
