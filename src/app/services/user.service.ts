@@ -18,4 +18,8 @@ export class UserService {
   getPoliticians(): Observable<any> {
     return this.http.get(`${this.apiUrl}getPoliticians`);
   }
+
+  filterUser(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}filterPoliticians`, data)
+  }
 }
