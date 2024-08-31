@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { CityService } from '../../../services/city.service';
 import { FormsModule } from '@angular/forms';
 import { PartyService } from '../../../services/party.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-politicians',
@@ -38,7 +39,8 @@ export class PoliticiansComponent implements OnInit {
     private userService: UserService,
     private stateService: StateService,
     private cityService: CityService,
-    private partyService: PartyService
+    private partyService: PartyService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -81,6 +83,13 @@ export class PoliticiansComponent implements OnInit {
       next: res => {
         this.parties = res;
       }
+    })
+  }
+
+  openPoliticalPage(political: any,) {
+    console.log(political)
+    this.router.navigate(['/political', political.id], {
+      state: { political }
     })
   }
 }
