@@ -101,4 +101,12 @@ export class PoliticiansComponent implements OnInit {
       }
     })
   }
+
+  openPoliticalPage(item: any) {
+
+  }
+
+  applyFilter() {
+
+  }
 }

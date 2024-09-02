@@ -5,13 +5,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UserService } from '../../../../services/user.service';
 import { CityService } from '../../../../services/city.service';
 import { StateService } from '../../../../services/state.service';
 import { AuthService } from '../../../../services/auth.service';
 import { PartyService } from '../../../../services/party.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-party',
@@ -34,6 +35,8 @@ export class CreatePartyComponent implements OnInit {
 
   users: any[] = [];
   form!: FormGroup;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   selectedStateId: any;
   imageUrl: string | ArrayBuffer | null = null;
   cities: any[] = []
@@ -46,7 +49,9 @@ export class CreatePartyComponent implements OnInit {
     private cityService: CityService,
     private fb: FormBuilder,
     private authService: AuthService,
-    private partyService: PartyService
+    private partyService: PartyService,
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -114,8 +119,21 @@ export class CreatePartyComponent implements OnInit {
   create() {
     this.partyService.create(this.form.value).subscribe({
       next: res => {
-        console.log("FUNCIONOU");
-        
+        this._snackBar.open('Partido Criado com sucesso!', 'Fechar', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['snackbar-success'],
+          duration: 4000,
+        });
+        this.router.navigate(['/parties']);
+      },
+      error: (err: any) => {
+        this._snackBar.open(`${err.error.message}`, 'X', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['snackbar-error'],
+          duration: 4000,
+        })
       }
     })
   }
