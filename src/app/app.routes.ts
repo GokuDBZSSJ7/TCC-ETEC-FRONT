@@ -32,7 +32,7 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/logged/approve-politician/approve-politician.component').then((c) => c.ApprovePoliticianComponent)
             },
             {
-                path: 'political/:id',
+                path: 'political',
                 loadComponent: () => import('./pages/logged/political/political.component').then((c) => c.PoliticalComponent)
             }
         ]

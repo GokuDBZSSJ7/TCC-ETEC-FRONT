@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-political',
@@ -12,11 +13,16 @@ export class PoliticalComponent implements OnInit {
   user: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.user = history.state.political;
-    console.log(this.user);
+    this.activatedRoute.params.subscribe(params => {
+      if (params['data']) {
+        this.user = JSON.parse(params['data']);
+        console.log(this.user);
+      }
+    });
   }
 }

@@ -1,1 +1,31 @@
-<p>political works!</p>
+<div class="container mx-auto px-8 py-6">
+   <div class="grid grid-cols-12">
+      <div class="col-span-3 bg-red-400">
+         <img
+            src="https://upload.wikimedia.org/wikipedia/commons/7/70/2022-09-07_Desfile_C%C3%ADvico-Militar_por_ocasi%C3%A3o_das_Comemora%C3%A7%C3%B5es_do_Bicenten%C3%A1rio_da_Independ%C3%AAncia_do_Brasil_-_52341366768_%28cropped%29.jpg"
+            alt="Placeholder Image" class="politician-image w-full h-auto">
+      </div>
+      <div class="col-span-9 ps-4">
+         <p class="political-name text-[18px]">
+            <strong>Nome: </strong>
+            {{ user?.name }}
+         </p>
+         <p class="political-role text-[18px]">
+            <strong>Cargo: </strong>
+            {{ user?.role }}
+         </p>
+         <p class="political-state text-[18px]">
+            <strong>Estado: </strong>
+            {{ user?.city?.state?.uf }}
+         </p>
+         <p class="political-city text-[18px]">
+            <strong>Cidade: </strong>
+            {{ user?.city?.name }}
+         </p>
+         <p class="political-role text-[18px]">
+            <strong>Cargo: </strong>
+            {{ user?.role }}
+         </p>
+      </div>
+   </div>
+</div>

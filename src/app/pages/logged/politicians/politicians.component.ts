@@ -43,6 +43,7 @@ export class PoliticiansComponent implements OnInit {
     private cityService: CityService,
     private partyService: PartyService,
     private fb: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -103,7 +104,10 @@ export class PoliticiansComponent implements OnInit {
   }
 
   openPoliticalPage(item: any) {
-
+    const political = item;
+    const jsonString = JSON.stringify(political);
+    this.router.navigate(['/political', { data: jsonString }]);
+    console.log(political);
   }
 
   applyFilter() {
