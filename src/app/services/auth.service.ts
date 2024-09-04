@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap, finalize } from 'rxjs';
 import { LoadingService } from './loading.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { LoadingService } from './loading.service';
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api/';
 
-  constructor(private http: HttpClient, private loadingService: LoadingService) { }
+  constructor(private http: HttpClient, private loadingService: LoadingService, private router: Router) { }
 
   login(data: any): Observable<any> {
     this.loadingService.show();
@@ -47,5 +48,18 @@ export class AuthService {
   getUser(): any {
     const userString = localStorage.getItem('user');
     return userString ? JSON.parse(userString) : null;
+  }
+
+  logout(): void {
+    this.loadingService.show();
+    
+    // Remove os itens do localStorage
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    
+    // Opcional: Redireciona para a página de login após o logout
+    this.router.navigate(['/login']).then(() => {
+      this.loadingService.hide();
+    });
   }
 }

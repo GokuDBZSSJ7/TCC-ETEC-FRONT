@@ -42,7 +42,7 @@ export class ApprovePoliticianComponent implements OnInit {
   }
 
   listUsers() {
-    this.userService.all().subscribe({
+    this.userService.getUsers().subscribe({
       next: res => {
         this.users = res;
       }

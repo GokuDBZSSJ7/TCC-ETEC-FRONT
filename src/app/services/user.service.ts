@@ -26,4 +26,12 @@ export class UserService {
   setPolitician(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}upgradeToCandidate`, data);
   }
+
+  getUsers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}getUsers`);
+  }
+
+  update(data: any, id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}updateUser/${id}`, data);
+  }
 }

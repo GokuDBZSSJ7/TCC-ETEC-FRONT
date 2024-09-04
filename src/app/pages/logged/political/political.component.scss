@@ -1,0 +1,61 @@
+.title {
+   font-size: 3em;
+   margin-bottom: 20px;
+}
+
+img {
+   width: 250px;
+   height: 250px;
+   border-radius: 999px;
+}
+
+.edit {
+   background-color: #315FA5;
+   width: 70px;
+   height: 70px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 999px;
+   position: relative;
+   top: -80px;
+   left: 170px;
+   cursor: pointer;
+   transition: all 0.3s ease-in-out;
+   &:hover {
+      background-color: #193c72;
+   }
+}
+
+.name {
+   font-size: 2em;
+   font-weight: bold;
+}
+
+.city {
+   margin-left: 20px;
+}
+
+.edit-button {
+   background-color: #315FA5;
+   padding: 8px 20px;
+   margin-top: 20px;
+   color: white;
+   border-radius: 4px;
+   transition: all 0.3s ease-in-out;
+   &:hover {
+      background-color: #193c72;
+   }
+}
+
+.confirm-button {
+   margin-left: 20px;
+   background-color: rgb(30, 184, 30);
+   padding: 8px 20px;
+   color: white;
+   border-radius: 4px;
+   transition: all 0.3s ease-in-out;
+   &:hover {
+      background-color: green;
+   }
+}

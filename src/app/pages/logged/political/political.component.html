@@ -1,31 +1,72 @@
 <div class="container mx-auto px-8 py-6">
+   @if(user.email == myUser.email) {
+   <h1 class="title">Meu Perfil</h1>
+   } @else {
+   <h1>Visualizar Perfil - {{user.name}}</h1>
+   }
    <div class="grid grid-cols-12">
-      <div class="col-span-3 bg-red-400">
-         <img
-            src="https://upload.wikimedia.org/wikipedia/commons/7/70/2022-09-07_Desfile_C%C3%ADvico-Militar_por_ocasi%C3%A3o_das_Comemora%C3%A7%C3%B5es_do_Bicenten%C3%A1rio_da_Independ%C3%AAncia_do_Brasil_-_52341366768_%28cropped%29.jpg"
-            alt="Placeholder Image" class="politician-image w-full h-auto">
+      @if(!edit) {
+      <div class="col-span-3">
+         <img [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
+
       </div>
-      <div class="col-span-9 ps-4">
-         <p class="political-name text-[18px]">
-            <strong>Nome: </strong>
-            {{ user?.name }}
-         </p>
-         <p class="political-role text-[18px]">
-            <strong>Cargo: </strong>
-            {{ user?.role }}
-         </p>
-         <p class="political-state text-[18px]">
-            <strong>Estado: </strong>
-            {{ user?.city?.state?.uf }}
-         </p>
-         <p class="political-city text-[18px]">
-            <strong>Cidade: </strong>
-            {{ user?.city?.name }}
-         </p>
-         <p class="political-role text-[18px]">
-            <strong>Cargo: </strong>
-            {{ user?.role }}
-         </p>
+      <div class="col-span-9">
+         <h1 class="name">Nome: {{user.name}}</h1>
+         <div class="flex">
+            <h2>Cargo: {{user.role}}</h2>
+            <h2 class="city">Cidade e Estado: {{user?.city?.name || 'Sem Cidade Cadastrada'}} - {{user?.city?.state?.uf
+               || 'Sem Estado Cadastrado'}}</h2>
+         </div>
+         <div class="flex">
+            <h2>Propostas Cadastradas - {{user?.proposal?.lenght || '0'}}</h2>
+            @if(user.type == 2) {
+            <h2>Partido - {{user.party.name}}</h2>
+            }
+         </div>
+         @if(user.email == myUser.email) {
+            <button class="edit-button" (click)="edit = !edit">Editar</button>
+         }
       </div>
+      } @else {
+      <div class="col-span-3">
+         <img [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
+         <div class="icon" (click)="fileInput.click()">
+            <div class="edit">
+               <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
+               <mat-icon class="text-white">edit</mat-icon>
+            </div>
+         </div>
+      </div>
+      <div class="col-span-9" [formGroup]="form">
+         <div class="grid grid-cols-12 gap-2">
+            
+            <div class="w-full col-span-4">
+               <mat-label>Estado</mat-label>
+               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+                  <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
+                     (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
+                     @for(state of states; track state){
+                     <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
+                     }
+                  </mat-select>
+               </mat-form-field>
+            </div>
+            <div class="w-full col-span-8">
+               <mat-label>Cidade</mat-label>
+               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+                  <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null" formControlName="city_id">
+                     @for(city of cities; track city){
+                     <mat-option [value]="city.id">{{city.name}}</mat-option>
+                     }
+                  </mat-select>
+               </mat-form-field>
+            </div>
+            <div class="col-span-4">
+               <button class="edit-button" (click)="edit = !edit">Cancelar</button>
+               <button class="confirm-button" (click)="save()">Confirmar</button>
+            </div>
+         </div>
+      </div>
+      }
    </div>
 </div>

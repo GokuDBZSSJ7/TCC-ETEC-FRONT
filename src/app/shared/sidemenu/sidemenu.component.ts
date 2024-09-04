@@ -4,7 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
@@ -74,13 +74,25 @@ export class SidemenuComponent implements OnInit {
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     iconRegistry.addSvgIconLiteral('candidate_icon', sanitizer.bypassSecurityTrustHtml(CANDIDATE_ICON));
     iconRegistry.addSvgIconLiteral('candidate_speech_icon', sanitizer.bypassSecurityTrustHtml(CANDIDATE_SPEECH_ICON));
     iconRegistry.addSvgIconLiteral('check_circle_icon', sanitizer.bypassSecurityTrustHtml(CHECK_CIRCLE_ICON));
     iconRegistry.addSvgIconLiteral('proposals_icon', sanitizer.bypassSecurityTrustHtml(PROPOSALS));
     iconRegistry.addSvgIconLiteral('logout_icon', sanitizer.bypassSecurityTrustHtml(LOGOUT_ICON));
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  openPoliticalPage() {
+    const political = this.user;
+    const jsonString = JSON.stringify(political);
+    this.router.navigate(['/political', { data: jsonString }]);
+    console.log(political);
   }
 
   ngOnInit() {
@@ -91,18 +103,21 @@ export class SidemenuComponent implements OnInit {
         label: 'Meu Perfil',
         icon: 'account_circle',
         tooltip: '',
-        route: '/'
+        route: '/',
+        handler: () => {
+          this.openPoliticalPage();
+        }
       },
-      // {
-      //   label: 'Sair',
-      //   icon: 'logout_icon',
-      //   route: '/',
-      //   classPanel: 'logout-btn',
-      //   handler: () => {
-      //     console.log('Logout handler called');
-      //     this.logout();
-      //   }
-      // }
+      {
+        label: 'Sair',
+        icon: 'logout_icon',
+        route: '/',
+        classPanel: 'logout-btn',
+        handler: () => {
+          console.log('Logout handler called');
+          this.logout();
+        }
+      }
     ];
   }
 
