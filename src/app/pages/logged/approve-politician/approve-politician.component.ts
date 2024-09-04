@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ApproveModalComponent } from './approve-modal/approve-modal.component';
 
 @Component({
   selector: 'app-approve-politician',
@@ -22,6 +24,18 @@ export class ApprovePoliticianComponent implements OnInit {
   constructor(
     private userService: UserService,
   ) { }
+
+  dialog = inject(MatDialog);
+
+  openDialog(data: any) {
+    this.dialog.open(ApproveModalComponent, {
+      data: {
+        data: data,
+      },
+      width: '60%',
+      height: '50%'
+    });
+  }
 
   ngOnInit() {
     this.listUsers();

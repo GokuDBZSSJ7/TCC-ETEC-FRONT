@@ -22,4 +22,8 @@ export class UserService {
   filterUser(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}filterPoliticians`, data)
   }
+
+  setPolitician(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}upgradeToCandidate`, data);
+  }
 }

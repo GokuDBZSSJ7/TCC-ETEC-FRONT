@@ -18,27 +18,28 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-span-4">
+        <div class="w-full col-span-4">
             <mat-label>Estado</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
-                <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
-                    (valueChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
-                    @for(state of states; track state){
-                    <mat-option [value]="state">{{state.name}} - {{state.uf}}</mat-option>
-                    }
-                </mat-select>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
+                  (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
+                  @for(state of states; track state){
+                  <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
+                  }
+               </mat-select>
             </mat-form-field>
-        </div>
-        <div class="col-span-8">
+         </div>
+         <div class="w-full col-span-8">
             <mat-label>Cidade</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
-                <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null" formControlName="city_id" >
-                    @for(city of cities; track city){
-                    <mat-option [value]="city.id">{{city.name}}</mat-option>
-                    }
-                </mat-select>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
+                  formControlName="city_id">
+                  @for(city of cities; track city){
+                  <mat-option [value]="city.id">{{city.name}}</mat-option>
+                  }
+               </mat-select>
             </mat-form-field>
-        </div>
+         </div>
         <div class="col-span-3">
             <mat-label>Sigla</mat-label>
             <mat-form-field appearance="outline" class="w-full">

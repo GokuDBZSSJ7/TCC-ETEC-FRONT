@@ -81,8 +81,15 @@ export class CreatePartyComponent implements OnInit {
   onStateChange(): void {
     console.log(this.selectedStateId);
 
+    this.form.patchValue({
+      state_id: this.selectedStateId
+    })
+
+    console.log(this.selectedStateId);
+    
+
     if (this.selectedStateId) {
-      this.cityService.all(this.selectedStateId.id).subscribe(data => {
+      this.cityService.all(this.selectedStateId).subscribe(data => {
         this.cities = data;
       });
     } else {

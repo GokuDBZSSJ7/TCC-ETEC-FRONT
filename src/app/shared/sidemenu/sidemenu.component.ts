@@ -196,7 +196,7 @@ export class SidemenuComponent implements OnInit {
             label: 'Controle de Políticos',
             icon: 'check_circle_icon',
             tooltip: 'Aprovar políticos e designar a partidos.',
-            route: '/'
+            route: '/approve-politician'
           }
         ]
       }]

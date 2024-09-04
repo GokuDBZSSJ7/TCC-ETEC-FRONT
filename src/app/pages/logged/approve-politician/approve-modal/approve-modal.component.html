@@ -1,0 +1,22 @@
+<mat-dialog-content [formGroup]="form">
+   <h1>Informações adicionais</h1>
+
+   <h2 class="mt-6">Qual será o cargo dele?</h2>
+   <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+      <input matInput placeholder="Cargo" formControlName="role">
+   </mat-form-field>
+
+   <h2 class="mt-6">Qual vai ser seu partido?</h2>
+               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+                  <mat-select placeholder="Selecione um partido" formControlName="party_id">
+                     @for(party of parties; track party){
+                     <mat-option [value]="party.id">{{party.name}}</mat-option>
+                     }
+                  </mat-select>
+               </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+   <button mat-button class="cancel" (click)="onNoClick()">Cancelar</button>
+   <button mat-button (click)="save()" class="confirm">Confirmar</button>
+ </mat-dialog-actions>
