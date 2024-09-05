@@ -1,45 +1,45 @@
 <div class="container mx-auto px-8 py-6">
    @if(user.email == myUser.email) {
-   <h1 class="title">Meu Perfil</h1>
+   <h1 class="title mb-5">Meu Perfil</h1>
    } @else {
-   <h1>Visualizar Perfil - {{user.name}}</h1>
+   <h1 class="title mb-5">Visualizar Perfil - {{user.name}}</h1>
    }
    <div class="grid grid-cols-12">
       @if(!edit) {
-      <div class="col-span-3">
-         <img [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
-
+      <div class="col-span-2 mx-auto">
+         <img class="w-[144px] h-[144px] rounded-full border-[1.5px] border-gray-300"
+            [src]="user.image_url || '/assets/img/avatar_default.svg'" alt="">
       </div>
-      <div class="col-span-9">
+      <div class="col-span-10">
          <h1 class="name">Nome: {{user.name}}</h1>
-         <div class="flex">
-            <h2>Cargo: {{user.role}}</h2>
-            <h2 class="city">Cidade e Estado: {{user?.city?.name || 'Sem Cidade Cadastrada'}} - {{user?.city?.state?.uf
-               || 'Sem Estado Cadastrado'}}</h2>
-         </div>
-         <div class="flex">
-            <h2>Propostas Cadastradas - {{user?.proposal?.lenght || '0'}}</h2>
-            @if(user.type == 2) {
-            <h2>Partido - {{user.party.name}}</h2>
-            }
-         </div>
+         <h2>Cargo: {{user.role}}</h2>
+         <h2 class="city">Cidade e Estado: {{user?.city?.name || 'Sem Cidade Cadastrada'}} - {{user?.city?.state?.uf
+            || 'Sem Estado Cadastrado'}}</h2>
+         <h2>Propostas Cadastradas - {{user?.proposal?.lenght || '0'}}</h2>
+         @if(user.type == 2) {
+         <h2>Partido - {{user.party.name}}</h2>
+         }
          @if(user.email == myUser.email) {
-            <button class="edit-button" (click)="edit = !edit">Editar</button>
+         <button class="edit-button" (click)="edit = !edit">Editar</button>
          }
       </div>
       } @else {
-      <div class="col-span-3">
-         <img [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
-         <div class="icon" (click)="fileInput.click()">
-            <div class="edit">
-               <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
-               <mat-icon class="text-white">edit</mat-icon>
+      <div class="col-span-2 mx-auto">
+         <div class="image-box w-[144px] h-[144px] relative">
+            <img class="w-[144px] h-[144px] rounded-full border-[1.5px] border-gray-300"
+               [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
+            <div class="icon absolute bottom-0 right-0" (click)="fileInput.click()">
+               <div
+                  class="edit w-[48px] h-[48px] flex justify-center items-center bg-[#315FA5] rounded-full cursor-pointer">
+                  <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
+                  <mat-icon class="text-white">edit</mat-icon>
+               </div>
             </div>
          </div>
       </div>
-      <div class="col-span-9" [formGroup]="form">
+      <div class="col-span-10" [formGroup]="form">
          <div class="grid grid-cols-12 gap-2">
-            
+
             <div class="w-full col-span-4">
                <mat-label>Estado</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
@@ -54,7 +54,8 @@
             <div class="w-full col-span-8">
                <mat-label>Cidade</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-                  <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null" formControlName="city_id">
+                  <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
+                     formControlName="city_id">
                      @for(city of cities; track city){
                      <mat-option [value]="city.id">{{city.name}}</mat-option>
                      }
@@ -68,5 +69,14 @@
          </div>
       </div>
       }
+   </div>
+   <div class="promisses mt-[48px]">
+      <div class="section-header flex justify-between">
+         <h1 class="text-[20px]">Propostas</h1>
+         <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta">
+            <mat-icon>add</mat-icon>
+         </button>
+      </div>
+      <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
    </div>
 </div>

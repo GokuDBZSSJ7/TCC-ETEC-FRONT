@@ -3,12 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatDividerModule } from '@angular/material/divider';
 import { StateService } from '../../../services/state.service';
 import { CityService } from '../../../services/city.service';
 import { UserService } from '../../../services/user.service';
@@ -21,9 +24,12 @@ import { UserService } from '../../../services/user.service';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatTooltipModule,
+    MatButtonModule,
     MatDialogContent,
     MatSelectModule,
     NgSelectModule,
+    MatDividerModule,
     MatDialogActions,
     MatDialogClose,
     FormsModule,
@@ -125,12 +131,12 @@ export class PoliticalComponent implements OnInit {
       this.userService.update(this.form.value, this.user.id).subscribe({
         next: res => {
           console.log("TESTE");
-          
+
         }
       })
     }
 
-    
+
   }
-  
+
 }
