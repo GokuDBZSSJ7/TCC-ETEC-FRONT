@@ -73,9 +73,11 @@
    <div class="promisses mt-[48px]">
       <div class="section-header flex justify-between">
          <h1 class="text-[20px]">Propostas</h1>
-         <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta">
-            <mat-icon>add</mat-icon>
-         </button>
+         @if(user.email == myUser.email && myUser.type == 2 || 5) {
+            <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta" (click)="openDialog(this.user)">
+               <mat-icon>add</mat-icon>
+            </button>
+         }
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
    </div>

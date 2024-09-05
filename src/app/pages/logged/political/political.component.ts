@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
@@ -8,13 +8,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatDividerModule } from '@angular/material/divider';
 import { StateService } from '../../../services/state.service';
 import { CityService } from '../../../services/city.service';
 import { UserService } from '../../../services/user.service';
+import { ProposalCreateComponent } from './proposal-create/proposal-create.component';
 
 @Component({
   selector: 'app-political',
@@ -47,6 +48,7 @@ export class PoliticalComponent implements OnInit {
   selectedStateId: any;
   states: any[] = []
   cities: any[] = []
+  dialog = inject(MatDialog);
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -98,6 +100,16 @@ export class PoliticalComponent implements OnInit {
     } else {
       this.cities = [];
     }
+  }
+
+  openDialog(data: any) {
+    this.dialog.open(ProposalCreateComponent, {
+      data: {
+        data: data,
+      },
+      width: '60%',
+      height: '50%'
+    });
   }
 
   onFileSelected(event: Event): void {
