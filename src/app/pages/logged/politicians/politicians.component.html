@@ -68,7 +68,7 @@
          <div class="col-span-12 md:col-span-5 lg:col-span-2">
             <div class="card bg-white rounded-lg shadow cursor-pointer" (click)="openPoliticalPage(user)">
                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/70/2022-09-07_Desfile_C%C3%ADvico-Militar_por_ocasi%C3%A3o_das_Comemora%C3%A7%C3%B5es_do_Bicenten%C3%A1rio_da_Independ%C3%AAncia_do_Brasil_-_52341366768_%28cropped%29.jpg"
+                  [src]="user.image_url"
                   alt="Placeholder Image" class="politician-image w-full h-auto">
                <div class="d-flex flex-column p-3 gap-2" style="height: 128px;">
                   <div>

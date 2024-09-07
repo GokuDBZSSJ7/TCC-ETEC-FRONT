@@ -16,7 +16,7 @@
          <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
             <mat-select placeholder="Selecione uma Área" formControlName="area_id">
                @for(area of areas; track area){
-               <mat-option [value]="area.id">{{area.name}}</mat-option>
+               <mat-option [value]="area.id">{{area?.name}}</mat-option>
                }
             </mat-select>
          </mat-form-field>
@@ -41,8 +41,20 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
       </div>
+      <div class="col-span-12">
+         <div
+      class="attach-container border-[2px] border-dashed border-[#1B4588] py-16 mt-2 px-6 gap-2 flex flex-col justify-center items-center">
+      <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
+      <mat-icon color="primary" (click)="fileInput.click()">upload_file</mat-icon>
+      <p>Arraste a(s) foto(s) aqui ou <span style="color: #1B4588">navegue</span></p>
+   </div>
+     </div>
+   @if(imageUrl) {
+   <img [src]=" imageUrl" alt="Selected Image" class="mt-4 w-full">
+
+   }
    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end" style="padding: 24px;">
-   <button mat-flat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>Salvar</button>
+   <button mat-flat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial (click)="save()">Salvar</button>
  </mat-dialog-actions>

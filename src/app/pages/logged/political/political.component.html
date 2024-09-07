@@ -8,7 +8,7 @@
       @if(!edit) {
       <div class="col-span-2 mx-auto">
          <img class="w-[144px] h-[144px] rounded-full border-[1.5px] border-gray-300"
-            [src]="user.image_url || '/assets/img/avatar_default.svg'" alt="">
+            [src]="myUser.image_url || user.image_url || '/assets/img/avatar_default.svg'" alt="">
       </div>
       <div class="col-span-10">
          <h1 class="name">Nome: <span class="font-[300]">{{user.name}}</span></h1>
@@ -18,7 +18,7 @@
             || 'Sem Estado Cadastrado'}}</h2>
          <h2><strong>Propostas Cadastradas - </strong>{{user?.proposal?.lenght || '0'}}</h2>
          @if(user.type == 2) {
-         <h2><strong>Partido - </strong>{{user.party.name}}</h2>
+         <h2><strong>Partido - </strong>{{user?.party?.name}}</h2>
          }
          @if(user.email == myUser.email) {
          <button class="edit-button" (click)="edit = !edit">Editar</button>
@@ -82,81 +82,46 @@
          }
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
-      <div class="promise">
-         <div class="p-4">
-            <div class="flex items-start">
-               <img src="https://via.placeholder.com/96" alt="Post Image" class="w-24 h-24 rounded-lg mr-4">
-               <div class="flex flex-col gap-2">
-                  <div class="flex flex-col">
-                     <div class="promise-title">
-                        <p class="text-[18px] font-[600]">Fortalecendo Comunidades e Investindo em Futuro Sustentável
-                        </p>
+      @for (proposal of proposals; track proposal) {
+         <div class="promise">
+            <div class="p-4">
+               <div class="flex items-start">
+                  <img [src]="proposal.image_url || 'https://via.placeholder.com/96'" alt="Post Image" class="w-24 h-24 rounded-lg mr-4">
+                  <div class="flex flex-col gap-2">
+                     <div class="flex flex-col">
+                        <div class="promise-title">
+                           <p class="text-[18px] font-[600]">{{proposal.title}}
+                           </p>
+                        </div>
+                        <div class="promise-area">
+                           <p class="text-[16px] font-[500]">Área: {{proposal.areas.name}}</p>
+                        </div>
                      </div>
-                     <div class="promise-area">
-                        <p class="text-[16px] font-[500]">Área: Fundo Social</p>
-                     </div>
-                  </div>
-                  <p class="text-sm text-gray-800 mb-4">
-                     A proposta "Fundo Social: Fortalecendo Comunidades e Investindo em Futuro Sustentável" visa criar
-                     um fundo dedicado ao desenvolvimento social, com foco em educação, saúde e infraestrutura
-                     comunitária. A iniciativa busca promover a inclusão social e o crescimento sustentável em áreas
-                     carentes.
-                  </p>
-               </div>
-            </div>
-            <div class="flex justify-between items-center border-b pb-2">
-               <div class="flex items-center space-x-2">
-                  <div>
-                     <span class="text-sm text-gray-500">422 gosteis</span>
-                  </div>
-                  <small class="text-gray-500">•</small>
-                  <div>
-                     <span class="text-sm text-gray-500">18 não gosteis</span>
+                     <p class="text-sm text-gray-800 mb-4">
+                        A proposta "Fundo Social: Fortalecendo Comunidades e Investindo em Futuro Sustentável" visa criar
+                        um fundo dedicado ao desenvolvimento social, com foco em educação, saúde e infraestrutura
+                        comunitária. A iniciativa busca promover a inclusão social e o crescimento sustentável em áreas
+                        carentes.
+                     </p>
                   </div>
                </div>
-               <div class="text-sm text-gray-500">
-                  322 comentários
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="promise">
-         <div class="p-4">
-            <div class="flex items-start">
-               <img src="https://via.placeholder.com/96" alt="Post Image" class="w-24 h-24 rounded-lg mr-4">
-               <div class="flex flex-col gap-2">
-                  <div class="flex flex-col">
-                     <div class="promise-title">
-                        <p class="text-[18px] font-[600]">Garantindo Suporte e Inclusão para Todos
-                        </p>
+               <div class="flex justify-between items-center border-b pb-2">
+                  <div class="flex items-center space-x-2">
+                     <div>
+                        <span class="text-sm text-gray-500">422 aprovados</span>
                      </div>
-                     <div class="promise-area">
-                        <p class="text-[16px] font-[500]">Área: Fundo Social</p>
+                     <small class="text-gray-500">•</small>
+                     <div>
+                        <span class="text-sm text-gray-500">18 desaprovados</span>
                      </div>
                   </div>
-                  <p class="text-sm text-gray-800 mb-4">
-                     A proposta "Assistência Social: Garantindo Suporte e Inclusão para Todos" busca fortalecer os
-                     serviços de assistência social, com ênfase em apoio a famílias em situação de vulnerabilidade. O
-                     objetivo é promover a inclusão, a proteção e a qualidade de vida das comunidades mais necessitadas.
-                  </p>
-               </div>
-            </div>
-            <div class="flex justify-between items-center border-b pb-2">
-               <div class="flex items-center space-x-2">
-                  <div>
-                     <span class="text-sm text-gray-500">485 gosteis</span>
+                  <div class="text-sm text-gray-500">
+                     322 comentários
                   </div>
-                  <small class="text-gray-500">•</small>
-                  <div>
-                     <span class="text-sm text-gray-500">16 não gosteis</span>
-                  </div>
-               </div>
-               <div class="text-sm text-gray-500">
-                  358 comentários
                </div>
             </div>
          </div>
-      </div>
+      }
       <div class="text-center">
          <button mat-button routerLink="/proposals">Visualizar todas as propostas</button>
       </div>

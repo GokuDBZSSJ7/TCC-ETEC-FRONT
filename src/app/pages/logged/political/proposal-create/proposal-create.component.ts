@@ -48,6 +48,7 @@ export class ProposalCreateComponent implements OnInit {
 
   readonly dialogRef = inject(MatDialogRef<ProposalCreateComponent>);
   data = inject(MAT_DIALOG_DATA);
+  imageUrl: string | ArrayBuffer | null = null;
   form!: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -62,6 +63,8 @@ export class ProposalCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data);
+    
     this.createForm();
     this.listAreas();
   }
@@ -78,8 +81,8 @@ export class ProposalCreateComponent implements OnInit {
     this.form = this.fb.group({
       title: null,
       description: null,
-      political_id: this.data.data.id,
-      party_id: this.data.data.party_id,
+      political_id: this.data.id,
+      party_id: this.data.party_id,
       image_url: null,
       budget: null,
       time: null,
@@ -104,5 +107,23 @@ export class ProposalCreateComponent implements OnInit {
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target) {
+          const base64String = e.target.result as string;
+          this.imageUrl = base64String;
+          this.form.get('image_url')?.setValue(base64String);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 }

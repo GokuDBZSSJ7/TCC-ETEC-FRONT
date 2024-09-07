@@ -16,6 +16,7 @@ import { StateService } from '../../../services/state.service';
 import { CityService } from '../../../services/city.service';
 import { UserService } from '../../../services/user.service';
 import { ProposalCreateComponent } from './proposal-create/proposal-create.component';
+import { ProposalService } from '../../../services/proposal.service';
 
 @Component({
   selector: 'app-political',
@@ -51,6 +52,7 @@ export class PoliticalComponent implements OnInit {
   states: any[] = []
   cities: any[] = []
   dialog = inject(MatDialog);
+  proposals: any[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -59,7 +61,8 @@ export class PoliticalComponent implements OnInit {
     private stateService: StateService,
     private cityService: CityService,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private proposalService: ProposalService
   ) { }
 
   ngOnInit() {
@@ -70,7 +73,8 @@ export class PoliticalComponent implements OnInit {
       }
     });
     this.listStates();
-    this.createForm()
+    this.createForm();
+    this.listProposals();
   }
 
   listStates() {
@@ -80,6 +84,17 @@ export class PoliticalComponent implements OnInit {
       }
     })
   }
+
+  listProposals() {
+    this.proposalService.all().subscribe({
+      next: res => {
+        this.proposals = res;
+        console.log(this.proposals);
+        
+      }
+    })
+  }
+
   createForm() {
     this.form = this.fb.group({
       city_id: null,
@@ -145,16 +160,33 @@ export class PoliticalComponent implements OnInit {
         }
         return acc;
       }, {} as any);
+  
+      if (filteredData.image_url === null) {
+        delete filteredData.image_url;
+      }
 
-      this.userService.update(this.form.value, this.user.id).subscribe({
+      if (filteredData.city_id === null) {
+        delete filteredData.city_id;
+      }
+  
+      this.userService.update(filteredData, this.user.id).subscribe({
         next: res => {
-          console.log("TESTE");
+          console.log("Dados atualizados com sucesso", res);
 
+           const updatedUser = { ...this.user, ...filteredData };
+           this.authService.setUser(updatedUser);
+ 
+          this.user = updatedUser;
+          this.refreshPage()
+        },
+        error: err => {
+          console.error("Erro ao atualizar os dados", err);
         }
-      })
+      });
     }
-
-
   }
 
+  refreshPage(): void {
+    window.location.reload();
+  }
 }

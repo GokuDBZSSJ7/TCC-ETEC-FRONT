@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingService } from './loading.service';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,11 @@ export class UserService {
   }
 
   update(data: any, id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}updateUser/${id}`, data);
+    this.loadingService.show();
+    return this.http.put(`${this.apiUrl}updateUser/${id}`, data).pipe(
+      finalize(() => {
+        this.loadingService.hide();
+      })
+    );
   }
 }

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api/';
+  private currentUser: any;
 
   constructor(private http: HttpClient, private loadingService: LoadingService, private router: Router) { }
 
@@ -37,6 +38,11 @@ export class AuthService {
     );
   }
 
+  setUser(user: any) {
+    this.currentUser = user;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
   refresh(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/refresh`, {});
   }
@@ -47,7 +53,8 @@ export class AuthService {
 
   getUser(): any {
     const userString = localStorage.getItem('user');
-    return userString ? JSON.parse(userString) : null;
+    this.currentUser = userString ? JSON.parse(userString) : null;
+    return this.currentUser;
   }
 
   logout(): void {
