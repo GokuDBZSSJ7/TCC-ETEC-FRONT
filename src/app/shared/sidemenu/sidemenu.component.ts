@@ -53,6 +53,11 @@ const LOGOUT_ICON =
 const PERSON_ICON =
   `
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/></svg>
+`
+
+const PARTY_ICON =
+  `
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-120v-680h360l16 80h224v400H520l-16-80H280v280h-80Z"/></svg>
   `
 
 @Component({
@@ -88,6 +93,7 @@ export class SidemenuComponent implements OnInit {
     iconRegistry.addSvgIconLiteral('proposals_icon', sanitizer.bypassSecurityTrustHtml(PROPOSALS));
     iconRegistry.addSvgIconLiteral('logout_icon', sanitizer.bypassSecurityTrustHtml(LOGOUT_ICON));
     iconRegistry.addSvgIconLiteral('person_icon', sanitizer.bypassSecurityTrustHtml(PERSON_ICON));
+    iconRegistry.addSvgIconLiteral('party_icon', sanitizer.bypassSecurityTrustHtml(PARTY_ICON));
   }
 
   logout(): void {
@@ -187,7 +193,7 @@ export class SidemenuComponent implements OnInit {
           {
             label: 'Controle de Políticos',
             icon: 'check_circle_icon',
-            tooltip: 'Aprovar políticos e designar a partidos.',
+            tooltip: 'Aprovar político e designar a partido.',
             route: '/approve-politician'
           },
         ]
@@ -208,8 +214,8 @@ export class SidemenuComponent implements OnInit {
         title: 'Módulos Administrativos',
         contentMenus: [
           {
-            label: 'partidos',
-            icon: '',
+            label: 'Partidos',
+            icon: 'party_icon',
             tooltip: '',
             route: '/parties'
           },

@@ -1,7 +1,10 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+   <h1 mat-dialog-title>Cadastrar Proposta</h1>
+   <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
+</div>
 <mat-dialog-content [formGroup]="form">
-   <h1>Cadastrar Proposta</h1>
 
-   <div class="grid grid-cols-12 items-center mt-4 gap-3" >
+   <div class="grid grid-cols-12 mt-4 gap-3 items-end">
       <div class="col-span-6">
          <mat-label>Título do Proposta</mat-label>
          <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
@@ -18,5 +21,28 @@
             </mat-select>
          </mat-form-field>
       </div>
+      <div class="col-span-12">
+         <mat-label>Descrição da Proposta</mat-label>
+         <textarea (input)="autoGrow($event)" rows="6"
+            class="w-full border-[1.5px] p-3 rounded border-gray-200 outline-none"
+            formControlName="description"></textarea>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Orçamento da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+            <input matInput placeholder="Orçamento da Proposta" formControlName="budget">
+         </mat-form-field>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Data da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+            <input matInput [matDatepicker]="picker" formControlName="time">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+      </div>
    </div>
 </mat-dialog-content>
+<mat-dialog-actions align="end" style="padding: 24px;">
+   <button mat-flat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>Salvar</button>
+ </mat-dialog-actions>

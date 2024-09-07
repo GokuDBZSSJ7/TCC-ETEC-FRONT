@@ -43,7 +43,7 @@
          <div class="w-full md:w-4/12 px-2">
             <mat-label>Cidade</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
+               <mat-select placeholder="Selecione uma cidade" [disabled]="selectedStateId == null"
                   formControlName="city_id">
                   @for(city of cities; track city){
                   <mat-option [value]="city.id">{{city.name}}</mat-option>

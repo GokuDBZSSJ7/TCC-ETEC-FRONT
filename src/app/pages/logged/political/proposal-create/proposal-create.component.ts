@@ -1,6 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -11,11 +18,16 @@ import { ProposalService } from '../../../../services/proposal.service';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { PartyService } from '../../../../services/party.service';
 import { AreaService } from '../../../../services/area.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-proposal-create',
   standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
+    MatDialogTitle,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -26,12 +38,14 @@ import { AreaService } from '../../../../services/area.service';
     MatDialogClose,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatButtonModule,
   ],
   templateUrl: './proposal-create.component.html',
   styleUrl: './proposal-create.component.scss'
 })
-export class ProposalCreateComponent implements OnInit{
-  
+export class ProposalCreateComponent implements OnInit {
+
   readonly dialogRef = inject(MatDialogRef<ProposalCreateComponent>);
   data = inject(MAT_DIALOG_DATA);
   form!: FormGroup;
@@ -84,5 +98,11 @@ export class ProposalCreateComponent implements OnInit{
         });
       }
     })
+  }
+
+  autoGrow(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 }

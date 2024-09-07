@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatDividerModule } from '@angular/material/divider';
@@ -31,10 +31,12 @@ import { ProposalCreateComponent } from './proposal-create/proposal-create.compo
     MatSelectModule,
     NgSelectModule,
     MatDividerModule,
+    MatDialogModule,
     MatDialogActions,
     MatDialogClose,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
   ],
   templateUrl: './political.component.html',
   styleUrl: './political.component.scss'
@@ -102,14 +104,18 @@ export class PoliticalComponent implements OnInit {
     }
   }
 
-  openDialog(data: any) {
-    this.dialog.open(ProposalCreateComponent, {
-      data: {
-        data: data,
-      },
+  openDialog(item: any) {
+    const dialogRef = this.dialog.open(ProposalCreateComponent, {
+      data: item,
       width: '60%',
-      height: '50%'
+      height: '70%'
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        
+      }
+    })
   }
 
   onFileSelected(event: Event): void {

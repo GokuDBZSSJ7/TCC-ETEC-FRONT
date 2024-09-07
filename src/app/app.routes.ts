@@ -34,6 +34,10 @@ export const routes: Routes = [
             {
                 path: 'political',
                 loadComponent: () => import('./pages/logged/political/political.component').then((c) => c.PoliticalComponent)
+            },
+            {
+                path: 'proposals',
+                loadComponent: () => import('./pages/logged/proposals/proposals.component').then((c) => c.ProposalsComponent)
             }
         ]
     },
