@@ -17,6 +17,7 @@ import { CityService } from '../../../services/city.service';
 import { UserService } from '../../../services/user.service';
 import { ProposalCreateComponent } from './proposal-create/proposal-create.component';
 import { ProposalService } from '../../../services/proposal.service';
+import { ViewProposalComponent } from '../proposals/view-proposal/view-proposal.component';
 
 @Component({
   selector: 'app-political',
@@ -132,6 +133,20 @@ export class PoliticalComponent implements OnInit {
 
   openDialog(item: any) {
     const dialogRef = this.dialog.open(ProposalCreateComponent, {
+      data: item,
+      width: '60%',
+      height: '70%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        
+      }
+    })
+  }
+
+  openViewProposalDialog(item: any) {
+    const dialogRef = this.dialog.open(ViewProposalComponent, {
       data: item,
       width: '60%',
       height: '70%'

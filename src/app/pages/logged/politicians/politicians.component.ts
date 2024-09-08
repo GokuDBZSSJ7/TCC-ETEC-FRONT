@@ -114,6 +114,10 @@ export class PoliticiansComponent implements OnInit {
   }
 
   applyFilter() {
-
+    this.userService.filterUser(this.form.value).subscribe({
+      next: res => {
+        this.users = res;
+      }
+    })
   }
 }

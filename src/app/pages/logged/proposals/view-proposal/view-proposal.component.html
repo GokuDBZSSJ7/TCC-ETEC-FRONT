@@ -1,0 +1,14 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+   <h1 mat-dialog-title>Visualizar Proposta</h1>
+   <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
+</div>
+<mat-dialog-content>
+   <div class="flex">
+      <img [src]="data.users.image_url" class="w-[64px] h-[64px] rounded-full border-[1.5px] border-gray-300" alt="">
+      <div>
+         <h1 class="font-bold text-black m-0">{{data.users.name}}</h1>
+         <h2 class="text-[12px]">{{data.users.role}}</h2>
+         <h2 class="text-[12px]">{{data.users.party.name}}</h2>
+      </div>
+   </div>
+</mat-dialog-content>

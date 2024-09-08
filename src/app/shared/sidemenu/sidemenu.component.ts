@@ -4,7 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationExtras, Router, RouterModule } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
@@ -100,11 +100,14 @@ export class SidemenuComponent implements OnInit {
     this.authService.logout();
   }
 
-  openPoliticalPage() {
-    const political = this.user;
-    const jsonString = JSON.stringify(political);
-    this.router.navigate(['/political', { data: jsonString }]);
-    console.log(political);
+  openPoliticalPage(item: any) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        political: item
+      }
+    };
+    this.router.navigate(['/political'], navigationExtras);
+    console.log(item);
   }
 
   ngOnInit() {
@@ -117,7 +120,7 @@ export class SidemenuComponent implements OnInit {
         tooltip: '',
         route: '/',
         handler: () => {
-          this.openPoliticalPage();
+          this.openPoliticalPage(this.user);
         }
       },
       {

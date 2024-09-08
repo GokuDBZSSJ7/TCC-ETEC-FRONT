@@ -20,7 +20,12 @@ export class UserService {
   }
 
   filterUser(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}filterPoliticians`, data)
+    this.loadingService.show();
+    return this.http.post(`${this.apiUrl}filterPoliticians`, data).pipe(
+      finalize(() => {
+        this.loadingService.hide();
+      })
+    )
   }
 
   setPolitician(data: any): Observable<any> {

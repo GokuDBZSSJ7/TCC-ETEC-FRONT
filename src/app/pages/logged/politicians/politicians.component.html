@@ -69,7 +69,7 @@
             <div class="card bg-white rounded-lg shadow cursor-pointer" (click)="openPoliticalPage(user)">
                <img
                   [src]="user.image_url"
-                  alt="Placeholder Image" class="politician-image w-full h-auto">
+                  alt="Placeholder Image" class="politician-image w-full h-[300px]">
                <div class="d-flex flex-column p-3 gap-2" style="height: 128px;">
                   <div>
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
@@ -78,7 +78,7 @@
                      <p class="text-[16px] text-gray-700">Presidente do Brasil</p>
                   </div>
                   <div>
-                     <p class="text-[13px] text-gray-700">{{ user?.party?.name }} - {{ user?.party?.acronym }}</p>
+                     <p class="text-[13px] text-gray-700">{{ user?.party?.name || 'Sem partido'}} - {{ user?.party?.acronym || 'Sem Sigla'}}</p>
                   </div>
                </div>
             </div>

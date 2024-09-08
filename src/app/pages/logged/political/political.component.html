@@ -83,7 +83,7 @@
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
       @for (proposal of proposals; track proposal) {
-         <div class="promise">
+         <div class="promise cursor-pointer" (click)="openViewProposalDialog(proposal)">
             <div class="p-4">
                <div class="flex items-start">
                   <img [src]="proposal?.image_url || 'https://via.placeholder.com/96'" alt="Post Image" class="w-24 h-24 rounded-lg mr-4">
