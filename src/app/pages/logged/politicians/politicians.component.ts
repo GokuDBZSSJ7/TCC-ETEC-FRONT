@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { CityService } from '../../../services/city.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PartyService } from '../../../services/party.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-politicians',
@@ -104,10 +104,13 @@ export class PoliticiansComponent implements OnInit {
   }
 
   openPoliticalPage(item: any) {
-    const political = item;
-    const jsonString = JSON.stringify(political);
-    this.router.navigate(['/political', { data: jsonString }]);
-    console.log(political);
+    const navigationExtras: NavigationExtras = {
+      state: {
+        political: item
+      }
+    };
+    this.router.navigate(['/political'], navigationExtras);
+    console.log(item);
   }
 
   applyFilter() {

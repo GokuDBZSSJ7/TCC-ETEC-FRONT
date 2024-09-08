@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -66,12 +66,13 @@ export class PoliticalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      if (params['data']) {
-        this.user = JSON.parse(params['data']);
-        console.log(this.user);
-      }
-    });
+    
+    if (history.state && history.state.political) {
+      this.user = history.state.political;
+      console.log(this.user);
+    }
+    console.log(this.user.email, '-', this.myUser.email);
+
     this.listStates();
     this.createForm();
     this.listProposals();
@@ -85,8 +86,18 @@ export class PoliticalComponent implements OnInit {
     })
   }
 
+  openProposalsPage(item: any) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        political: item
+      }
+    };
+    this.router.navigate(['/proposals'], navigationExtras);
+    console.log(item);
+  }
+
   listProposals() {
-    this.proposalService.all().subscribe({
+    this.proposalService.myProposals(this.user.id).subscribe({
       next: res => {
         this.proposals = res;
         console.log(this.proposals);
