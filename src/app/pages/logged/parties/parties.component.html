@@ -2,114 +2,114 @@
    <div class="container-header flex justify-between items-center mb-5">
       <h1>Partidos</h1>
       <div class="flex items-center gap-10">
+         @if(user.type === 5) {
+         <button routerLink="/parties/create-party">Criar Partido</button>
+         }
          <div class="flex justify-center items-center gap-1 cursor-pointer" (click)="showFilters = !showFilters">
             <mat-icon>filter_list</mat-icon>
             <span>Filtrar</span>
          </div>
-         @if(user.type === 5) {
-         <button routerLink="/parties/create-party">Criar Partido</button>
-         }
       </div>
    </div>
    @if (showFilters) {
-      <div class="filters mt-2" [formGroup]="form">
-         <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
-            <div class="w-full md:w-8/12 px-2">
-               <mat-label>Pesquisar</mat-label>
-               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-                  <input matInput placeholder="Buscar pelo nome do político" formControlName="name">
-               </mat-form-field>
-            </div>
-            <div class="w-full md:w-4/12 px-2">
-               <mat-label>Partido</mat-label>
-               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-                  <mat-select placeholder="Selecione um partido" formControlName="party_id">
-                     @for(party of parties; track party){
-                     <mat-option [value]="party.id">{{party.name}}</mat-option>
-                     }
-                  </mat-select>
-               </mat-form-field>
-            </div>
+   <div class="filters mt-2" [formGroup]="form">
+      <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
+         <div class="w-full md:w-8/12 px-2">
+            <mat-label>Pesquisar</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <input matInput placeholder="Buscar pelo nome do político" formControlName="name">
+            </mat-form-field>
          </div>
-   
-         <div class="flex flex-wrap -mx-2 mt-3 gap-3 md:gap-0">
-            <div class="w-full md:w-4/12 px-2">
-               <mat-label>Estado</mat-label>
-               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-                  <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
-                     (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
-                     @for(state of states; track state){
-                     <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
-                     }
-                  </mat-select>
-               </mat-form-field>
-            </div>
-            <div class="w-full md:w-4/12 px-2">
-               <mat-label>Cidade</mat-label>
-               <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
-                  <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
-                     formControlName="city_id">
-                     @for(city of cities; track city){
-                     <mat-option [value]="city.id">{{city.name}}</mat-option>
-                     }
-                  </mat-select>
-               </mat-form-field>
-            </div>
-            <div class="w-full md:w-4/12 px-2 mt-2 md:mt-0 flex items-end">
-               <button mat-flat-button
-                  class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn"
-                  (click)="applyFilter()">
-                  Filtrar
-               </button>
-            </div>
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Partido</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select placeholder="Selecione um partido" formControlName="party_id">
+                  @for(party of parties; track party){
+                  <mat-option [value]="party.id">{{party.name}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
          </div>
       </div>
+
+      <div class="flex flex-wrap -mx-2 mt-3 gap-3 md:gap-0">
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Estado</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
+                  (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
+                  @for(state of states; track state){
+                  <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2">
+            <mat-label>Cidade</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
+                  formControlName="city_id">
+                  @for(city of cities; track city){
+                  <mat-option [value]="city.id">{{city.name}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full md:w-4/12 px-2 mt-2 md:mt-0 flex items-end">
+            <button mat-flat-button
+               class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn"
+               (click)="applyFilter()">
+               Filtrar
+            </button>
+         </div>
+      </div>
+   </div>
    }
 
    <table mat-table [dataSource]="dataSource" class="w-full mt-7 shadow">
 
       <!-- Name Column -->
       <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef> Simbolo </th>
-          <td mat-cell *matCellDef="let item">
-              <img [src]="item.image_url" alt="" class="w-[50px] py-1">
-          </td>
+         <th mat-header-cell *matHeaderCellDef> Simbolo </th>
+         <td mat-cell *matCellDef="let item">
+            <img [src]="item.image_url" alt="" class="w-[50px] py-1">
+         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Nome </th>
-          <td mat-cell *matCellDef="let item">
-              <span>{{item.name}}</span>
-          </td>
+         <th mat-header-cell *matHeaderCellDef> Nome </th>
+         <td mat-cell *matCellDef="let item">
+            <span>{{item.name}}</span>
+         </td>
       </ng-container>
 
       <!-- Acronym Column -->
       <ng-container matColumnDef="acronym">
-          <th mat-header-cell *matHeaderCellDef> Acrônimo </th>
-          <td mat-cell *matCellDef="let item">
-              <span>{{item.acronym}}</span>
-          </td>
+         <th mat-header-cell *matHeaderCellDef> Acrônimo </th>
+         <td mat-cell *matCellDef="let item">
+            <span>{{item.acronym}}</span>
+         </td>
       </ng-container>
 
       <!-- Founders Column -->
       <ng-container matColumnDef="founders">
-          <th mat-header-cell *matHeaderCellDef> Fundador </th>
-          <td mat-cell *matCellDef="let item">
-              <span>{{item?.user?.name}}</span>
-          </td>
+         <th mat-header-cell *matHeaderCellDef> Fundador </th>
+         <td mat-cell *matCellDef="let item">
+            <span>{{item?.user?.name}}</span>
+         </td>
       </ng-container>
 
       <!-- City and UF Column -->
       <ng-container matColumnDef="city_uf">
-          <th mat-header-cell *matHeaderCellDef> Cidade / Estado </th>
-          <td mat-cell *matCellDef="let item">
-              <span>{{item?.city?.name}}, {{item?.city?.state?.uf}}</span>
-          </td>
+         <th mat-header-cell *matHeaderCellDef> Cidade / Estado </th>
+         <td mat-cell *matCellDef="let item">
+            <span>{{item?.city?.name}}, {{item?.city?.state?.uf}}</span>
+         </td>
       </ng-container>
 
-   
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+   </table>
 </div>

@@ -22,19 +22,18 @@
          @for(user of users; track user) {
          <div class="col-span-12 md:col-span-2">
             <div class="card bg-white rounded-lg shadow cursor-pointer">
-               <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/70/2022-09-07_Desfile_C%C3%ADvico-Militar_por_ocasi%C3%A3o_das_Comemora%C3%A7%C3%B5es_do_Bicenten%C3%A1rio_da_Independ%C3%AAncia_do_Brasil_-_52341366768_%28cropped%29.jpg"
-                  alt="Placeholder Image" class="politician-image w-full h-auto">
+               <img src="/assets/img/political.png" alt="Placeholder Image" class="politician-image w-full h-[300px] object-cover object-top">
                <div class="d-flex flex-column p-3 gap-2">
                   <div>
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
                   </div>
                   <div class="pb-2">
-                     <p class="text-[16px] text-gray-700">Presidente do Brasil</p>
+                     <p class="text-[16px] text-gray-700">{{ user.role }}</p>
                   </div>
                   <div>
                      <p class="text-[14px] text-gray-700">
-                        {{ user?.party?.name ? (user?.party?.name + ' - ' + user?.party?.acronym) : 'Nenhum partido informado.' }}
+                        {{ user?.party?.name ? (user?.party?.name + ' - ' + user?.party?.acronym) : 'Nenhum partido
+                        informado.' }}
                      </p>
                   </div>
 

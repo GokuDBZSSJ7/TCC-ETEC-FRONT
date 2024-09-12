@@ -33,7 +33,7 @@ export class ApprovePoliticianComponent implements OnInit {
         data: data,
       },
       width: '60%',
-      height: '50%'
+      height: '40%'
     });
   }
 

@@ -4,13 +4,13 @@
     <div class="inputs grid grid-cols-12 gap-3" [formGroup]="form">
         <div class="col-span-6">
             <mat-label>Nome</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                 <input matInput placeholder="Nome do Partido" formControlName="name">
             </mat-form-field>
         </div>
         <div class="col-span-6">
             <mat-label>Líder do Partido</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                 <mat-select placeholder="Selecione um usuário" formControlName="leader_id">
                     @for (user of users; track user) {
                     <mat-option [value]="user.id">{{user.name}}</mat-option>
@@ -42,7 +42,7 @@
          </div>
         <div class="col-span-3">
             <mat-label>Sigla</mat-label>
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                 <input matInput placeholder="Sigla do Partido" formControlName="acronym">
             </mat-form-field>
         </div>

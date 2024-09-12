@@ -1,6 +1,6 @@
 <div class="container mx-auto px-8 py-6">
    <div class="container-header flex justify-between items-center">
-      <h1>Políticos</h1>
+      <h1 class="title">Políticos</h1>
       <div class="flex justify-center items-center gap-1 cursor-pointer" (click)="showFilters = !showFilters">
          <mat-icon>filter_list</mat-icon>
          <span>Filtrar</span>
@@ -67,18 +67,17 @@
          @for(user of users; track user) {
          <div class="col-span-12 md:col-span-5 lg:col-span-2">
             <div class="card bg-white rounded-lg shadow cursor-pointer" (click)="openPoliticalPage(user)">
-               <img
-                  [src]="user.image_url"
-                  alt="Placeholder Image" class="politician-image w-full h-[300px]">
+               <img src="/assets/img/political.png" alt="Placeholder Image" class="politician-image w-full h-[300px] object-cover object-top">
                <div class="d-flex flex-column p-3 gap-2" style="height: 128px;">
                   <div>
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
                   </div>
                   <div class="pb-2">
-                     <p class="text-[16px] text-gray-700">Presidente do Brasil</p>
+                     <p class="text-[16px] text-gray-700">{{ user.role }}</p>
                   </div>
                   <div>
-                     <p class="text-[13px] text-gray-700">{{ user?.party?.name || 'Sem partido'}} - {{ user?.party?.acronym || 'Sem Sigla'}}</p>
+                     <p class="text-[13px] text-gray-700">{{ user?.party?.name || 'Sem partido'}} - {{
+                        user?.party?.acronym || 'Sem Sigla'}}</p>
                   </div>
                </div>
             </div>

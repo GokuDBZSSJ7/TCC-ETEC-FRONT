@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +19,7 @@ import { UserService } from '../../../../services/user.service';
     MatDialogContent,
     MatSelectModule,
     NgSelectModule,
+    MatDialogTitle,
     MatDialogActions,
     MatDialogClose,
     FormsModule,

@@ -1,7 +1,7 @@
 <div class="container mx-auto px-8 py-6">
    <h1 class="title mb-5">Todas as Propostas do Político</h1>
-   <div class="promisses mt-[24px]">
-      <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
+   <div class="promisses">
+      <!-- <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider> -->
       @for (proposal of proposals; track proposal) {
          <div class="promise">
             <div class="p-4">
@@ -10,20 +10,19 @@
                   <div class="flex flex-col gap-2">
                      <div class="flex flex-col">
                         <div class="promise-title">
-                           <p class="text-[18px] font-[600]">{{proposal.title}}
+                           <p class="text-[18px] font-[600]">{{ proposal.title }}
                            </p>
                         </div>
                         <div class="promise-area">
-                           <p class="text-[16px] font-[500]">Área: {{proposal.areas.name}}</p>
+                           <p class="text-[16px] font-[500]">Área: {{ proposal.areas.name }}</p>
                         </div>
                      </div>
                      <p class="text-sm text-gray-800 mb-4">
-                        {{proposal.description
-                        }}
+                        {{ proposal.description }}
                      </p>
                      <div class="flex justify-around">
-                     <p class="text-sm text-gray-800 mb-4">Investimento: {{proposal.budget}}</p>
-                     <p class="text-sm text-gray-800 mb-4">Prazo de Entrega: {{proposal.time}}</p>
+                     <p class="text-sm text-gray-800 mb-4">Investimento: {{ proposal.budget }}</p>
+                     <p class="text-sm text-gray-800 mb-4">Prazo de Entrega: {{ proposal.time }}</p>
                      </div>
                   </div>
                </div>
