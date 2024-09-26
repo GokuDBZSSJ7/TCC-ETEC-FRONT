@@ -30,11 +30,12 @@
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
                   </div>
                   <div class="pb-2">
-                     <p class="text-[16px] text-gray-700">Presidente do Brasil</p>
+                     <p class="text-[16px] text-gray-700">{{user.role}}</p>
                   </div>
                   <div>
                      <p class="text-[14px] text-gray-700">
-                        {{ user?.party?.name ? (user?.party?.name + ' - ' + user?.party?.acronym) : 'Nenhum partido informado.' }}
+                        {{ user?.party?.name ? (user?.party?.name + ' - ' + user?.party?.acronym) : 'Nenhum partido
+                        informado.' }}
                      </p>
                   </div>
 
