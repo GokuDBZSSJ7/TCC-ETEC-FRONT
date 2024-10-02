@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -27,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
+    CommonModule,
     MatDialogTitle,
     MatFormFieldModule,
     MatInputModule,

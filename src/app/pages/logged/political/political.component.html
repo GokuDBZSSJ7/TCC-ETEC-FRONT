@@ -4,44 +4,45 @@
    } @else {
    <h1 class="title mb-5">Visualizar Perfil - {{user.name}}</h1>
    }
-   <div class="grid grid-cols-12">
+   <div class="grid grid-cols-12 gap-4">
+      <!-- Se não estiver em modo de edição -->
       @if(!edit) {
-      <div class="col-span-2 mx-auto">
-         <img class="w-[144px] h-[144px] rounded-full border-[1.5px] border-gray-300"
+      <div class="col-span-12 sm:col-span-2 mx-auto">
+         <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300"
             [src]="user.image_url || '/assets/img/avatar_default.svg'" alt="">
       </div>
-      <div class="col-span-10">
-         <h1 class="name">Nome: <span class="font-[300]">{{user.name}}</span></h1>
+      <div class="col-span-12 sm:col-span-10">
+         <h1 class="name text-lg sm:text-xl">Nome: <span class="font-light">{{user.name}}</span></h1>
          <h2><strong>Cargo: </strong>{{user.role}}</h2>
          <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
-            {{user?.city?.state?.uf
-            || 'Sem Estado Cadastrado'}}</h2>
+            {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
          <h2><strong>Propostas Cadastradas: </strong>{{proposals.length || '0'}}</h2>
          @if(user.type == 2) {
-         <h2><strong>Partido - </strong>{{user?.party?.name}}</h2>
+         <h2 class="mb-5"><strong>Partido: </strong>{{user?.party?.name || 'Nenhum partido informado.'}}</h2>
          }
          @if(user.email == myUser.email) {
-         <button class="edit-button" (click)="edit = !edit">Editar</button>
+         <button class="edit-button sm:mt-0" (click)="edit = !edit">Editar</button>
          }
       </div>
-      } @else {
-      <div class="col-span-2 mx-auto">
-         <div class="image-box w-[144px] h-[144px] relative">
-            <img class="w-[144px] h-[144px] rounded-full border-[1.5px] border-gray-300"
+      }
+      @else {
+      <!-- Se estiver em modo de edição -->
+      <div class="col-span-12 sm:col-span-2 mx-auto">
+         <div class="image-box w-36 h-36 sm:w-[144px] sm:h-[144px] relative">
+            <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300"
                [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
             <div class="icon absolute bottom-0 right-0" (click)="fileInput.click()">
-               <div
-                  class="edit w-[48px] h-[48px] flex justify-center items-center bg-[#315FA5] rounded-full cursor-pointer">
+               <div class="edit w-12 h-12 flex justify-center items-center bg-[#315FA5] rounded-full cursor-pointer">
                   <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
                   <mat-icon class="text-white">edit</mat-icon>
                </div>
             </div>
          </div>
       </div>
-      <div class="col-span-10" [formGroup]="form">
+      <div class="col-span-12 sm:col-span-10" [formGroup]="form">
          <div class="grid grid-cols-12 gap-2">
-
-            <div class="w-full col-span-4">
+            <!-- Estado -->
+            <div class="w-full col-span-12 sm:col-span-4">
                <mat-label>Estado</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                   <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
@@ -52,7 +53,8 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <div class="w-full col-span-8">
+            <!-- Cidade -->
+            <div class="w-full col-span-12 sm:col-span-8">
                <mat-label>Cidade</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                   <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
@@ -63,9 +65,10 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <div class="col-span-4">
-               <button class="edit-button" (click)="edit = !edit">Cancelar</button>
-               <button class="confirm-button" (click)="save()">Confirmar</button>
+            <!-- Botões de ação -->
+            <div class="col-span-12 sm:col-span-4 flex gap-2 mt-2 sm:mt-4">
+               <button class="edit-button w-full" (click)="edit = !edit">Cancelar</button>
+               <button class="confirm-button w-full" (click)="save()">Confirmar</button>
             </div>
          </div>
       </div>

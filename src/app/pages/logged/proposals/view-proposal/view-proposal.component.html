@@ -1,20 +1,24 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
-   <h1 mat-dialog-title>Visualizar Proposta</h1>
+   <h1 mat-dialog-title>{{data.title}}</h1>
    <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
 </div>
 <mat-dialog-content>
-   <div class="flex">
+   <div class="flex gap-2 items-center pb-2">
       <img [src]="data.users.image_url" class="w-[64px] h-[64px] rounded-full border-[1.5px] border-gray-300" alt="">
-      <div class="ml-2">
+      <div>
          <h1 class="font-bold text-black m-0">{{data.users.name}}</h1>
-         <h2 class="text-[12px]">{{data.users.role}}</h2>
-         <h2 class="text-[12px]">{{data.users.party.name}}</h2>
+         <h2 class="text-[13px]">{{data.users.role}} | {{data.users.party.acronym}}</h2>
+         <!-- <h2 class="text-[12px]">{{data.users.party.name}}</h2> -->
       </div>
    </div>
-   <div class="info">
-      <h1>Titulo: {{data.title}}</h1>
-      <p>{{data.description}}</p>
-      <img class="w-full h-[300px] border-[0.3px] border-black" [src]="data.image_url" alt="">
+   <div class="info flex flex-col gap-3">
+      <p class="area"><strong>Áreas:</strong> {{data.areas.name}}</p>
+      <div class="grid grid-cols-12">
+         <p class="budget col-span-6"><strong>Orçamento:</strong> {{data.budget | currency: 'BRL'}}</p>
+         <p class="date col-span-6"><strong>Data:</strong> {{data.time | date: 'dd/MM/yyyy'}}</p>
+      </div>
+      <p class="description">{{data.description}}</p>
+      <img class="w-full h-full rounded-md border-[0.3px] border-gray-300" [src]="data.image_url" alt="">
    </div>
    <div class="actions">
 
