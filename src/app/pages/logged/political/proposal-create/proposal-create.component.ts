@@ -48,7 +48,6 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ProposalCreateComponent implements OnInit {
 
-  readonly dialogRef = inject(MatDialogRef<ProposalCreateComponent>);
   data = inject(MAT_DIALOG_DATA);
   imageUrl: string | ArrayBuffer | null = null;
   form!: FormGroup;
@@ -59,6 +58,7 @@ export class ProposalCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    public dialogRef: MatDialogRef<ProposalCreateComponent>,
     private proposalService: ProposalService,
     private _snackBar: MatSnackBar,
     private areaService: AreaService
@@ -66,7 +66,7 @@ export class ProposalCreateComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
-    
+
     this.createForm();
     this.listAreas();
   }
@@ -101,6 +101,7 @@ export class ProposalCreateComponent implements OnInit {
           panelClass: ['snackbar-success'],
           duration: 4000,
         });
+        this.dialogRef.close();
       }
     })
   }

@@ -67,7 +67,7 @@ export class PoliticalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     if (history.state && history.state.political) {
       this.user = history.state.political;
       console.log(this.user);
@@ -100,12 +100,16 @@ export class PoliticalComponent implements OnInit {
   listProposals() {
     this.proposalService.myProposals(this.user.id).subscribe({
       next: res => {
-        this.proposals = res;
+        this.proposals = Object.values(res);
         console.log(this.proposals);
-        
+      },
+      error: err => {
+        console.error('Erro ao buscar as propostas:', err);
+        this.proposals = [];
       }
-    })
+    });
   }
+
 
   createForm() {
     this.form = this.fb.group({
@@ -140,7 +144,7 @@ export class PoliticalComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
       }
     })
   }
@@ -152,10 +156,8 @@ export class PoliticalComponent implements OnInit {
       height: '70%'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        
-      }
+    dialogRef.afterClosed().subscribe((result) => {
+      this.listProposals();
     })
   }
 
@@ -186,7 +188,7 @@ export class PoliticalComponent implements OnInit {
         }
         return acc;
       }, {} as any);
-  
+
       if (filteredData.image_url === null) {
         delete filteredData.image_url;
       }
@@ -194,14 +196,14 @@ export class PoliticalComponent implements OnInit {
       if (filteredData.city_id === null) {
         delete filteredData.city_id;
       }
-  
+
       this.userService.update(filteredData, this.user.id).subscribe({
         next: res => {
           console.log("Dados atualizados com sucesso", res);
 
-           const updatedUser = { ...this.user, ...filteredData };
-           this.authService.setUser(updatedUser);
- 
+          const updatedUser = { ...this.user, ...filteredData };
+          this.authService.setUser(updatedUser);
+
           this.user = updatedUser;
           this.refreshPage()
         },

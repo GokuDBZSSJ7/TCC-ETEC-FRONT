@@ -22,7 +22,7 @@
          @for(user of users; track user) {
          <div class="col-span-12 md:col-span-2">
             <div class="card bg-white rounded-lg shadow cursor-pointer">
-               <img src="/assets/img/political.png" alt="Placeholder Image" class="politician-image w-full h-[300px] object-cover object-top">
+               <img [src]=" user.image_url || '/assets/img/political.png'" alt="Placeholder Image" class="politician-image w-full h-[300px] object-cover object-top">
                <div class="d-flex flex-column p-3 gap-2">
                   <div>
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
