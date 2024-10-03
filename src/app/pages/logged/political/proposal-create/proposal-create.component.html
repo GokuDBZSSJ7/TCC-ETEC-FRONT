@@ -21,6 +21,15 @@
             </mat-select>
          </mat-form-field>
       </div>
+      <div class="col-span-6">
+         <mat-label>Status da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+            <mat-select placeholder="Selecione um Status" formControlName="status">
+               <mat-option value="Em Andamento">Em Andamento</mat-option>
+               <mat-option value="Finalizada">Finalizada</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </div>
       <div class="col-span-12">
          <mat-label>Descrição da Proposta</mat-label>
          <textarea (input)="autoGrow($event)" rows="6"

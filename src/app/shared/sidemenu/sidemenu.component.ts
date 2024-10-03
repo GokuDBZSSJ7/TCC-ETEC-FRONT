@@ -162,22 +162,23 @@ export class SidemenuComponent implements OnInit {
           }
         ]
       },
-      {
-        title: 'Módulos Administrativos',
-        contentMenus: [
-          {
-            label: 'Propostas do Político',
-            icon: 'proposals_icon',
-            tooltip: '',
-            route: '/'
-          },
-          // {
-          //   label: 'Área do Político',
-          //   icon: 'candidate_icon',
-          //   route: '/'
-          // }
-        ]
-      }];
+      // {
+      //   title: 'Módulos Administrativos',
+      //   contentMenus: [
+      //     {
+      //       label: 'Propostas do Político',
+      //       icon: 'proposals_icon',
+      //       tooltip: '',
+      //       route: '/'
+      //     },
+      //     {
+      //       label: 'Área do Político',
+      //       icon: 'candidate_icon',
+      //       route: '/'
+      //     }
+      //   ]
+      // }
+      ];
     } else if (accessType === 3) {
       return [{
         title: 'Módulos Gerais',

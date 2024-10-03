@@ -67,7 +67,7 @@
          @for(user of users; track user) {
          <div class="col-span-12 md:col-span-5 lg:col-span-2">
             <div class="card bg-white rounded-lg shadow cursor-pointer" (click)="openPoliticalPage(user)">
-               <img [src]="user.image_url" alt="Placeholder Image" class="politician-image w-full h-[300px]">
+               <img [src]="user.image_url" alt="Placeholder Image" class="politician-image w-full h-[300px] object-cover object-center">
                <div class="d-flex flex-column p-3 gap-2" style="height: 128px;">
                   <div>
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>

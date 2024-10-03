@@ -88,7 +88,8 @@ export class ProposalCreateComponent implements OnInit {
       image_url: null,
       budget: null,
       time: null,
-      area_id: null
+      area_id: null,
+      status: null
     });
   }
 

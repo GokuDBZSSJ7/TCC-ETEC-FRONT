@@ -98,7 +98,7 @@ export class PoliticalComponent implements OnInit {
   }
 
   listProposals() {
-    this.proposalService.myProposals(this.user.id).subscribe({
+    this.proposalService.getFinishedProposals(this.user.id).subscribe({
       next: res => {
         this.proposals = Object.values(res);
         console.log(this.proposals);

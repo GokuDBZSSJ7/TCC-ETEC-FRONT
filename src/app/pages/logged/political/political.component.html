@@ -78,13 +78,57 @@
    @if (!edit) {
    <div class="promisses mt-[48px]">
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas</h1>
+         <h1 class="text-[20px]">Propostas Em Andamento</h1>
          @if(user.email === myUser.email && myUser.type == 2) {
          <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta"
             (click)="openDialog(this.user)">
             <mat-icon>add</mat-icon>
          </button>
          }
+      </div>
+      <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
+      @for (proposal of proposals; track proposal) {
+      <div class="promise cursor-pointer" (click)="openViewProposalDialog(proposal)">
+         <div class="p-4">
+            <div class="flex items-start">
+               <img [src]="proposal?.image_url || 'https://via.placeholder.com/96'" alt="Post Image"
+                  class="w-24 h-24 rounded-lg mr-4 object-cover object-center">
+               <div class="flex flex-col gap-2">
+                  <div class="flex flex-col">
+                     <div class="promise-title">
+                        <p class="text-[18px] font-[600]">{{proposal?.title}}
+                        </p>
+                     </div>
+                     <div class="promise-area">
+                        <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
+                     </div>
+                  </div>
+                  <p class="text-sm text-gray-800 mb-4">
+                     {{proposal?.description}}
+                  </p>
+               </div>
+            </div>
+            <div class="flex justify-between items-center border-b pb-2">
+               <div class="flex items-center space-x-2">
+                  <div>
+                     <span class="text-sm text-gray-500">422 aprovados</span>
+                  </div>
+                  <small class="text-gray-500">•</small>
+                  <div>
+                     <span class="text-sm text-gray-500">18 desaprovados</span>
+                  </div>
+               </div>
+               <div class="text-sm text-gray-500">
+                  322 comentários
+               </div>
+            </div>
+         </div>
+      </div>
+      }
+   </div>
+   <div class="promisses mt-[48px]">
+      <div class="section-header flex justify-between">
+         <h1 class="text-[20px]">Propostas Finalizadas</h1>
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
       @for (proposal of proposals; track proposal) {

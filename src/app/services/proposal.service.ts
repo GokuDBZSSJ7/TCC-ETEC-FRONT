@@ -28,4 +28,8 @@ export class ProposalService {
   myProposals(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}showMyPromisses/${id}`);
   }
+
+  getFinishedProposals(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}getFinishedProposals/${id}`);
+  }
 }
