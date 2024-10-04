@@ -32,4 +32,8 @@ export class ProposalService {
   getFinishedProposals(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}getFinishedProposals/${id}`);
   }
+  
+  getWorkingProposals(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}getWorkingProposals/${id}`);
+  }
 }

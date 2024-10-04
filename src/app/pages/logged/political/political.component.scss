@@ -32,3 +32,19 @@
       background-color: green;
    }
 }
+
+.finished {
+   background-color: rgb(224, 50, 50);
+   height: 100%;
+   padding: 5px 10px;
+   color: white;
+   border-radius: 999px;
+}
+
+.working {
+   background-color: rgb(239, 241, 80);
+   height: 100%;
+   padding: 5px 10px;
+   color: white;
+   border-radius: 999px;
+}

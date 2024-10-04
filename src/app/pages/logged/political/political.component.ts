@@ -53,6 +53,8 @@ export class PoliticalComponent implements OnInit {
   states: any[] = []
   cities: any[] = []
   dialog = inject(MatDialog);
+  proposalsFinisheds: any[] = [];
+  proposalsWorking: any[] = [];
   proposals: any[] = [];
 
   constructor(
@@ -100,14 +102,28 @@ export class PoliticalComponent implements OnInit {
   listProposals() {
     this.proposalService.getFinishedProposals(this.user.id).subscribe({
       next: res => {
-        this.proposals = Object.values(res);
-        console.log(this.proposals);
+        this.proposalsFinisheds = Object.values(res);
       },
       error: err => {
         console.error('Erro ao buscar as propostas:', err);
-        this.proposals = [];
+        this.proposalsFinisheds = [];
       }
     });
+    this.proposalService.getWorkingProposals(this.user.id).subscribe({
+      next: res => {
+        this.proposalsWorking = Object.values(res);
+      },
+      error: err => {
+        console.error('Erro ao buscar as propostas:', err);
+        this.proposalsWorking = [];
+      }
+    });
+
+    this.proposalService.all().subscribe({
+      next: res => {
+        this.proposals = res
+      }
+    })
   }
 
 
