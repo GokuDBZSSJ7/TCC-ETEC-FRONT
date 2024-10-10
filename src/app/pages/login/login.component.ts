@@ -69,17 +69,19 @@ export class LoginComponent implements OnInit {
             duration: 4000,
           });
           this.router.navigate(['/politicians']);
+        },
+        error: err => {
+          this._snackBar.open('Ocorreu um erro ao realizar o login', 'Fechar', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            panelClass: ['snackbar-error'],
+            duration: 4000,
+          });
+          console.error('Erro ao logar: ', err);
         }
       })
-    } catch (error: any) {
-      this._snackBar.open('Ocorreu um erro ao realizar o login', 'Fechar', {
-        horizontalPosition: this.horizontalPosition,
-        verticalPosition: this.verticalPosition,
-        panelClass: ['snackbar-error'],
-        duration: 4000,
-      });
-      console.log(error);
-
+    } catch (err: any) {
+      console.error('Erro: ', err);
     }
   }
 }

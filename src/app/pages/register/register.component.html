@@ -22,20 +22,17 @@
                     <input matInput placeholder="Digite sua senha" [type]="hide ? 'password' : 'text'"
                         formControlName="password">
                     <button type="button" mat-icon-button matSuffix class="me-4" (click)="toggleHide()">
-                        <mat-icon fontSet="material-icons-outlined">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-icon fontSet="material-icons-outlined">{{hide ? 'visibility_off' :
+                            'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-                <div class="flex justify-end items-center">
-                    <span class="text-[14px] text-[#525160] font-[600] cursor-pointer hover:underline"
-                        style="margin-bottom: 0;">Esqueci a senha</span>
-                </div>
                 <button mat-flat-button
                     class="bg-[#315FA5] text-white w-full block mx-auto h-[50px] rounded-lg text-[18px] my-5 btn"
                     (click)="register()">
                     Cadastrar-se
                 </button>
-                <p class="text-center font-[500]">Já possui conta? <span class="text-[#315FA5] cursor-pointer font-[600]"
-                        routerLink="/login">Entre aqui!</span></p>
+                <p class="text-center font-[500]">Já possui conta? <span
+                        class="text-[#315FA5] cursor-pointer font-[600]" routerLink="/login">Entre aqui!</span></p>
             </div>
         </form>
     </div>

@@ -22,11 +22,13 @@ import { AreaService } from '../../../../services/area.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { CurrencyPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-proposal-create',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), CurrencyPipe],
   imports: [
     CommonModule,
     MatDialogTitle,
@@ -50,10 +52,12 @@ export class ProposalCreateComponent implements OnInit {
 
   data = inject(MAT_DIALOG_DATA);
   imageUrl: string | ArrayBuffer | null = null;
+  partyId: any;
   form!: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   areas: any[] = [];
+  parties: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -61,7 +65,9 @@ export class ProposalCreateComponent implements OnInit {
     public dialogRef: MatDialogRef<ProposalCreateComponent>,
     private proposalService: ProposalService,
     private _snackBar: MatSnackBar,
-    private areaService: AreaService
+    private areaService: AreaService,
+    private partyService: PartyService,
+    private currencyPipe: CurrencyPipe,
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +75,7 @@ export class ProposalCreateComponent implements OnInit {
 
     this.createForm();
     this.listAreas();
+    this.listParties()
   }
 
   listAreas() {
@@ -79,12 +86,22 @@ export class ProposalCreateComponent implements OnInit {
     })
   }
 
+  
+
+  listParties() {
+    this.partyService.all().subscribe({
+      next: res => {
+        this.parties = res
+      }
+    })
+  }
+
   createForm() {
     this.form = this.fb.group({
       title: null,
       description: null,
       political_id: this.data.id,
-      party_id: this.data.party_id,
+      party_id: this.partyId,
       image_url: null,
       budget: null,
       time: null,
@@ -96,7 +113,7 @@ export class ProposalCreateComponent implements OnInit {
   save() {
     this.proposalService.create(this.form.value).subscribe({
       next: res => {
-        this._snackBar.open('Logado com sucesso!', 'Fechar', {
+        this._snackBar.open('Proposta cadastrada com sucesso!', 'Fechar', {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
           panelClass: ['snackbar-success'],
@@ -128,6 +145,26 @@ export class ProposalCreateComponent implements OnInit {
       };
 
       reader.readAsDataURL(file);
+    }
+  }
+
+  formatCurrency(): void {
+    const budgetControl = this.form.get('budget');
+    let value = budgetControl?.value;
+
+    if (value) {
+      const formattedValue = this.currencyPipe.transform(value, 'BRL', 'symbol', '1.2-2');
+      budgetControl?.setValue(formattedValue, { emitEvent: false });
+    }
+  }
+
+  unformatCurrency(): void {
+    const budgetControl = this.form.get('budget');
+    let value = budgetControl?.value;
+
+    if (value) {
+      const numericValue = value.replace(/[^0-9.-]+/g, '');
+      budgetControl?.setValue(numericValue, { emitEvent: false });
     }
   }
 }

@@ -45,5 +45,7 @@ export class UserService {
     );
   }
 
-  
+  getUserById(id: number) {
+    return this.http.get(`${this.apiUrl}/users/${id}`)
+  }
 }

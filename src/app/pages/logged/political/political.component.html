@@ -4,25 +4,25 @@
    } @else {
    <h1 class="title mb-5">Visualizar Perfil - {{user.name}}</h1>
    }
-   <div class="grid grid-cols-12 gap-4">
+   <div class="grid grid-cols-12 gap-4 sm:grid-flow-col md:grid-flow-col">
       <!-- Se não estiver em modo de edição -->
       @if(!edit) {
-      <div class="col-span-12 sm:col-span-2 mx-auto">
+      <div class="col-span-12 sm:col-span-2 md:col-span-3 lg:col-span-2 mx-auto">
          <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
             [src]="user.image_url || '/assets/img/avatar_default.svg'" alt="Profile Picture">
       </div>
-      <div class="col-span-12 sm:col-span-10">
+      <div class="col-span-12 sm:col-span-10 md:col-span-9 lg:col-span-10">
          <h1 class="name"><strong>Nome: </strong><span>{{user.name}}</span></h1>
          <h2 class="role"><strong>Cargo: </strong>{{user.role}}</h2>
          <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
             {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
          <h2><strong>Propostas: </strong>{{proposals.length || '0'}}</h2>
          @if(user.type == 2) {
-         <h2 class="mb-5"><strong>Partido: </strong>{{user?.party?.name || 'Nenhum partido informado.'}}
+         <h2 class="party"><strong>Partido: </strong>{{user?.party?.name || 'Nenhum partido informado.'}}
             ({{user?.party?.acronym}})</h2>
          }
          @if(user.email == myUser.email) {
-         <button class="edit-button sm:mt-0" (click)="edit = !edit">Editar</button>
+         <button class="edit-button mt-5" (click)="edit = !edit">Editar</button>
          }
       </div>
       }
@@ -75,6 +75,7 @@
       </div>
       }
    </div>
+   @if (user.type !== 1) {
    @if (!edit) {
    <div class="promisses mt-[48px]">
       <div class="section-header flex justify-between">
@@ -140,23 +141,23 @@
             <div class="flex items-start">
                <img [src]="proposal?.image_url || 'https://via.placeholder.com/96'" alt="Post Image"
                   class="w-24 h-24 rounded-lg mr-4 object-cover object-center">
-                  <div class="flex justify-between w-full">
-                     <div class="flex flex-col gap-2">
-                        <div class="flex flex-col">
-                           <div class="promise-title">
-                              <p class="text-[18px] font-[600]">{{proposal?.title}}
-                              </p>
-                           </div>
-                           <div class="promise-area">
-                              <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
-                           </div>
+               <div class="flex justify-between w-full">
+                  <div class="flex flex-col gap-2">
+                     <div class="flex flex-col">
+                        <div class="promise-title">
+                           <p class="text-[18px] font-[600]">{{proposal?.title}}
+                           </p>
                         </div>
-                        <p class="text-sm text-gray-800 mb-4">
-                           {{proposal?.description}}
-                        </p>
+                        <div class="promise-area">
+                           <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
+                        </div>
                      </div>
-                     <span class="finished">{{proposal?.status}}</span>
+                     <p class="text-sm text-gray-800 mb-4">
+                        {{proposal?.description}}
+                     </p>
                   </div>
+                  <span class="finished">{{proposal?.status}}</span>
+               </div>
             </div>
             <div class="flex justify-between items-center border-b pb-2">
                <div class="flex items-center space-x-2">
@@ -179,5 +180,6 @@
          <button mat-button (click)="openProposalsPage(user.id)">Visualizar todas as propostas</button>
       </div>
    </div>
+   }
    }
 </div>
