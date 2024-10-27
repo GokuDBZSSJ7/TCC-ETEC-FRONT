@@ -5,7 +5,6 @@
    <h1 class="title mb-5">Visualizar Perfil - {{user.name}}</h1>
    }
    <div class="grid grid-cols-12 gap-4 sm:grid-flow-col md:grid-flow-col">
-      <!-- Se não estiver em modo de edição -->
       @if(!edit) {
       <div class="col-span-12 sm:col-span-2 md:col-span-3 lg:col-span-2 mx-auto">
          <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
@@ -27,7 +26,6 @@
       </div>
       }
       @else {
-      <!-- Se estiver em modo de edição -->
       <div class="col-span-12 sm:col-span-2 mx-auto">
          <div class="image-box w-36 h-36 sm:w-[144px] sm:h-[144px] relative">
             <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300"
@@ -42,7 +40,6 @@
       </div>
       <div class="col-span-12 sm:col-span-10" [formGroup]="form">
          <div class="grid grid-cols-12 gap-2">
-            <!-- Estado -->
             <div class="w-full col-span-12 sm:col-span-4">
                <mat-label>Estado</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
@@ -54,7 +51,6 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <!-- Cidade -->
             <div class="w-full col-span-12 sm:col-span-8">
                <mat-label>Cidade</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
@@ -66,7 +62,6 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <!-- Botões de ação -->
             <div class="col-span-12 sm:col-span-4 flex gap-2 mt-2 sm:mt-4">
                <button class="edit-button w-full" (click)="edit = !edit">Cancelar</button>
                <button class="confirm-button w-full" (click)="save()">Confirmar</button>
@@ -78,6 +73,7 @@
    @if (user.type !== 1) {
    @if (!edit) {
    <div class="promisses mt-[48px]">
+      <button (click)="generateProposalsPDF()">Gerar PDF</button>
       <div class="section-header flex justify-between">
          <h1 class="text-[20px]">Propostas Em Andamento</h1>
          @if(user.email === myUser.email && myUser.type == 2) {
@@ -103,6 +99,8 @@
                         </div>
                         <div class="promise-area">
                            <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
+                           <p>{{proposal.is_delayed}}</p>
+
                         </div>
                      </div>
                      <p class="text-sm text-gray-800 mb-4">
@@ -111,6 +109,7 @@
                   </div>
                   <h1 class="working">{{proposal?.status}}</h1>
                </div>
+
             </div>
             <div class="flex justify-between items-center border-b pb-2">
                <div class="flex items-center space-x-2">
@@ -150,6 +149,7 @@
                         </div>
                         <div class="promise-area">
                            <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
+                           <p>{{proposal.is_delayed}}</p>
                         </div>
                      </div>
                      <p class="text-sm text-gray-800 mb-4">

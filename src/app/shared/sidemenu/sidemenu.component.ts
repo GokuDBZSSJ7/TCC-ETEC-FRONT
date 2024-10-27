@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserService } from '../../services/user.service';
 
 const CANDIDATE_ICON =
   `
@@ -80,12 +81,14 @@ export class SidemenuComponent implements OnInit {
   menus: any[] = [];
   userMenu: any[] = []
   user = this.authService.getUser();
+  realUser: any;
 
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     iconRegistry.addSvgIconLiteral('candidate_icon', sanitizer.bypassSecurityTrustHtml(CANDIDATE_ICON));
     iconRegistry.addSvgIconLiteral('candidate_speech_icon', sanitizer.bypassSecurityTrustHtml(CANDIDATE_SPEECH_ICON));
@@ -94,6 +97,12 @@ export class SidemenuComponent implements OnInit {
     iconRegistry.addSvgIconLiteral('logout_icon', sanitizer.bypassSecurityTrustHtml(LOGOUT_ICON));
     iconRegistry.addSvgIconLiteral('person_icon', sanitizer.bypassSecurityTrustHtml(PERSON_ICON));
     iconRegistry.addSvgIconLiteral('party_icon', sanitizer.bypassSecurityTrustHtml(PARTY_ICON));
+
+    this.userService.getUserById(this.user.id).subscribe({
+      next: res => {
+        this.realUser = res
+      }
+    })
   }
 
   logout(): void {
@@ -101,13 +110,15 @@ export class SidemenuComponent implements OnInit {
   }
 
   openPoliticalPage(item: any) {
+
+    
     const navigationExtras: NavigationExtras = {
       state: {
         political: item
       }
     };
     this.router.navigate(['/political'], navigationExtras);
-    console.log(item);
+    console.log();
   }
 
   ngOnInit() {
@@ -120,7 +131,7 @@ export class SidemenuComponent implements OnInit {
         tooltip: '',
         route: '/',
         handler: () => {
-          this.openPoliticalPage(this.user);
+          this.openPoliticalPage(this.realUser);
         }
       },
       {
