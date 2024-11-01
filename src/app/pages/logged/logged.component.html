@@ -4,6 +4,7 @@
         <app-sidemenu></app-sidemenu>
     </mat-sidenav>
     <mat-sidenav-content>
+        <app-toolbar (hasChanged)="drawer.toggle()"></app-toolbar>
         <div class="container">
             <router-outlet></router-outlet>
         </div>

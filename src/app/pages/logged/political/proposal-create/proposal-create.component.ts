@@ -24,7 +24,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyPipe } from '@angular/common';
 
-
 @Component({
   selector: 'app-proposal-create',
   standalone: true,
@@ -86,7 +85,7 @@ export class ProposalCreateComponent implements OnInit {
     })
   }
 
-  
+
 
   listParties() {
     this.partyService.all().subscribe({

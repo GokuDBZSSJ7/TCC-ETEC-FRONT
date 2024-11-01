@@ -168,8 +168,10 @@ export class PoliticalComponent implements OnInit {
   openViewProposalDialog(item: any) {
     const dialogRef = this.dialog.open(ViewProposalComponent, {
       data: item,
-      width: '40%',
+      width: '60%',
       height: '70%'
+      // width: '100%',
+      // height: '100%'
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -204,26 +206,26 @@ export class PoliticalComponent implements OnInit {
         }
         return acc;
       }, {} as any);
-  
+
       if (filteredData.image_url === null) {
         delete filteredData.image_url;
       }
-  
+
       if (filteredData.city_id === null) {
         delete filteredData.city_id;
       }
-  
+
       this.userService.update(filteredData, this.user.id).subscribe({
         next: res => {
           console.log("Dados atualizados com sucesso", res);
-  
+
           // Atualiza o usuário localmente com os dados salvos
           const updatedUser = { ...this.user, ...filteredData };
-  
+
           // Atualiza o localStorage com os novos dados apenas após o sucesso
           localStorage.setItem('user', JSON.stringify(updatedUser));
           this.authService.setUser(updatedUser); // Atualiza no AuthService também
-  
+
           this.user = updatedUser;
           this.refreshPage(); // Recarrega a página para refletir as mudanças
         },
@@ -233,7 +235,7 @@ export class PoliticalComponent implements OnInit {
       });
     }
   }
-  
+
 
   refreshPage(): void {
     window.location.reload();

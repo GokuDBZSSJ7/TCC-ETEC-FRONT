@@ -18,8 +18,8 @@
             {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
          <h2><strong>Propostas: </strong>{{proposals.length || '0'}}</h2>
          @if(user.type == 2) {
-         <h2 class="party"><strong>Partido: </strong>{{user?.party?.name || 'Nenhum partido informado.'}}
-            ({{user?.party?.acronym}})</h2>
+         <h2 class="party"><strong>Partido: </strong>{{user?.party?.acronym}}
+            ({{user?.party?.name || 'Nenhum partido informado.'}})</h2>
          }
          @if(user.email == myUser.email) {
          <button class="edit-button mt-5" (click)="edit = !edit">Editar</button>

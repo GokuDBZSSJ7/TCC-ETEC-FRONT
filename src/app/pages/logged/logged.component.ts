@@ -7,10 +7,17 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { SidemenuComponent } from '../../shared/sidemenu/sidemenu.component';
+import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 @Component({
   selector: 'app-logged',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MatSidenavModule, SidemenuComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    MatSidenavModule,
+    SidemenuComponent,
+    ToolbarComponent,
+  ],
   templateUrl: './logged.component.html',
   styleUrl: './logged.component.scss'
 })
