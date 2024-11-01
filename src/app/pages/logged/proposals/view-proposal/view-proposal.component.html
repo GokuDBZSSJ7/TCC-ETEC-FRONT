@@ -3,27 +3,51 @@
    <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
 </div>
 <mat-dialog-content>
-   <div class="flex gap-2 items-center pb-6">
-      <img [src]="data.users.image_url"
-         class="w-[64px] h-[64px] rounded-full border-[1.5px] border-gray-300 object-cover" alt="">
-      <div>
-         <h1 class="font-bold text-black m-0">{{data?.users?.name}}</h1>
-         <h2 class="text-[13px]">{{data?.users?.role}} | {{data?.users?.party?.acronym}}</h2>
-         <!-- <h2 class="text-[12px]">{{data.users.party.name}}</h2> -->
+   <!-- <div class="info flex flex-col gap-3">
+      <div class="proposal-date">
+         <p>
+            <strong>Áreas:</strong>
+            {{data?.areas?.name}}
+         </p>
+         <p>
+            <strong>Orçamento:</strong>
+            {{data?.budget | currency: 'BRL'}}
+         </p>
+         <p>
+            <strong>Finalização:</strong>
+            {{data?.time | date: 'dd/MM/yyyy'}}
+         </p>
+      </div> -->
+   <div class="grid grid-cols-12 gap-4 mt-3">
+      <img [src]="data.image_url" class="col-span-6 w-[480px] h-[480px] object-cover object-center rounded-md border-[0.3px] border-gray-300" alt="Imagem da Proposta">
+      <div class="col-span-6 flex flex-col justify-between">
+         <div class="flex flex-col gap-3">
+            <div class="flex gap-2 items-center pb-1">
+               <img [src]="data.users.image_url"
+                  class="w-[54px] h-[54px] rounded-full border-[1.5px] border-gray-300 object-cover" alt="">
+               <div>
+                  <h1 class="font-bold text-black m-0">{{data?.users?.name}}</h1>
+                  <h2 class="text-[14px]">{{data?.users?.role}} | {{data?.users?.party?.acronym}}</h2>
+               </div>
+            </div>
+            <p class="description">{{ data?.description }}</p>
+         </div>
+         <div class="actions">
+            <div class="flex gap-5">
+               <button type="button" class="flex items-center gap-2">
+                  <mat-icon fontSet="material-icons-outlined">thumb_up</mat-icon>
+                  Gostei
+               </button>
+               <button type="button" class="flex items-center gap-2">
+                  <mat-icon fontSet="material-icons-outlined">thumb_down</mat-icon>
+                  Não gostei
+               </button>
+            </div>
+            <button type="button" class="flex items-center gap-2">
+               <mat-icon>chat</mat-icon>
+               Comentários
+            </button>
+         </div>
       </div>
-   </div>
-   <div class="info flex flex-col gap-3">
-      <p class="area"><strong>Áreas:</strong> {{data?.areas?.name}}</p>
-      <div class="grid grid-cols-12">
-         <p class="budget col-span-6"><strong>Orçamento:</strong> {{data?.budget | currency: 'BRL'}}</p>
-         <p class="date col-span-6"><strong>Data de Finalização:</strong> {{data?.time | date: 'dd/MM/yyyy'}}</p>
-      </div>
-      <p class="description">{{data?.description}}</p>
-      <img class="w-full h-full rounded-md border-[0.3px] border-gray-300" [src]="data.image_url" alt="">
-   </div>
-   <div class="actions">
-      <mat-icon class="like">thumb_up</mat-icon>
-      <mat-icon>thumb_down</mat-icon>
-      <mat-icon>chat</mat-icon>
    </div>
 </mat-dialog-content>

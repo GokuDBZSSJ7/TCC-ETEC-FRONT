@@ -38,8 +38,8 @@ export class ProposalsComponent implements OnInit{
   openViewProposalDialog(item: any) {
     const dialogRef = this.dialog.open(ViewProposalComponent, {
       data: item,
-      width: '40%',
-      height: '70%'
+      width: '1000px',
+      height: '590px'
     });
 
     dialogRef.afterClosed().subscribe((result) => {
