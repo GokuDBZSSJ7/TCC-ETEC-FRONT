@@ -1,5 +1,5 @@
-// ::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
-//    max-width: 100% !important;
-//    max-height: 100% !important;
-//    border-radius: 0px !important;
-// }
+.actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}

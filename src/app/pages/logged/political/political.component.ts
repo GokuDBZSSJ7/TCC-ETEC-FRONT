@@ -18,6 +18,8 @@ import { UserService } from '../../../services/user.service';
 import { ProposalCreateComponent } from './proposal-create/proposal-create.component';
 import { ProposalService } from '../../../services/proposal.service';
 import { ViewProposalComponent } from '../proposals/view-proposal/view-proposal.component';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-political',
@@ -72,9 +74,17 @@ export class PoliticalComponent implements OnInit {
 
     if (history.state && history.state.political) {
       this.user = history.state.political;
-      console.log(this.user);
     }
-    console.log(this.user.email, '-', this.myUser.email);
+  
+    this.userService.getUserById(this.user?.id).subscribe({
+      next: res => {
+        this.user = res;
+      },
+      error: err => {
+        console.error('Erro ao buscar as informações atualizadas do usuário:', err);
+      }
+    });
+    // console.log(this.user.email, '-', this.myUser.email);
 
     this.listStates();
     this.createForm();
@@ -160,7 +170,7 @@ export class PoliticalComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        window.location.reload();
       }
     })
   }
@@ -168,10 +178,7 @@ export class PoliticalComponent implements OnInit {
   openViewProposalDialog(item: any) {
     const dialogRef = this.dialog.open(ViewProposalComponent, {
       data: item,
-      width: '60%',
-      height: '70%'
-      // width: '100%',
-      // height: '100%'
+      width: '900px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -218,16 +225,15 @@ export class PoliticalComponent implements OnInit {
       this.userService.update(filteredData, this.user.id).subscribe({
         next: res => {
           console.log("Dados atualizados com sucesso", res);
-
-          // Atualiza o usuário localmente com os dados salvos
+  
           const updatedUser = { ...this.user, ...filteredData };
-
-          // Atualiza o localStorage com os novos dados apenas após o sucesso
+  
           localStorage.setItem('user', JSON.stringify(updatedUser));
-          this.authService.setUser(updatedUser); // Atualiza no AuthService também
-
+          this.authService.setUser(updatedUser);
+  
           this.user = updatedUser;
-          this.refreshPage(); // Recarrega a página para refletir as mudanças
+          // this.refreshPage();
+          window.location.reload();
         },
         error: err => {
           console.error("Erro ao atualizar os dados", err);
@@ -240,4 +246,64 @@ export class PoliticalComponent implements OnInit {
   refreshPage(): void {
     window.location.reload();
   }
+
+  generateProposalsPDF() {
+    const doc = new jsPDF();
+  
+    doc.setFontSize(18);
+    doc.text('Propostas', 14, 22);
+  
+    const tableData: any[][] = [];
+  
+    this.proposals.forEach((proposal) => {
+      console.log(proposal);
+      
+      tableData.push([
+        proposal.title || 'Sem Título',
+        proposal.areas?.name || 'Sem Área',
+        proposal.status || 'Sem Status',
+        proposal.description || 'Sem Descrição',
+        this.formatCurrency(proposal.budget) || 'Sem Orçamento'
+      ]);
+      
+    });
+
+    console.log(tableData);
+    
+  
+    autoTable(doc, {
+      startY: 30,
+      theme: 'grid',
+      head: [['Título', 'Área', 'Status', 'Descrição', 'Investimento']],
+      body: tableData,
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+      },
+      columnStyles: {
+        1: { cellWidth: 20 }, 
+        2: { cellWidth: 40 },  
+        3: { cellWidth: 30 },
+        4: { cellWidth: 60 },
+        5: { cellWidth: 40 },
+      },
+    });
+    
+  
+    doc.save('Propostas.pdf');
+  }
+  
+  formatCurrency(value: number | string): string {
+    if (value == null || isNaN(Number(value))) {
+      return '';
+    }
+  
+    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+  
+    return `R$ ${numericValue.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }  
+
 }
