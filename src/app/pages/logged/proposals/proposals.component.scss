@@ -13,9 +13,13 @@
 }
 
 .working {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    background-color: #ffed65;
    height: 100%;
-   padding: 5px 10px;
+   width: 110px;
+   // padding: 5px 10px;
    color: #000;
    font-weight: bold;
    border-radius: 999px;

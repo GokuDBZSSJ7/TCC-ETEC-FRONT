@@ -4,7 +4,8 @@
 </div>
 <mat-dialog-content>
    <div class="flex gap-2 items-center pb-6">
-      <img [src]="data.users.image_url" class="w-[64px] h-[64px] rounded-full border-[1.5px] border-gray-300 object-cover" alt="">
+      <img [src]="data.users.image_url"
+         class="w-[64px] h-[64px] rounded-full border-[1.5px] border-gray-300 object-cover" alt="">
       <div>
          <h1 class="font-bold text-black m-0">{{data?.users?.name}}</h1>
          <h2 class="text-[13px]">{{data?.users?.role}} | {{data?.users?.party?.acronym}}</h2>
@@ -25,6 +26,4 @@
       <mat-icon>thumb_down</mat-icon>
       <mat-icon>chat</mat-icon>
    </div>
-
-   
 </mat-dialog-content>
