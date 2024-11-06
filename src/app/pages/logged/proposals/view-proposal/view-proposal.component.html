@@ -3,24 +3,11 @@
    <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
 </div>
 <mat-dialog-content>
-   <!-- <div class="info flex flex-col gap-3">
-      <div class="proposal-date">
-         <p>
-            <strong>Áreas:</strong>
-            {{data?.areas?.name}}
-         </p>
-         <p>
-            <strong>Orçamento:</strong>
-            {{data?.budget | currency: 'BRL'}}
-         </p>
-         <p>
-            <strong>Finalização:</strong>
-            {{data?.time | date: 'dd/MM/yyyy'}}
-         </p>
-      </div> -->
    <div class="grid grid-cols-12 gap-4 mt-3">
-      <img [src]="data.image_url" class="col-span-6 w-[480px] h-[480px] object-cover object-center rounded-md border-[0.3px] border-gray-300" alt="Imagem da Proposta">
-      <div class="col-span-6 flex flex-col justify-between">
+      <img [src]="data.image_url"
+         class="col-span-12 lg:col-span-6 w-[480px] h-[480px] object-cover object-center rounded-md border-[0.3px] border-gray-300"
+         alt="Imagem da Proposta">
+      <div class="col-span-12 lg:col-span-6 flex flex-col justify-between">
          <div class="flex flex-col gap-3">
             <div class="flex gap-2 items-center pb-1">
                <img [src]="data.users.image_url"
@@ -43,10 +30,48 @@
                   Não gostei
                </button>
             </div>
-            <button type="button" class="flex items-center gap-2">
+            <button type="button" class="flex items-center gap-2" (click)="displayComments = !displayComments">
                <mat-icon>chat</mat-icon>
                Comentários
             </button>
+         </div>
+      </div>
+
+      <div *ngIf="displayComments" class="col-span-12 comments flex flex-col gap-3 mt-3">
+         <h2 class="font-[500] mb-2">Comentários</h2>
+         <div class="comment flex items-start space-x-2">
+            <div class="profile-picture w-[44px] flex-shrink-0">
+               <img src="/assets/img/avatar_default.svg"
+                  class="w-[44px] h-[44px] rounded-full object-cover object-center" alt="Foto do Usuário">
+            </div>
+            <div class="text">
+               <div>
+                  <div class="user font-[500]">Arthur Morgan</div>
+               </div>
+               <div class="flex flex-col justify-center">
+                  <div class="message text-[14px]">
+                     Essa proposta do Programa Nacional de Educação Digital (PNED) é extremamente relevante e
+                     estratégica para o futuro do país. A inclusão digital nas escolas públicas não apenas prepara os
+                     estudantes para o mercado de trabalho moderno, mas também promove uma cidadania digital
+                     responsável, essencial em um mundo cada vez mais conectado. Com o acesso universal a recursos
+                     tecnológicos e capacitação, o PNED pode reduzir significativamente a desigualdade digital, abrindo
+                     portas para que jovens de todas as regiões possam participar ativamente da economia digital.
+                  </div>
+                  <div class="time text-[12px] text-[#a0a0a0]">13:32</div>
+               </div>
+            </div>
+         </div>
+         <div class="mb-[50px]"></div>
+
+         <!-- Barra de comentário fixa ao final da seção de comentários -->
+         <div
+            class="absolute bottom-0 left-0 right-0 px-6 py-3 bg-white border-t border-gray-300 flex items-center space-x-2">
+            <img src="/assets/img/avatar_default.svg" class="w-[44px] h-[44px] rounded-full object-cover"
+               alt="Foto do Usuário">
+            <textarea placeholder="Escreva um comentário..."
+               class="flex-grow border border-gray-300 rounded-md px-3 py-2 h-[56px] resize-none outline-none text-[16px]"></textarea>
+            <button type="button"
+               class="bg-[#315FA5] text-white hover:bg-[#193c72] transition-[.3s] text-[16px] px-4 py-2 rounded-md">Comentar</button>
          </div>
       </div>
    </div>

@@ -27,3 +27,26 @@
         font-size: 14px;
     }
 }
+
+.comment:last-child {
+    margin-bottom: 64px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    cursor: default;
+ }
+ 
+ ::-webkit-scrollbar-track {
+    background: transparent;
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 120px;
+    transition: .15s;
+ 
+    &:hover {
+       background: #bfbfbf;
+    }
+ }

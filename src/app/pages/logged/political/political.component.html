@@ -12,7 +12,7 @@
       </div>
       <div class="col-span-12 sm:col-span-10 md:col-span-9 lg:col-span-10">
          <h1 class="name"><strong>Nome: </strong><span>{{user.name}}</span></h1>
-         <h2 class="role"><strong>Cargo: </strong>{{user.role}}</h2>
+         <h2 class="role"><strong>Cargo: </strong>{{ user?.type === 5 ? 'Administrador' : user.role}}</h2>
          <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
             {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
          <h2><strong>Propostas: </strong>{{proposals.length || '0'}}</h2>
@@ -78,7 +78,7 @@
          Gerar PDF
       </button>
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas Em Andamento</h1>
+         <h1 class="text-[20px]">Propostas Em Andamento <span class="text-[16px] text-[#868686]">({{ proposalsWorking.length }})</span></h1>
          @if(user.email === myUser.email && myUser.type == 2) {
          <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta"
             (click)="openDialog(this.user)">
@@ -134,7 +134,7 @@
    </div>
    <div class="promisses mt-[48px]">
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas Finalizadas</h1>
+         <h1 class="text-[20px]">Propostas Finalizadas <span class="text-[16px] text-[#868686]">({{ proposalsFinisheds.length }})</span></h1>
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
       @for (proposal of proposalsFinisheds; track proposal) {

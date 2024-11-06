@@ -178,6 +178,8 @@ export class PoliticalComponent implements OnInit {
   openViewProposalDialog(item: any) {
     const dialogRef = this.dialog.open(ViewProposalComponent, {
       data: item,
+      width: '1000px',
+      height: '590px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

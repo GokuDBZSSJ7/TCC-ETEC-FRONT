@@ -21,13 +21,14 @@ registerLocaleData(localePt, 'pt-Br');
   templateUrl: './view-proposal.component.html',
   styleUrl: './view-proposal.component.scss'
 })
-export class ViewProposalComponent implements OnInit{
+export class ViewProposalComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<ViewProposalComponent>);
   data = inject(MAT_DIALOG_DATA);
+  displayComments: boolean = false;
 
-  constructor(){}
+  constructor() { }
+  
   ngOnInit(): void {
     console.log(this.data);
-    
   }
 }
