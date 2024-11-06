@@ -1,15 +1,25 @@
-<div style="display: flex; justify-content: space-between; align-items: center;">
-   <h1 mat-dialog-title>{{data?.title}}</h1>
-   <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
+<div style="display: flex; justify-content: space-between; align-items: center; max-width: 100%;">
+   <h1 mat-dialog-title
+      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: calc(100% - 48px);">{{data?.title}}
+   </h1>
+   <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px; flex-shrink: 0;">close</mat-icon>
 </div>
 <mat-dialog-content>
+   <div class="flex gap-2 items-center pb-1 sm:hidden">
+      <img [src]="data.users.image_url"
+         class="w-[54px] h-[54px] rounded-full border-[1.5px] border-gray-300 object-cover" alt="">
+      <div>
+         <h1 class="font-bold text-black m-0">{{data?.users?.name}}</h1>
+         <h2 class="text-[14px]">{{data?.users?.role}} | {{data?.users?.party?.acronym}}</h2>
+      </div>
+   </div>
    <div class="grid grid-cols-12 gap-4 mt-3">
       <img [src]="data.image_url"
          class="col-span-12 lg:col-span-6 w-[480px] h-[480px] object-cover object-center rounded-md border-[0.3px] border-gray-300"
          alt="Imagem da Proposta">
       <div class="col-span-12 lg:col-span-6 flex flex-col justify-between">
          <div class="flex flex-col gap-3">
-            <div class="flex gap-2 items-center pb-1">
+            <div class="hidden sm:flex gap-2 items-center pb-1">
                <img [src]="data.users.image_url"
                   class="w-[54px] h-[54px] rounded-full border-[1.5px] border-gray-300 object-cover" alt="">
                <div>
@@ -70,8 +80,9 @@
                alt="Foto do Usuário">
             <textarea placeholder="Escreva um comentário..."
                class="flex-grow border border-gray-300 rounded-md px-3 py-2 h-[56px] resize-none outline-none text-[16px]"></textarea>
-            <button type="button"
-               class="bg-[#315FA5] text-white hover:bg-[#193c72] transition-[.3s] text-[16px] px-4 py-2 rounded-md">Comentar</button>
+            <button class="w-[24px] h-[24px]" aria-label="Comentar" matTooltip="Comentar">
+               <mat-icon>send</mat-icon>
+            </button>
          </div>
       </div>
    </div>

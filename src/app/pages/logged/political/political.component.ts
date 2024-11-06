@@ -20,6 +20,7 @@ import { ProposalService } from '../../../services/proposal.service';
 import { ViewProposalComponent } from '../proposals/view-proposal/view-proposal.component';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-political',
@@ -67,7 +68,8 @@ export class PoliticalComponent implements OnInit {
     private cityService: CityService,
     private fb: FormBuilder,
     private userService: UserService,
-    private proposalService: ProposalService
+    private proposalService: ProposalService,
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit() {
@@ -75,7 +77,7 @@ export class PoliticalComponent implements OnInit {
     if (history.state && history.state.political) {
       this.user = history.state.political;
     }
-  
+
     this.userService.getUserById(this.user?.id).subscribe({
       next: res => {
         this.user = res;
@@ -175,16 +177,55 @@ export class PoliticalComponent implements OnInit {
     })
   }
 
-  openViewProposalDialog(item: any) {
-    const dialogRef = this.dialog.open(ViewProposalComponent, {
-      data: item,
-      width: '1000px',
-      height: '590px',
-    });
+  // openViewProposalDialog(item: any) {
+  //   const dialogRef = this.dialog.open(ViewProposalComponent, {
+  //     data: item,
+  //     width: '1000px',
+  //     height: '590px',
+  //   });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.listProposals();
-    })
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     this.listProposals();
+  //   })
+  // }
+
+  openViewProposalDialog(item: any) {
+    // Define tamanho padrão para o modal
+    let dialogWidth = '900px';
+    let dialogHeight = 'auto';
+
+    // Define breakpoints e ajusta o tamanho do modal
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall, // Tela pequena (celular)
+      Breakpoints.Small,  // Tela média (tablet)
+      Breakpoints.Medium, // Tela maior (laptop)
+      Breakpoints.Large,  // Tela desktop
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        dialogWidth = '100dvw';
+        dialogHeight = '100dvh';
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        dialogWidth = '80%';
+        dialogHeight = 'auto';
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        dialogWidth = '70%';
+        dialogHeight = 'auto';
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        dialogWidth = '900px';
+        dialogHeight = 'auto';
+      }
+      const dialogRef = this.dialog.open(ViewProposalComponent, {
+        data: item,
+        width: dialogWidth,
+        height: dialogHeight,
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        this.listProposals();
+      })
+    });
   }
 
   onFileSelected(event: Event): void {
@@ -226,12 +267,12 @@ export class PoliticalComponent implements OnInit {
       this.userService.update(filteredData, this.user.id).subscribe({
         next: res => {
           console.log("Dados atualizados com sucesso", res);
-  
+
           const updatedUser = { ...this.user, ...filteredData };
-  
+
           localStorage.setItem('user', JSON.stringify(updatedUser));
           this.authService.setUser(updatedUser);
-  
+
           this.user = updatedUser;
           // this.refreshPage();
           window.location.reload();
@@ -250,15 +291,15 @@ export class PoliticalComponent implements OnInit {
 
   generateProposalsPDF() {
     const doc = new jsPDF();
-  
+
     doc.setFontSize(18);
     doc.text('Propostas', 14, 22);
-  
+
     const tableData: any[][] = [];
-  
+
     this.proposals.forEach((proposal) => {
       console.log(proposal);
-      
+
       tableData.push([
         proposal.title || 'Sem Título',
         proposal.areas?.name || 'Sem Área',
@@ -266,12 +307,12 @@ export class PoliticalComponent implements OnInit {
         proposal.description || 'Sem Descrição',
         this.formatCurrency(proposal.budget) || 'Sem Orçamento'
       ]);
-      
+
     });
 
     console.log(tableData);
-    
-  
+
+
     autoTable(doc, {
       startY: 30,
       theme: 'grid',
@@ -282,29 +323,29 @@ export class PoliticalComponent implements OnInit {
         cellPadding: 3,
       },
       columnStyles: {
-        1: { cellWidth: 20 }, 
-        2: { cellWidth: 40 },  
+        1: { cellWidth: 20 },
+        2: { cellWidth: 40 },
         3: { cellWidth: 30 },
         4: { cellWidth: 60 },
         5: { cellWidth: 40 },
       },
     });
-    
-  
+
+
     doc.save('Propostas.pdf');
   }
-  
+
   formatCurrency(value: number | string): string {
     if (value == null || isNaN(Number(value))) {
       return '';
     }
-  
+
     const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-  
+
     return `R$ ${numericValue.toLocaleString('pt-BR', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;
-  }  
+  }
 
 }

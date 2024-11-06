@@ -35,18 +35,28 @@
 ::-webkit-scrollbar {
     width: 5px;
     cursor: default;
- }
- 
- ::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-track {
     background: transparent;
- }
- 
- ::-webkit-scrollbar-thumb {
+}
+
+::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 120px;
     transition: .15s;
- 
+
     &:hover {
-       background: #bfbfbf;
+        background: #bfbfbf;
     }
- }
+}
+
+::ng-deep .mat-mdc-dialog-content {
+    max-height: 100vh;
+}
+
+@media (max-width: 600px) {
+    ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 0 !important;
+    }
+}
