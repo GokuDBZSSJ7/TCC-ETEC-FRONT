@@ -7,15 +7,21 @@
    <div class="grid grid-cols-12 gap-4 sm:grid-flow-col md:grid-flow-col">
       @if(!edit) {
       <div class="col-span-12 sm:col-span-2 md:col-span-3 lg:col-span-2 mx-auto">
+         @if (user?.image_url === 'http://127.0.0.1:8000/null') {
          <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
-            [src]="user.image_url || '/assets/img/avatar_default.svg'" alt="Profile Picture">
+            src="/assets/img/avatar_default.svg" alt="Profile Picture">
+         }
+         @if (user?.image_url !== 'http://127.0.0.1:8000/null') {
+         <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
+            [src]="user.image_url" alt="Profile Picture">
+         }
       </div>
       <div class="col-span-12 sm:col-span-10 md:col-span-9 lg:col-span-10">
          <h1 class="name"><strong>Nome: </strong><span>{{user.name}}</span></h1>
          <h2 class="role"><strong>Cargo: </strong>{{ user?.type === 5 ? 'Administrador' : user.role}}</h2>
          <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
             {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
-         <h2><strong>Propostas: </strong>{{proposals.length || '0'}}</h2>
+         <h2><strong>Propostas: </strong>{{ proposalsWorking.length + proposalsFinisheds.length }}</h2>
          @if(user.type == 2) {
          <h2 class="party"><strong>Partido: </strong>{{user?.party?.acronym}}
             ({{user?.party?.name || 'Nenhum partido informado.'}})</h2>
@@ -28,7 +34,8 @@
       @else {
       <div class="col-span-12 sm:col-span-2 mx-auto">
          <div class="image-box w-36 h-36 sm:w-[144px] sm:h-[144px] relative">
-            <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300"
+            <img
+               class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
                [src]="imageUrl || '/assets/img/avatar_default.svg'" alt="">
             <div class="icon absolute bottom-0 right-0" (click)="fileInput.click()">
                <div class="edit w-12 h-12 flex justify-center items-center bg-[#315FA5] rounded-full cursor-pointer">
@@ -78,7 +85,8 @@
          Gerar PDF
       </button>
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas Em Andamento <span class="text-[16px] text-[#868686]">({{ proposalsWorking.length }})</span></h1>
+         <h1 class="text-[20px]">Propostas Em Andamento <span class="text-[16px] text-[#868686]">({{
+               proposalsWorking.length }})</span></h1>
          @if(user.email === myUser.email && myUser.type == 2) {
          <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta"
             (click)="openDialog(this.user)">
@@ -134,7 +142,8 @@
    </div>
    <div class="promisses mt-[48px]">
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas Finalizadas <span class="text-[16px] text-[#868686]">({{ proposalsFinisheds.length }})</span></h1>
+         <h1 class="text-[20px]">Propostas Finalizadas <span class="text-[16px] text-[#868686]">({{
+               proposalsFinisheds.length }})</span></h1>
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
       @for (proposal of proposalsFinisheds; track proposal) {

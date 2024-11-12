@@ -13,7 +13,7 @@
          <h2 class="text-[14px]">{{data?.users?.role}} | {{data?.users?.party?.acronym}}</h2>
       </div>
    </div>
-   <div class="grid grid-cols-12 gap-4 mt-3">
+   <div class="grid grid-cols-12 gap-4 mt-3 md:mt-0">
       <img [src]="data.image_url"
          class="col-span-12 lg:col-span-6 w-[480px] h-[480px] object-cover object-center rounded-md border-[0.3px] border-gray-300"
          alt="Imagem da Proposta">
@@ -56,22 +56,20 @@
             </div>
             <div class="text">
                <div>
-                  <div class="user font-[500]">Arthur Morgan</div>
+                  <div class="user font-[500]">João Ferreira</div>
                </div>
                <div class="flex flex-col justify-center">
                   <div class="message text-[14px]">
-                     Essa proposta do Programa Nacional de Educação Digital (PNED) é extremamente relevante e
-                     estratégica para o futuro do país. A inclusão digital nas escolas públicas não apenas prepara os
-                     estudantes para o mercado de trabalho moderno, mas também promove uma cidadania digital
-                     responsável, essencial em um mundo cada vez mais conectado. Com o acesso universal a recursos
-                     tecnológicos e capacitação, o PNED pode reduzir significativamente a desigualdade digital, abrindo
-                     portas para que jovens de todas as regiões possam participar ativamente da economia digital.
+                     Essa é a iniciativa que precisamos! Fortalecer o Fundo Social significa dar oportunidades para quem
+                     mais precisa, valorizando o potencial das nossas comunidades. Esse tipo de proposta traz esperança
+                     e pode transformar vidas ao investir em capacitação e desenvolvimento econômico. Que seja o começo
+                     de uma nova era de inclusão e igualdade!
                   </div>
                   <div class="time text-[12px] text-[#a0a0a0]">13:32</div>
                </div>
             </div>
          </div>
-         <div class="mb-[50px]"></div>
+         <div class="mb-[60px]"></div>
 
          <!-- Barra de comentário fixa ao final da seção de comentários -->
          <div
@@ -80,7 +78,7 @@
                alt="Foto do Usuário">
             <textarea placeholder="Escreva um comentário..."
                class="flex-grow border border-gray-300 rounded-md px-3 py-2 h-[56px] resize-none outline-none text-[16px]"></textarea>
-            <button class="w-[24px] h-[24px]" aria-label="Comentar" matTooltip="Comentar">
+            <button class="w-[24px] h-[24px] transition-all hover:text-[#171717]" aria-label="Adicionar comentarário">
                <mat-icon>send</mat-icon>
             </button>
          </div>

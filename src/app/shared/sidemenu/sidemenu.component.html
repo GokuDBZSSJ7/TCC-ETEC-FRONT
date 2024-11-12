@@ -51,12 +51,19 @@
       <div class="flex justify-between">
          <div class="left-align flex">
             <div class="my-auto">
-               <img [src]="user.image_url || '/assets/img/avatar_default.svg'" alt="Profile Picture"
+               @if (user?.image_url === 'http://127.0.0.1:8000/null') {
+               <img src="/assets/img/avatar_default.svg" alt="Profile Picture"
                   class="w-10 h-10 rounded-full object-cover object-center border-[2px] border-gray-300">
+               }
+               @if (user?.image_url !== 'http://127.0.0.1:8000/null') {
+               <img [src]="user.image_url" alt="Profile Picture"
+                  class="w-10 h-10 rounded-full object-cover object-center border-[2px] border-gray-300">
+               }
             </div>
             <div class="flex flex-col justify-center ps-2">
                <span class="name font-bold truncate" style="font-size: 13px; width: 110px;">{{user.name}}</span>
-               <span class="position text-gray-500" style="font-size: 12px;">{{ user?.type === 5 ? 'Administrador' : user.role}}</span>
+               <span class="position text-gray-500" style="font-size: 12px;">{{ user?.type === 5 ? 'Administrador' :
+                  user.role}}</span>
             </div>
          </div>
          <div class="right-align">

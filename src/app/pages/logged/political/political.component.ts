@@ -91,6 +91,7 @@ export class PoliticalComponent implements OnInit {
     this.listStates();
     this.createForm();
     this.listProposals();
+    console.log(this.myUser);
   }
 
   listStates() {
@@ -134,6 +135,7 @@ export class PoliticalComponent implements OnInit {
     this.proposalService.all().subscribe({
       next: res => {
         this.proposals = res
+        console.log(this.proposals);
       }
     })
   }
