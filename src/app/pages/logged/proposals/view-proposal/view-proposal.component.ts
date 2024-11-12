@@ -6,6 +6,8 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt'
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../../services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { CommentaryService } from '../../../../services/commentary.service';
 
 registerLocaleData(localePt, 'pt-Br');
 
@@ -18,7 +20,8 @@ registerLocaleData(localePt, 'pt-Br');
     MatDialogTitle,
     MatDialogActions,
     MatDialogClose,
-    MatDialogContent
+    MatDialogContent,
+    FormsModule,
   ],
   templateUrl: './view-proposal.component.html',
   styleUrl: './view-proposal.component.scss'
@@ -27,16 +30,42 @@ export class ViewProposalComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<ViewProposalComponent>);
   data = inject(MAT_DIALOG_DATA);
   displayComments: boolean = false;
-  commentary!: FormGroup;
+  commentary: string = '';
+  commentsData: any[] = [];
+  comments: any[] = [];
   user = this.authService.getUser();
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
+    private commentaryService: CommentaryService,
   ) { }
-  
+
   ngOnInit(): void {
     console.log(this.data);
+    this.getCommentsByPromisseId();
+  }
+
+  sendComment(commentary: string) {
+    if (this.commentary !== '') {
+      this.commentaryService.newComment({ description: commentary, promisse_id: this.data?.id, user_id: this.user?.id })
+        .subscribe({
+          next: res => {
+            this.getCommentsByPromisseId();
+            console.log(res);
+          }
+        });
+      this.commentary = '';
+    }
+  }
+
+  getCommentsByPromisseId() {
+    this.commentaryService.getCommentsByPromisseId(this.data?.id).subscribe({
+      next: res => {
+        this.comments = res.comments;
+        console.log('Comments: ', this.comments);
+      }
+    })
   }
 
   // commentaryForm() {
