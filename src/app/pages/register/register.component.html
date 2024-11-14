@@ -1,0 +1,78 @@
+<main class="md:bg-[#fafafa] flex justify-center items-center min-h-screen">
+    <div
+        class="content bg-white md:shadow rounded-lg md:p-8 flex flex-col gap-1 justify-center items-center max-md:w-full p-5">
+        <h1 class="text-[40px] font-bold text-[#315FA5]">Cadastro</h1>
+        <p class="text-[16px] font-[500] mb-5 text-[#4F4F4F]">Preencha os campos com seus dados</p>
+
+        <form class="w-full" [formGroup]="form">
+            <div class="flex flex-col w-full mt-[5%]">
+                <mat-label>Nome</mat-label>
+                <mat-form-field appearance="outline" class="mb-[10px]">
+                    <mat-icon matPrefix>person</mat-icon>
+                    <input matInput placeholder="Digite seu nome" formControlName="name" />
+                </mat-form-field>
+                <mat-label>E-mail</mat-label>
+                <mat-form-field appearance="outline" class="mb-[10px]">
+                    <mat-icon matPrefix>mail</mat-icon>
+                    <input matInput placeholder="Digite seu e-mail" formControlName="email" />
+                </mat-form-field>
+                <mat-label>Senha</mat-label>
+                <mat-form-field appearance="outline" class="mb-[10px]">
+                    <mat-icon matPrefix>key</mat-icon>
+                    <input matInput placeholder="Digite sua senha" [type]="hide ? 'password' : 'text'"
+                        formControlName="password">
+                    <button type="button" mat-icon-button matSuffix class="me-4" (click)="toggleHide()">
+                        <mat-icon fontSet="material-icons-outlined">{{hide ? 'visibility_off' :
+                            'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button mat-flat-button
+                    class="bg-[#315FA5] text-white w-full block mx-auto h-[50px] rounded-lg text-[18px] my-5 btn"
+                    (click)="register()">
+                    Cadastrar-se
+                </button>
+                <p class="text-center font-[500]">Já possui conta? <span
+                        class="text-[#315FA5] cursor-pointer font-[600]" routerLink="/login">Entre aqui!</span></p>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- <main class="md:bg-gray-100 flex justify-center items-center min-h-screen">
+    <div
+        class="content bg-white md:shadow rounded-lg md:p-8 flex flex-col gap-1 justify-center items-center max-md:w-full p-5">
+        <h1 class="text-[40px] font-bold text-[#315FA5]">Login</h1>
+        <p class="text-[16px] font-[500] mb-5 text-[#4F4F4F]">Preencha os campos com seus dados</p>
+
+        <form class="w-full" [formGroup]="form">
+            <div class="flex flex-col w-full">
+                <mat-label>E-mail</mat-label>
+                <mat-form-field appearance="outline" class="mb-[10px]">
+                    <mat-icon matPrefix>mail</mat-icon>
+                    <input matInput placeholder="Digite seu e-mail" class="rounded-lg" formControlName="email">
+                </mat-form-field>
+                <mat-label>Senha</mat-label>
+                <mat-form-field appearance="outline" class="mb-[10px]">
+                    <mat-icon matPrefix>key</mat-icon>
+                    <input matInput class="h-[50px]" placeholder="Digite sua senha" class="rounded-lg" [type]="hide ? 'password' : 'text'"
+                        formControlName="password">
+                    <button mat-icon-button matSuffix class="me-4" (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon fontSet="material-icons-outlined">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="flex justify-end items-center">
+                    <span class="text-[14px] text-[#525160] font-[600] cursor-pointer hover:underline"
+                        style="margin-bottom: 0;">Esqueci a senha</span>
+                </div>
+                <button mat-flat-button
+                    class="bg-[#315FA5] text-white w-full block mx-auto h-[50px] rounded-lg text-[18px] my-5 btn"
+                    (click)="login()">
+                    Entrar
+                </button>
+                <p class="text-center font-[500]">Não tem uma conta? <span class="text-[#315FA5] cursor-pointer font-[600]"
+                        routerLink="/register">Crie aqui!</span></p>
+            </div>
+        </form>
+    </div>
+</main> -->

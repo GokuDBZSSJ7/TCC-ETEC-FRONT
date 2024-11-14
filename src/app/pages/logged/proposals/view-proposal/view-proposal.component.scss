@@ -1,0 +1,62 @@
+.actions {
+    display: flex;
+    // gap: 24px;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    button {
+        font-size: 14px;
+        transition: .15s all;
+
+        mat-icon {
+            width: 20px !important;
+            height: 20px !important;
+            font-size: 20px !important;
+        }
+
+        &:hover {
+            color: #171717;
+        }
+    }
+}
+
+.proposal-date {
+
+    strong,
+    p {
+        font-size: 14px;
+    }
+}
+
+.comment:last-child {
+    margin-bottom: 64px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    cursor: default;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 120px;
+    transition: .15s;
+
+    &:hover {
+        background: #bfbfbf;
+    }
+}
+
+::ng-deep .mat-mdc-dialog-content {
+    max-height: 100vh;
+}
+
+@media (max-width: 600px) {
+    ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 0 !important;
+    }
+}

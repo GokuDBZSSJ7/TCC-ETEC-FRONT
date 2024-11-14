@@ -1,0 +1,32 @@
+h1 {
+   font-size: 26px;
+}
+
+.politician-image {
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+}
+
+input[matInput] {
+   &::placeholder {
+      color: #646464 !important;
+   }
+}
+
+.approve-btn {
+   background-color: rgb(30, 184, 30);
+   color: white;
+   width: 100px;
+   padding: 10px 0;
+   border-radius: 5px;
+   margin-top: 5px;
+   transition: all 0.3s ease-in-out;
+
+   &:hover {
+      background-color: green;
+   }
+}
+
+.card {
+   height: 100%;
+}

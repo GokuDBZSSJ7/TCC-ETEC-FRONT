@@ -1,0 +1,42 @@
+// ::ng-deep .mat-sidenav {
+//    width: 280px !important;
+//    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+//    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+//    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+// }
+
+.sidemenu {
+   width: 100% !important;
+   min-height: 100%;
+}
+
+// .menu-title-alignment {
+//    position: relative;
+//    display: flex;
+//    align-items: center;
+//    justify-content: flex-start;
+//    padding: 10px 16px;
+//    font-size: 12px;
+//    font-weight: 500;
+//    line-height: 20px;
+//    text-decoration: none;
+//    border-radius: 6px;
+
+//    .menu-title {
+//       font-weight: 600;
+//       letter-spacing: .05rem;
+//       text-transform: uppercase;
+//       // color: #1b4588;
+//       color: #000;
+//       opacity: 1;
+//    }
+// }
+
+/* Logout Button */
+.logout-btn {
+   color: #cb1a27;
+}
+
+.logout-btn:hover {
+   background-color: rgba(203, 26, 39, 0.15) !important;
+}

@@ -1,0 +1,64 @@
+<main class="container mx-auto px-8 py-6">
+    <h1>Criar Partido</h1>
+
+    <div class="inputs grid grid-cols-12 gap-3" [formGroup]="form">
+        <div class="col-span-6">
+            <mat-label>Nome</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+                <input matInput placeholder="Nome do Partido" formControlName="name">
+            </mat-form-field>
+        </div>
+        <div class="col-span-6">
+            <mat-label>Líder do Partido</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+                <mat-select placeholder="Selecione um usuário" formControlName="leader_id">
+                    @for (user of users; track user) {
+                    <mat-option [value]="user.id">{{user.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="w-full col-span-4">
+            <mat-label>Estado</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
+                  (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
+                  @for(state of states; track state){
+                  <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
+         </div>
+         <div class="w-full col-span-8">
+            <mat-label>Cidade</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+               <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
+                  formControlName="city_id">
+                  @for(city of cities; track city){
+                  <mat-option [value]="city.id">{{city.name}}</mat-option>
+                  }
+               </mat-select>
+            </mat-form-field>
+         </div>
+        <div class="col-span-3">
+            <mat-label>Sigla</mat-label>
+            <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+                <input matInput placeholder="Sigla do Partido" formControlName="acronym">
+            </mat-form-field>
+        </div>
+        <div class="col-span-12">
+            <div
+         class="attach-container border-[2px] border-dashed border-[#1B4588] py-16 mt-2 px-6 gap-2 flex flex-col justify-center items-center">
+         <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
+         <mat-icon color="primary" (click)="fileInput.click()">upload_file</mat-icon>
+         <p>Arraste a(s) foto(s) aqui ou <span style="color: #1B4588">navegue</span></p>
+      </div>
+        </div>
+      @if(imageUrl) {
+      <img [src]=" imageUrl" alt="Selected Image" class="mt-4 w-full">
+
+      }
+    </div>
+
+    <button class="create-btn" (click)="create()">Cadastrar Partido</button>
+</main>

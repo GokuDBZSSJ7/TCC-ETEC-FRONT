@@ -1,0 +1,80 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+   <h1 mat-dialog-title>Cadastrar Proposta</h1>
+   <mat-icon mat-dialog-close style="cursor: pointer; margin-right: 24px">close</mat-icon>
+</div>
+<mat-dialog-content [formGroup]="form">
+
+   <div class="grid grid-cols-12 mt-4 gap-3 items-end">
+      <div class="col-span-6">
+         <mat-label>Título do Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+            <input matInput placeholder="Título da Proposta" formControlName="title">
+         </mat-form-field>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Área da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+            <mat-select placeholder="Selecione uma Área" formControlName="area_id">
+               @for(area of areas; track area){
+               <mat-option [value]="area.id">{{area?.name}}</mat-option>
+               }
+            </mat-select>
+         </mat-form-field>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Status da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+            <mat-select placeholder="Selecione um Status" formControlName="status">
+               <mat-option value="Em Andamento">Em Andamento</mat-option>
+               <mat-option value="Finalizada">Finalizada</mat-option>
+            </mat-select>
+         </mat-form-field>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Partido da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
+            <mat-select placeholder="Selecione um Partido" formControlName="status" formControlName="party_id">
+               @for(party of parties; track party) {
+               <mat-option [value]="party.id">{{party?.name}}</mat-option>
+               }
+            </mat-select>
+         </mat-form-field>
+      </div>
+      <div class="col-span-12">
+         <mat-label>Descrição da Proposta</mat-label>
+         <textarea (input)="autoGrow($event)" rows="6"
+            class="w-full border-[1.5px] p-3 rounded border-gray-200 outline-none"
+            formControlName="description"></textarea>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Orçamento da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+            <input matInput placeholder="Orçamento da Proposta" type="text" formControlName="budget" (input)="formatBudget()">
+         </mat-form-field>
+      </div>
+      <div class="col-span-6">
+         <mat-label>Data da Proposta</mat-label>
+         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+            <input matInput [matDatepicker]="picker" formControlName="time">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field>
+      </div>
+      <div class="col-span-12">
+         <div
+            class="attach-container border-[2px] border-dashed border-[#1B4588] py-16 mt-2 px-6 gap-2 flex flex-col justify-center items-center cursor-pointer"
+            (click)="fileInput.click()">
+            <input type="file" (change)="onFileSelected($event)" class="hidden" #fileInput>
+            <mat-icon color="primary">upload_file</mat-icon>
+            <p>Arraste a(s) foto(s) aqui ou <span style="color: #1B4588">navegue</span></p>
+         </div>
+      </div>
+      @if(imageUrl) {
+      <img [src]=" imageUrl" alt="Selected Image" class="mt-4 w-full">
+
+      }
+   </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" style="padding: 24px;">
+   <button mat-flat-button color="primary" cdkFocusInitial (click)="save()">Salvar</button>
+</mat-dialog-actions>
