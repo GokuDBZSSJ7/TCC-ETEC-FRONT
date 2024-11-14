@@ -44,4 +44,9 @@ export class ProposalService {
   getLikeByPromisse(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}getLikeByPromisse/${id}`);
   }
+
+  getLikesByPromisse(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}getLikesByPromisse/${id}`);
+  }
+
 }

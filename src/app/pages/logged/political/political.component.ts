@@ -350,4 +350,7 @@ export class PoliticalComponent implements OnInit {
     })}`;
   }
 
+  getLikesByPromisse() {
+    
+  }
 }

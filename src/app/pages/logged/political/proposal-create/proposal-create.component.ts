@@ -147,23 +147,11 @@ export class ProposalCreateComponent implements OnInit {
     }
   }
 
-  formatCurrency(): void {
-    const budgetControl = this.form.get('budget');
-    let value = budgetControl?.value;
-
-    if (value) {
-      const formattedValue = this.currencyPipe.transform(value, 'BRL', 'symbol', '1.2-2');
-      budgetControl?.setValue(formattedValue, { emitEvent: false });
-    }
-  }
-
-  unformatCurrency(): void {
-    const budgetControl = this.form.get('budget');
-    let value = budgetControl?.value;
-
-    if (value) {
-      const numericValue = value.replace(/[^0-9.-]+/g, '');
-      budgetControl?.setValue(numericValue, { emitEvent: false });
+  formatBudget(): void {
+    let value = this.form.get('budget')?.value;
+    if (value !== null && value !== undefined) {
+      value = this.currencyPipe.transform(value, 'BRL', 'symbol', '1.2-2');
+      this.form.get('budget')?.setValue(value);
     }
   }
 }
