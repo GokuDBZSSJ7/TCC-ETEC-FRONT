@@ -31,14 +31,14 @@
          </div>
          <div class="actions">
             <div class="flex gap-5">
-               <button type="button" class="flex items-center gap-2">
-                  <mat-icon fontSet="material-icons-outlined">thumb_up</mat-icon>
+               <button type="button" class="flex items-center gap-2" (click)="toogleLike('like')">
+                  <mat-icon [ngClass]="{'text-blue-500': like?.type === 'like'}" fontSet="material-icons-outlined">thumb_up</mat-icon>
                   Gostei
-               </button>
-               <button type="button" class="flex items-center gap-2">
-                  <mat-icon fontSet="material-icons-outlined">thumb_down</mat-icon>
+                </button>
+                <button type="button" class="flex items-center gap-2" (click)="toogleLike('dislike')">
+                  <mat-icon [ngClass]="{'text-red-500': like?.type === 'dislike'}" fontSet="material-icons-outlined">thumb_down</mat-icon>
                   Não gostei
-               </button>
+                </button>
             </div>
             <button type="button" class="flex items-center gap-2" (click)="displayComments = !displayComments">
                <mat-icon>chat</mat-icon>
@@ -50,7 +50,7 @@
       <div *ngIf="displayComments" class="col-span-12 comments flex flex-col gap-3 mt-3">
          <h2 class="font-[500] mb-2">Comentários</h2>
          @if (comments.length == 0) {
-            <p class="text-center text-[#8e8e8e]">Não há comentários para esta proposta.</p>
+         <p class="text-center text-[#8e8e8e]">Não há comentários para esta proposta.</p>
          }
          @for (comment of comments; track comment) {
          <div class="comment flex items-start space-x-2">

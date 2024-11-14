@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommentaryService } from '../../../../services/commentary.service';
+import { ProposalService } from '../../../../services/proposal.service';
 
 registerLocaleData(localePt, 'pt-Br');
 
@@ -34,16 +35,19 @@ export class ViewProposalComponent implements OnInit {
   commentsData: any[] = [];
   comments: any[] = [];
   user = this.authService.getUser();
+  like: any
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private commentaryService: CommentaryService,
+    private proposalService: ProposalService
   ) { }
 
   ngOnInit(): void {
     console.log(this.data);
     this.getCommentsByPromisseId();
+    this.getLike()
   }
 
   sendComment(commentary: string) {
@@ -77,4 +81,27 @@ export class ViewProposalComponent implements OnInit {
   //     user_id: this.user?.id,
   //   })
   // }
+
+  toogleLike(action: string) {
+    const data = {
+      "type": action,
+      "promisse_id": this.data.id,
+      "user_id": this.user.id
+    }
+    this.proposalService.toogleLike(data).subscribe({
+      next: res => {
+        console.log(res);
+        this.getLike();
+      }
+    })
+  }
+
+  getLike() {
+    this.proposalService.getLikeByPromisse(this.data.id).subscribe({
+      next: res => {
+        console.log(res);
+        this.like = res[0]
+      }
+    })
+  }
 }

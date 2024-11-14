@@ -36,4 +36,12 @@ export class ProposalService {
   getWorkingProposals(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}getWorkingProposals/${id}`);
   }
+
+  toogleLike(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}likeToggle`, data);
+  }
+
+  getLikeByPromisse(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}getLikeByPromisse/${id}`);
+  }
 }
