@@ -29,7 +29,12 @@ export class UserService {
   }
 
   setPolitician(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}upgradeToCandidate`, data);
+    this.loadingService.show();
+    return this.http.post(`${this.apiUrl}upgradeToCandidate`, data).pipe(
+      finalize(() => {
+        this.loadingService.hide();
+      })
+    );
   }
 
   getUsers(): Observable<any> {

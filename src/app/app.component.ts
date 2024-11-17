@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AngularVlibras } from 'angular-vlibras';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    AngularVlibras,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

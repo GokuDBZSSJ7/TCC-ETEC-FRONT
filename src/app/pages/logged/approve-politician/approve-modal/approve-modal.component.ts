@@ -43,7 +43,7 @@ export class ApproveModalComponent implements OnInit {
     this.listParties();
     this.createForm();
     console.log(this.data.data);
-    
+
   }
 
   listParties() {
@@ -67,11 +67,9 @@ export class ApproveModalComponent implements OnInit {
   }
 
   save() {
-    
     this.userService.setPolitician(this.form.value).subscribe({
       next: res => {
         console.log("TESTE");
-        
       }
     })
   }
