@@ -4,9 +4,9 @@
    } @else {
    <h1 class="title mb-5">Visualizar Perfil - {{user.name}}</h1>
    }
-   <div class="grid grid-cols-12 gap-4 sm:grid-flow-col md:grid-flow-col">
+   <div class="grid grid-cols-12 gap-2">
       @if(!edit) {
-      <div class="col-span-12 sm:col-span-2 md:col-span-3 lg:col-span-2 mx-auto">
+      <div class="col-span-12 lg:col-span-3 xl:col-span-2">
          @if (user?.image_url === 'http://127.0.0.1:8000/null') {
          <img class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
             src="/assets/img/avatar_default.svg" alt="Profile Picture">
@@ -16,7 +16,7 @@
             [src]="user.image_url" alt="Profile Picture">
          }
       </div>
-      <div class="col-span-12 sm:col-span-10 md:col-span-9 lg:col-span-10">
+      <div class="col-span-12 lg:col-span-9 xl:col-span-10">
          <h1 class="name"><strong>Nome: </strong><span>{{user.name}}</span></h1>
          <h2 class="role"><strong>Cargo: </strong>{{ user?.type === 5 ? 'Administrador' : user.role}}</h2>
          <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
@@ -32,7 +32,7 @@
       </div>
       }
       @else {
-      <div class="col-span-12 sm:col-span-2 mx-auto">
+      <div class="col-span-12 mx-auto md:mx-auto md:col-span-3 xl:col-span-2 sm:mb-3">
          <div class="image-box w-36 h-36 sm:w-[144px] sm:h-[144px] relative">
             <img
                class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
@@ -45,9 +45,9 @@
             </div>
          </div>
       </div>
-      <div class="col-span-12 sm:col-span-10" [formGroup]="form">
+      <div class="col-span-12 md:col-span-9 xl:col-span-10" [formGroup]="form">
          <div class="grid grid-cols-12 gap-2">
-            <div class="w-full col-span-12 sm:col-span-4">
+            <div class="w-full col-span-12 sm:col-span-5">
                <mat-label>Estado</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                   <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
@@ -58,7 +58,7 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <div class="w-full col-span-12 sm:col-span-8">
+            <div class="w-full col-span-12 sm:col-span-7">
                <mat-label>Cidade</mat-label>
                <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                   <mat-select placeholder="Selecione um cidade" [disabled]="selectedStateId == null"
@@ -69,7 +69,7 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <div class="col-span-12 sm:col-span-4 flex gap-2 mt-2 sm:mt-4">
+            <div class="col-span-12 md:col-span-4 flex gap-2 mt-2 sm:mt-4">
                <button class="edit-button w-full" (click)="edit = !edit">Cancelar</button>
                <button class="confirm-button w-full" (click)="save()">Confirmar</button>
             </div>
@@ -85,7 +85,7 @@
          Gerar PDF
       </button>
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas Em Andamento <span class="text-[16px] text-[#868686]">({{
+         <h1 class="text-[18px]">Propostas Em Andamento <span class="text-[16px] text-[#868686]">({{
                proposalsWorking.length }})</span></h1>
          @if(user.email === myUser.email && myUser.type == 2) {
          <button class="mr-7" aria-label="Adicionar proposta" matTooltip="Adicionar proposta"
@@ -110,15 +110,17 @@
                         </div>
                         <div class="promise-area">
                            <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
-                           <p>{{proposal.is_delayed}}</p>
 
                         </div>
                      </div>
-                     <p class="text-sm text-gray-800 mb-4">
+                     <p class="text-sm text-gray-800 mb-4 hidden lg:block">
                         {{proposal?.description}}
                      </p>
                   </div>
-                  <h1 class="working">{{proposal?.status}}</h1>
+                  <div>
+                     <h1 class="working">{{proposal?.status}}</h1>
+                     <p class="block text-[12px] text-end me-2">{{proposal.is_delayed}}</p>
+                  </div>
                </div>
 
             </div>
@@ -142,7 +144,7 @@
    </div>
    <div class="promisses mt-[48px]">
       <div class="section-header flex justify-between">
-         <h1 class="text-[20px]">Propostas Finalizadas <span class="text-[16px] text-[#868686]">({{
+         <h1 class="text-[18px]">Propostas Finalizadas <span class="text-[16px] text-[#868686]">({{
                proposalsFinisheds.length }})</span></h1>
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
@@ -161,14 +163,16 @@
                         </div>
                         <div class="promise-area">
                            <p class="text-[16px] font-[500]">Área: {{proposal?.areas.name}}</p>
-                           <p>{{proposal.is_delayed}}</p>
                         </div>
                      </div>
-                     <p class="text-sm text-gray-800 mb-4">
+                     <p class="text-sm text-gray-800 mb-4 hidden lg:block">
                         {{proposal?.description}}
                      </p>
                   </div>
-                  <span class="finished">{{proposal?.status}}</span>
+                  <div>
+                     <h1 class="finished">{{proposal?.status}}</h1>
+                     <p class="block text-[12px] text-end me-2">{{proposal.is_delayed}}</p>
+                  </div>
                </div>
             </div>
             <!-- <div class="flex justify-between items-center border-b pb-2">

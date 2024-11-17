@@ -31,14 +31,16 @@
          </div>
          <div class="actions">
             <div class="flex gap-5">
-               <button type="button" class="flex items-center gap-2" (click)="toogleLike('like')">
-                  <mat-icon [ngClass]="{'text-blue-500': like?.type === 'like'}" fontSet="material-icons-outlined">thumb_up</mat-icon>
+               <button type="button" class="flex items-center gap-2" (click)="toogleLike('like')"
+                  [ngClass]="{'text-blue-500': like?.type === 'like'}">
+                  <mat-icon fontSet="material-icons-outlined">thumb_up</mat-icon>
                   Gostei
-                </button>
-                <button type="button" class="flex items-center gap-2" (click)="toogleLike('dislike')">
-                  <mat-icon [ngClass]="{'text-red-500': like?.type === 'dislike'}" fontSet="material-icons-outlined">thumb_down</mat-icon>
+               </button>
+               <button type="button" class="flex items-center gap-2" (click)="toogleLike('dislike')"
+                  [ngClass]="{'text-red-500': like?.type === 'dislike'}">
+                  <mat-icon fontSet="material-icons-outlined">thumb_down</mat-icon>
                   Não gostei
-                </button>
+               </button>
             </div>
             <button type="button" class="flex items-center gap-2" (click)="displayComments = !displayComments">
                <mat-icon>chat</mat-icon>

@@ -166,17 +166,44 @@ export class PoliticalComponent implements OnInit {
   }
 
   openDialog(item: any) {
-    const dialogRef = this.dialog.open(ProposalCreateComponent, {
-      data: item,
-      width: '60%',
-      height: '70%'
-    });
+    // Define tamanho padrão para o modal
+    let dialogWidth = '900px';
+    let dialogHeight = 'auto';
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        window.location.reload();
+    // Define breakpoints e ajusta o tamanho do modal
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall, // Tela pequena (celular)
+      Breakpoints.Small,  // Tela média (tablet)
+      Breakpoints.Medium, // Tela maior (laptop)
+      Breakpoints.Large,  // Tela desktop
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        dialogWidth = '100dvw';
+        dialogHeight = '100dvh';
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        dialogWidth = '80%';
+        dialogHeight = 'auto';
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        dialogWidth = '70%';
+        dialogHeight = 'auto';
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        dialogWidth = '900px';
+        dialogHeight = 'auto';
       }
-    })
+      const dialogRef = this.dialog.open(ProposalCreateComponent, {
+        data: item,
+        width: dialogWidth,
+        height: dialogHeight,
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          window.location.reload();
+        }
+      })
+    });
   }
 
   // openViewProposalDialog(item: any) {
@@ -351,6 +378,6 @@ export class PoliticalComponent implements OnInit {
   }
 
   getLikesByPromisse() {
-    
+
   }
 }
