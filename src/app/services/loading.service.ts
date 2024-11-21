@@ -17,6 +17,7 @@ export class LoadingService {
     this.dialogRef = this.dialog.open(LoadingSpinnerComponent, {
       data: { message },
       disableClose: true,
+      panelClass: 'loading-style'
     });
   }
 

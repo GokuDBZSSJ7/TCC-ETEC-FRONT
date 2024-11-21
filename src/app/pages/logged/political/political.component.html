@@ -80,10 +80,12 @@
    @if (user.type !== 1) {
    @if (!edit) {
    <div class="promisses mt-[56px]">
+      @if ( proposalsWorking.length > 0 || proposalsFinisheds.length > 0) {
       <button class="generate-pdf mb-3" (click)="generateProposalsPDF()">
          <mat-icon fontSet="material-icons-outlined">file_download</mat-icon>
          Gerar PDF
       </button>
+      }
       <div class="section-header flex justify-between">
          <h1 class="text-[18px]">Propostas Em Andamento <span class="text-[16px] text-[#868686]">({{
                proposalsWorking.length }})</span></h1>
@@ -96,6 +98,9 @@
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
       @for (proposal of proposalsWorking; track proposal) {
+         @if ( proposalsWorking.length === 0 ) {
+            <p>Não há propostas em andamento.</p>
+         }
       <div class="promise cursor-pointer" (click)="openViewProposalDialog(proposal)">
          <div class="p-4">
             <div class="flex items-start">

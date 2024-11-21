@@ -193,3 +193,11 @@ mat-label {
 // ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
 //   top: 8.5px;
 // }
+
+.loading-style
+  .mat-mdc-dialog-container
+  .mdc-dialog__container
+  .mat-mdc-dialog-surface {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

@@ -320,49 +320,52 @@ export class PoliticalComponent implements OnInit {
 
   generateProposalsPDF() {
     const doc = new jsPDF();
-
     doc.setFontSize(18);
-    doc.text('Propostas', 14, 22);
+    doc.text(`Propostas - ${this.user?.name}`, 14, 22);
 
-    const tableData: any[][] = [];
+    
+    this.proposals.forEach((proposal, index) => {
+      const tableData: any[][] = [];
+      
+      tableData.push(['Título:', proposal.title || 'Sem Título']);
+      tableData.push(['Área:', proposal.areas?.name || 'Sem Área']);
+      tableData.push(['Status:', proposal.status || 'Sem Status']);
 
-    this.proposals.forEach((proposal) => {
-      console.log(proposal);
+      const description = proposal.description || 'Sem Descrição';
+      const descriptionLines = description.split(/\r?\n/).slice(0, 5);
+      descriptionLines.forEach((line: number, idx: number) => {
+        tableData.push([idx === 0 ? 'Descrição:' : '', line]);
+      });
 
-      tableData.push([
-        proposal.title || 'Sem Título',
-        proposal.areas?.name || 'Sem Área',
-        proposal.status || 'Sem Status',
-        proposal.description || 'Sem Descrição',
-        this.formatCurrency(proposal.budget) || 'Sem Orçamento'
-      ]);
+      tableData.push(['Investimento:', this.formatCurrency(proposal.budget) || 'Sem Orçamento']);
 
+      autoTable(doc, {
+        startY: 30,
+        theme: 'grid',
+        head: [['Campo', 'Informação']],
+        body: tableData,
+        styles: {
+          fontSize: 10,
+          cellPadding: 3,
+        },
+        columnStyles: {
+          0: { cellWidth: 30 },
+          1: { cellWidth: 'auto' },
+        },
+        headStyles: {
+          fillColor: [211, 211, 211],
+          textColor: [0, 0, 0],
+        }
+      });
+
+      if (index < this.proposals.length - 1) {
+        doc.addPage();
+      }
     });
-
-    console.log(tableData);
-
-
-    autoTable(doc, {
-      startY: 30,
-      theme: 'grid',
-      head: [['Título', 'Área', 'Status', 'Descrição', 'Investimento']],
-      body: tableData,
-      styles: {
-        fontSize: 10,
-        cellPadding: 3,
-      },
-      columnStyles: {
-        1: { cellWidth: 20 },
-        2: { cellWidth: 40 },
-        3: { cellWidth: 30 },
-        4: { cellWidth: 60 },
-        5: { cellWidth: 40 },
-      },
-    });
-
 
     doc.save('Propostas.pdf');
   }
+
 
   formatCurrency(value: number | string): string {
     if (value == null || isNaN(Number(value))) {
