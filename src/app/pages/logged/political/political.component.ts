@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
@@ -21,11 +22,13 @@ import { ViewProposalComponent } from '../proposals/view-proposal/view-proposal.
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { SidemenuService } from '../../../services/sidemenu.service';
 
 @Component({
   selector: 'app-political',
   standalone: true,
   imports: [
+    CommonModule,
     MatIcon,
     MatFormFieldModule,
     MatInputModule,
@@ -59,6 +62,7 @@ export class PoliticalComponent implements OnInit {
   proposalsFinisheds: any[] = [];
   proposalsWorking: any[] = [];
   proposals: any[] = [];
+  isSidemenuOpen: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,10 +74,10 @@ export class PoliticalComponent implements OnInit {
     private userService: UserService,
     private proposalService: ProposalService,
     private breakpointObserver: BreakpointObserver,
+    private sidemenuService: SidemenuService,
   ) { }
 
   ngOnInit() {
-
     if (history.state && history.state.political) {
       this.user = history.state.political;
     }
@@ -86,12 +90,19 @@ export class PoliticalComponent implements OnInit {
         console.error('Erro ao buscar as informações atualizadas do usuário:', err);
       }
     });
-    // console.log(this.user.email, '-', this.myUser.email);
 
     this.listStates();
     this.createForm();
     this.listProposals();
     console.log(this.myUser);
+
+    this.sidemenuService.sidemenuSubject$.subscribe({
+      next: res => {
+        console.log('sidemenuState: ', res)
+        this.isSidemenuOpen = res;
+        console.log({ sidemenuState: this.isSidemenuOpen });
+      }
+    })
   }
 
   listStates() {
@@ -323,10 +334,10 @@ export class PoliticalComponent implements OnInit {
     doc.setFontSize(18);
     doc.text(`Propostas - ${this.user?.name}`, 14, 22);
 
-    
+
     this.proposals.forEach((proposal, index) => {
       const tableData: any[][] = [];
-      
+
       tableData.push(['Título:', proposal.title || 'Sem Título']);
       tableData.push(['Área:', proposal.areas?.name || 'Sem Área']);
       tableData.push(['Status:', proposal.status || 'Sem Status']);

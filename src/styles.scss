@@ -167,8 +167,10 @@ mat-label {
 }
 
 .btn:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adicionar sombra ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Adicionar sombra ao passar o mouse */
+  transform: translateY(-2px);
+  /* Leve elevação ao passar o mouse */
 }
 
 .mat-mdc-menu-item:hover {
@@ -194,10 +196,35 @@ mat-label {
 //   top: 8.5px;
 // }
 
-.loading-style
-  .mat-mdc-dialog-container
-  .mdc-dialog__container
-  .mat-mdc-dialog-surface {
+.loading-style .mat-mdc-dialog-container .mdc-dialog__container .mat-mdc-dialog-surface {
   background-color: transparent !important;
   box-shadow: none !important;
+}
+
+.twenty-six {
+  font-size: 26px;
+}
+
+.eighteen {
+  font-size: 18px;
+}
+
+.sixteen {
+  font-size: 16px;
+}
+
+.fourteen {
+  font-size: 14px;
+}
+
+.thirteen {
+  font-size: 13px;
+}
+
+.twelve-point-five {
+  font-size: 12.5px;
+}
+
+.twelve {
+  font-size: 12px;
 }

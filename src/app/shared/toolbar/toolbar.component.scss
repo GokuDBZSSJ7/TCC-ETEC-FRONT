@@ -1,3 +1,23 @@
 nav {
    background-color: #fff;
 }
+
+.accessibility-icon {
+   transition: .25s all;
+
+   &:hover {
+      transform: scale(1.2);
+      color: #193c72;
+   }
+}
+
+button {
+   mat-icon {
+      color: #848484 !important;
+      transition: .25s all;
+
+      &:hover {
+         color: #1f1b2d !important;
+      }
+   }
+}

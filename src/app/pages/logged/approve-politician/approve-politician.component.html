@@ -18,9 +18,9 @@
    }
 
    <div class="politicians mt-5">
-      <div class="grid grid-cols-10 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4" [ngClass]="{'md:grid-cols-3': !isSidemenuOpen, 'md:grid-cols-2': isSidemenuOpen }">
          @for(user of users; track user) {
-         <div class="col-span-12 md:col-span-2">
+         <div class="col-span-1">
             <div class="card bg-white rounded-lg shadow cursor-pointer">
                <img [src]=" user.image_url || '/assets/img/political.png'" alt="Placeholder Image" class="politician-image w-full h-[300px] object-cover object-top">
                <div class="d-flex flex-column p-3 gap-2">

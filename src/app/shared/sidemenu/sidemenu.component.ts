@@ -118,7 +118,6 @@ export class SidemenuComponent implements OnInit {
       }
     };
     this.router.navigate(['/political'], navigationExtras);
-    console.log();
   }
 
   ngOnInit() {

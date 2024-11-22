@@ -11,6 +11,7 @@ import { CityService } from '../../../services/city.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PartyService } from '../../../services/party.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { SidemenuService } from '../../../services/sidemenu.service';
 
 @Component({
   selector: 'app-politicians',
@@ -36,6 +37,7 @@ export class PoliticiansComponent implements OnInit {
   form!: FormGroup;
   showFilters = false;
   selectedStateId: any;
+  isSidemenuOpen: any;
 
   constructor(
     private userService: UserService,
@@ -44,6 +46,7 @@ export class PoliticiansComponent implements OnInit {
     private partyService: PartyService,
     private fb: FormBuilder,
     private router: Router,
+    private sidemenuService: SidemenuService,
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +54,13 @@ export class PoliticiansComponent implements OnInit {
     this.listStates();
     this.listParties();
     this.createForm();
+    this.sidemenuService.sidemenuSubject$.subscribe({
+      next: res => {
+        console.log('sidemenuState: ', res)
+        this.isSidemenuOpen = res;
+        console.log({ sidemenuState: this.isSidemenuOpen });
+      }
+    })
   }
 
   createForm() {
@@ -65,15 +75,12 @@ export class PoliticiansComponent implements OnInit {
   listUsers() {
     this.userService.getPoliticians().subscribe({
       next: res => {
-        console.log(res);
         this.users = res
       }
     })
   }
 
   onStateChange(): void {
-    console.log(this.selectedStateId);
-
     this.form.patchValue({
       state_id: this.selectedStateId
     })
