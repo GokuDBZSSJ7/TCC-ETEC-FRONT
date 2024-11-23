@@ -9,6 +9,8 @@ import { AuthService } from '../../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommentaryService } from '../../../../services/commentary.service';
 import { ProposalService } from '../../../../services/proposal.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { UserService } from '../../../../services/user.service';
 
 registerLocaleData(localePt, 'pt-Br');
 
@@ -34,6 +36,8 @@ export class ViewProposalComponent implements OnInit {
   commentary: string = '';
   commentsData: any[] = [];
   comments: any[] = [];
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   user = this.authService.getUser();
   like: any
 
@@ -41,7 +45,9 @@ export class ViewProposalComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private commentaryService: CommentaryService,
-    private proposalService: ProposalService
+    private proposalService: ProposalService,
+    private _snackBar: MatSnackBar,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -51,15 +57,61 @@ export class ViewProposalComponent implements OnInit {
   }
 
   sendComment(commentary: string) {
-    if (this.commentary !== '') {
-      this.commentaryService.newComment({ description: commentary, promisse_id: this.data?.id, user_id: this.user?.id })
-        .subscribe({
-          next: res => {
-            this.getCommentsByPromisseId();
-            console.log(res);
+    if (commentary !== '') {
+      this.commentaryService.classifyComment({ comentario: commentary }).subscribe({
+        next: res => {
+          if (res.categoria === 'ofensivo') {
+            this._snackBar.open('Seu comentário foi considerado ofensivo, por isso não será publicado!', 'Fechar', {
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+              panelClass: ['snackbar-error'],
+              duration: 10000,
+            });
+            return;
+          } else if(res.categoria === 'discurso de ódio') {
+            this._snackBar.open('Seu comentário foi considerado discurso de ódio, você não poderá comentar no site por 1 semana!', 'Fechar', {
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+              panelClass: ['snackbar-error'],
+              duration: 10000,
+            });
+            this.userService.banUser(this.user.id).subscribe({
+              next: res => {
+                console.log(res);
+                
+              }
+            })
+            return;
           }
-        });
-      this.commentary = '';
+  
+          this.commentaryService.newComment({ description: commentary, promisse_id: this.data?.id, user_id: this.user?.id })
+            .subscribe({
+              next: res => {
+                this.getCommentsByPromisseId();
+                console.log(res);
+              },
+              error: err => {
+                console.error('Erro ao enviar novo comentário:', err);
+                this._snackBar.open('Erro ao enviar comentário. Tente novamente mais tarde.', 'Fechar', {
+                  horizontalPosition: this.horizontalPosition,
+                  verticalPosition: this.verticalPosition,
+                  panelClass: ['snackbar-error'],
+                  duration: 4000,
+                });
+              }
+            });
+          this.commentary = '';
+        },
+        error: err => {
+          console.error('Erro ao classificar comentário:', err);
+          this._snackBar.open('Erro ao classificar comentário. Tente novamente mais tarde.', 'Fechar', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            panelClass: ['snackbar-error'],
+            duration: 4000,
+          });
+        }
+      });
     }
   }
 

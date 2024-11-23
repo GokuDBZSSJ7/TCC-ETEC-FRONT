@@ -82,7 +82,8 @@
          <div class="mb-[60px]"></div>
 
          <!-- Barra de comentário fixa ao final da seção de comentários -->
-         <div
+         @if(!user.banned) {
+            <div
             class="absolute bottom-0 left-0 right-0 px-6 py-3 bg-white border-t border-gray-300 flex items-center space-x-2">
             @if (user?.image_url === 'http://127.0.0.1:8000/null') {
             <img src="/assets/img/avatar_default.svg" class="w-[44px] h-[44px] rounded-full object-cover"
@@ -99,6 +100,9 @@
                <mat-icon>send</mat-icon>
             </button>
          </div>
+         } @else {
+            <p>Sua conta está banida de comentar em propostas</p>
+         }
       </div>
    </div>
 </mat-dialog-content>

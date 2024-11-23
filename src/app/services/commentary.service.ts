@@ -22,4 +22,8 @@ export class CommentaryService {
   getCommentsByPromisseId(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}getCommentsByPromisseId/${id}`)
   }
+
+  classifyComment(data: any): Observable<any> {
+    return this.http.post<any>(`http://127.0.0.1:7000/classify`, data);
+  }
 }
