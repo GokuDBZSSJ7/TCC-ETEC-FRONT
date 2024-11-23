@@ -49,16 +49,20 @@
       <div class="col-span-6">
          <mat-label>Orçamento da Proposta</mat-label>
          <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
-            <input matInput placeholder="Orçamento da Proposta" type="text" formControlName="budget" (input)="formatBudget()">
+            <input matInput placeholder="Orçamento da Proposta" type="text" formControlName="budget"
+               (input)="formatBudget()">
          </mat-form-field>
       </div>
       <div class="col-span-6">
          <mat-label>Data da Proposta</mat-label>
-         <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
+         <div class="field shadow-sm rounded w-full bg-white flex h-[56px]">
+            <input type="date" class="px-4 w-full outline-none rounded" formControlName="time">
+         </div>
+         <!-- <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white mt-2">
             <input matInput [matDatepicker]="picker" formControlName="time">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-         </mat-form-field>
+         </mat-form-field> -->
       </div>
       <div class="col-span-12">
          <div
