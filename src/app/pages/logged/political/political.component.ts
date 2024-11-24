@@ -23,10 +23,12 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { SidemenuService } from '../../../services/sidemenu.service';
+import { TruncateTextPipe } from '../../../pipes/truncate-text.pipe';
 
 @Component({
   selector: 'app-political',
   standalone: true,
+  // providers: [TruncateTextPipe],
   imports: [
     CommonModule,
     MatIcon,
@@ -45,6 +47,7 @@ import { SidemenuService } from '../../../services/sidemenu.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    TruncateTextPipe
   ],
   templateUrl: './political.component.html',
   styleUrl: './political.component.scss'
