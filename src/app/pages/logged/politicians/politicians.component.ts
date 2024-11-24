@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { PartyService } from '../../../services/party.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { SidemenuService } from '../../../services/sidemenu.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-politicians',
@@ -25,12 +26,14 @@ import { SidemenuService } from '../../../services/sidemenu.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTooltipModule
   ],
   templateUrl: './politicians.component.html',
   styleUrl: './politicians.component.scss'
 })
 export class PoliticiansComponent implements OnInit {
-  users: any[] = []
+  politicians: any[] = []
+  filteredPoliticians: any[] = []
   states: any[] = []
   cities: any[] = []
   parties: any[] = []
@@ -50,7 +53,7 @@ export class PoliticiansComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listUsers();
+    this.listPoliticians();
     this.listStates();
     this.listParties();
     this.createForm();
@@ -72,10 +75,10 @@ export class PoliticiansComponent implements OnInit {
     });
   }
 
-  listUsers() {
+  listPoliticians() {
     this.userService.getPoliticians().subscribe({
       next: res => {
-        this.users = res
+        this.politicians = res
       }
     })
   }
@@ -123,8 +126,20 @@ export class PoliticiansComponent implements OnInit {
   applyFilter() {
     this.userService.filterUser(this.form.value).subscribe({
       next: res => {
-        this.users = res;
+        this.politicians = res;
+        console.log('Politicians: ', this.politicians)
+        this.filteredPoliticians = this.politicians;
+        console.log('Filtered politicians: ', this.filteredPoliticians);
       }
     })
+  }
+
+  filterPoliticians(query: any): void {
+    console.log(query);
+    const lowerCaseQuery = query.target.value.toLowerCase();
+    this.filteredPoliticians = this.politicians.filter(
+      (political) =>
+        political.name.toLowerCase().includes(lowerCaseQuery)
+    );
   }
 }

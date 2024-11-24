@@ -17,7 +17,12 @@
          }
       </div>
       <div class="col-span-8 lg:col-span-9 xl:col-span-10">
-         <h1 class="name"><strong>Nome: </strong><span>{{user.name}}</span></h1>
+         <h1 class="name flex gap-1"><strong>Nome: </strong>
+            <span>{{user.name}}</span>
+            @if (user?.verified) {
+            <img src="/assets/img/icons/verified.svg" alt="Verified Icon" matTooltip="Verificado">
+            }
+         </h1>
          <h2 class="role"><strong>Cargo: </strong>{{ user?.type === 5 ? 'Administrador' : user.role}}</h2>
          <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
             {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
@@ -30,14 +35,10 @@
          <button class="edit-button mt-5" (click)="edit = !edit">Editar</button>
          }
       </div>
-      @if(user?.verified) {
-         <svg class="verify" xmlns="http://www.w3.org/2000/svg" height="64px" viewBox="0 -960 960 960" width="64px" fill="#2854C5"><path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z"/></svg>
-      } @else {
-         <p class="verify_text">Entre em contato com o suporte em<br> suporte.political&#64;gmail.com para obter o verificado</p>
-      }
       }
       @else {
-      <div class="col-span-12 mx-auto md:mx-auto xl:col-span-2 sm:mb-3" [ngClass]="{'md:col-span-3': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }">
+      <div class="col-span-12 mx-auto md:mx-auto xl:col-span-2 sm:mb-3"
+         [ngClass]="{'md:col-span-3': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }">
          <div class="image-box w-36 h-36 sm:w-[144px] sm:h-[144px] relative">
             <img
                class="w-36 h-36 sm:w-[144px] sm:h-[144px] rounded-full border border-gray-300 object-cover object-center"
@@ -50,7 +51,8 @@
             </div>
          </div>
       </div>
-      <div class="col-span-12 xl:col-span-10" [ngClass]="{'md:col-span-9': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }" [formGroup]="form">
+      <div class="col-span-12 xl:col-span-10"
+         [ngClass]="{'md:col-span-9': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }" [formGroup]="form">
          <div class="grid grid-cols-12 gap-2">
             <div class="w-full col-span-12 sm:col-span-5">
                <mat-label>Estado</mat-label>
@@ -74,7 +76,8 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <div class="col-span-12 flex gap-2 mt-2 sm:mt-4" [ngClass]="{'md:col-span-4': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }">
+            <div class="col-span-12 flex gap-2 mt-2 sm:mt-4"
+               [ngClass]="{'md:col-span-4': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }">
                <button class="edit-button w-full" (click)="edit = !edit">Cancelar</button>
                <button class="confirm-button w-full" (click)="save()">Confirmar</button>
             </div>
@@ -82,6 +85,14 @@
       </div>
       }
    </div>
+   @if (!user?.verified && user.email == myUser.email) {
+   <p class="verified-info-message">
+      <mat-icon fontSet="material-icons-outlined">info</mat-icon>
+      Entre em contato com o suporte por meio do e-mail
+      <strong>contato.propostapublica&#64;hotmail.com</strong>
+      para solicitar o símbolo de verificado em seu perfil.
+   </p>
+   }
    @if (user.type !== 1) {
    @if (!edit) {
    <div class="promisses mt-[56px]">
@@ -103,9 +114,9 @@
       </div>
       <mat-divider style="margin-top: 4px; margin-bottom: 8px;"></mat-divider>
       @for (proposal of proposalsWorking; track proposal) {
-         @if ( proposalsWorking.length === 0 ) {
-            <p>Não há propostas em andamento.</p>
-         }
+      @if ( proposalsWorking.length === 0 ) {
+      <p>Não há propostas em andamento.</p>
+      }
       <div class="promise cursor-pointer" (click)="openViewProposalDialog(proposal)">
          <div class="p-4">
             <div class="flex items-start">

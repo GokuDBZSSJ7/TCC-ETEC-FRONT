@@ -42,7 +42,7 @@ export class PartiesComponent implements OnInit {
   parties: any[] = []
   form!: FormGroup;
   user = this.authService.getUser();
-  displayedColumns: string[] = ['image', 'name', 'acronym', 'founders', 'city_uf'];
+  displayedColumns: string[] = ['name', 'acronym', 'founders', 'city_uf'];
   dataSource = new MatTableDataSource<any>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

@@ -26,20 +26,6 @@
                      <h1 [ngClass]="{'working': proposal?.status === 'Em Andamento', 'finished': proposal?.status === 'Finalizada'}">{{proposal?.status}}</h1>
                   </div>
                </div>
-               <div class="flex justify-between items-center border-b pb-2">
-                  <div class="flex items-center space-x-2">
-                     <div>
-                        <span class="text-sm text-gray-500">422 aprovados</span>
-                     </div>
-                     <small class="text-gray-500">•</small>
-                     <div>
-                        <span class="text-sm text-gray-500">18 desaprovados</span>
-                     </div>
-                  </div>
-                  <div class="text-sm text-gray-500">
-                     322 comentários
-                  </div>
-               </div>
             </div>
          </div>
       }

@@ -110,6 +110,13 @@ export class ProposalCreateComponent implements OnInit {
   }
 
   save() {
+    let budget = this.form.get('budget')?.value;
+
+    console.log('Antes: ', this.form.value);
+    budget = parseFloat(budget.toString().replace(/[^\d]/g, ''));
+    this.form.get('budget')?.setValue(budget);
+    console.log('Depois: ', this.form.value);
+
     this.proposalService.create(this.form.value).subscribe({
       next: res => {
         this._snackBar.open('Proposta cadastrada com sucesso!', 'Fechar', {
@@ -120,8 +127,9 @@ export class ProposalCreateComponent implements OnInit {
         });
         this.dialogRef.close();
       }
-    })
+    });
   }
+
 
   autoGrow(event: Event): void {
     const textarea = event.target as HTMLTextAreaElement;
@@ -149,9 +157,35 @@ export class ProposalCreateComponent implements OnInit {
 
   formatBudget(): void {
     let value = this.form.get('budget')?.value;
+
     if (value !== null && value !== undefined) {
-      value = this.currencyPipe.transform(value, 'BRL', 'symbol', '1.2-2');
-      this.form.get('budget')?.setValue(value);
+      value = value.toString().replace(/[^\d]/g, '');
+
+      let integerPart = value.slice(0, -2);
+      let decimalPart = value.slice(-2);
+
+      if (integerPart === '') {
+        integerPart = '0';
+      }
+
+      if (decimalPart === '') {
+        decimalPart = '00';
+      }
+
+      if (integerPart === '0' && value.length === 1) {
+        decimalPart = `${value}0`;
+      }
+
+      const formattedValue = `${integerPart}.${decimalPart}`;
+
+      const formattedCurrency = Number(formattedValue).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
+      this.form.get('budget')?.setValue(formattedCurrency);
     }
   }
 }

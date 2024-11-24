@@ -7,6 +7,7 @@ import { UserService } from '../../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ApproveModalComponent } from './approve-modal/approve-modal.component';
 import { SidemenuService } from '../../../services/sidemenu.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-approve-politician',
@@ -28,18 +29,44 @@ export class ApprovePoliticianComponent implements OnInit {
   constructor(
     private userService: UserService,
     private sidemenuService: SidemenuService,
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   dialog = inject(MatDialog);
 
   openDialog(data: any) {
-    this.dialog.open(ApproveModalComponent, {
-      data: {
+    // Define tamanho padrão para o modal
+    let dialogWidth = '400px';
+    let dialogHeight = 'auto';
+
+    // Define breakpoints e ajusta o tamanho do modal
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall, // Tela pequena (celular)
+      Breakpoints.Small,  // Tela média (tablet)
+      Breakpoints.Medium, // Tela maior (laptop)
+      Breakpoints.Large,  // Tela desktop
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        dialogWidth = '100dvw';
+        dialogHeight = '400px';
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        dialogWidth = '80%';
+        dialogHeight = 'auto';
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        dialogWidth = '70%';
+        dialogHeight = 'auto';
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        dialogWidth = '400px';
+        dialogHeight = 'auto';
+      }
+      const dialogRef = this.dialog.open(ApproveModalComponent, {
         data: data,
-      },
-      width: '60%',
-      height: '40%'
-    });
+        width: dialogWidth,
+        height: dialogHeight,
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+      });
+    })
   }
 
   ngOnInit() {

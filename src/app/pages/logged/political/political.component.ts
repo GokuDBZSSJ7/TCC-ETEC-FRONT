@@ -62,6 +62,7 @@ export class PoliticalComponent implements OnInit {
   proposalsFinisheds: any[] = [];
   proposalsWorking: any[] = [];
   proposals: any[] = [];
+  myProposals: any[] = [];
   isSidemenuOpen: any;
 
   constructor(
@@ -333,50 +334,59 @@ export class PoliticalComponent implements OnInit {
     const doc = new jsPDF();
     doc.setFontSize(18);
     doc.text(`Propostas - ${this.user?.name}`, 14, 22);
+    console.log(this.proposals);
 
+    this.proposalService.myProposals(this.user.id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.myProposals = res;
 
-    this.proposals.forEach((proposal, index) => {
-      const tableData: any[][] = [];
+        this.myProposals.forEach((proposal, index) => {
+          const tableData: any[][] = [];
 
-      tableData.push(['Título:', proposal.title || 'Sem Título']);
-      tableData.push(['Área:', proposal.areas?.name || 'Sem Área']);
-      tableData.push(['Status:', proposal.status || 'Sem Status']);
+          tableData.push(['Título:', proposal.title || 'Sem Título']);
+          tableData.push(['Área:', proposal.areas?.name || 'Sem Área']);
+          tableData.push(['Status:', proposal.status || 'Sem Status']);
 
-      const description = proposal.description || 'Sem Descrição';
-      const descriptionLines = description.split(/\r?\n/).slice(0, 5);
-      descriptionLines.forEach((line: number, idx: number) => {
-        tableData.push([idx === 0 ? 'Descrição:' : '', line]);
-      });
+          const description = proposal.description || 'Sem Descrição';
+          const descriptionLines = description.split(/\r?\n/).slice(0, 5);
+          descriptionLines.forEach((line: string, idx: number) => {
+            tableData.push([idx === 0 ? 'Descrição:' : '', line]);
+          });
 
-      tableData.push(['Investimento:', this.formatCurrency(proposal.budget) || 'Sem Orçamento']);
+          tableData.push(['Investimento:', this.formatCurrency(proposal.budget) || 'Sem Orçamento']);
 
-      autoTable(doc, {
-        startY: 30,
-        theme: 'grid',
-        head: [['Campo', 'Informação']],
-        body: tableData,
-        styles: {
-          fontSize: 10,
-          cellPadding: 3,
-        },
-        columnStyles: {
-          0: { cellWidth: 30 },
-          1: { cellWidth: 'auto' },
-        },
-        headStyles: {
-          fillColor: [211, 211, 211],
-          textColor: [0, 0, 0],
-        }
-      });
+          autoTable(doc, {
+            startY: 30,
+            theme: 'grid',
+            head: [['Campo', 'Informação']],
+            body: tableData,
+            styles: {
+              fontSize: 10,
+              cellPadding: 3,
+            },
+            columnStyles: {
+              0: { cellWidth: 30 },
+              1: { cellWidth: 'auto' },
+            },
+            headStyles: {
+              fillColor: [211, 211, 211],
+              textColor: [0, 0, 0],
+            }
+          });
 
-      if (index < this.proposals.length - 1) {
-        doc.addPage();
+          if (index < this.myProposals.length - 1) {
+            doc.addPage();
+          }
+        });
+
+        doc.save('Propostas.pdf');
+      },
+      error: (err) => {
+        console.error('Erro ao carregar propostas:', err);
       }
     });
-
-    doc.save('Propostas.pdf');
   }
-
 
   formatCurrency(value: number | string): string {
     if (value == null || isNaN(Number(value))) {
@@ -384,14 +394,12 @@ export class PoliticalComponent implements OnInit {
     }
 
     const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+    const valueInReais = numericValue / 100;
 
-    return `R$ ${numericValue.toLocaleString('pt-BR', {
+    return `R$ ${valueInReais.toLocaleString('pt-BR', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;
   }
 
-  getLikesByPromisse() {
-
-  }
 }

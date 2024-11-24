@@ -101,3 +101,22 @@
       font-weight: 300;
    }
 }
+
+.verified-info-message {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   background-color: #eff6fff2;
+   border: 1px solid #bfdbfe;
+   border-radius: 6px;
+   padding: 0.5rem 0.75rem;
+   color: #2563eb;
+   margin-top: 16px;
+   font-size: 12px;
+
+   .mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+   }
+}
