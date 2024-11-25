@@ -60,3 +60,14 @@
         border-radius: 0 !important;
     }
 }
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}

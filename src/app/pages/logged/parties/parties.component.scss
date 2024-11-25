@@ -1,3 +1,12 @@
 h1 {
-   font-size: 26px;
- }
+  font-size: 26px;
+}
+
+.responsive-table {
+  overflow-x: scroll !important;
+  scrollbar-width: none !important;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

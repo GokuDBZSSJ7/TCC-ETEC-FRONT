@@ -79,6 +79,7 @@ export class PoliticiansComponent implements OnInit {
     this.userService.getPoliticians().subscribe({
       next: res => {
         this.politicians = res
+        console.log(res);
       }
     })
   }

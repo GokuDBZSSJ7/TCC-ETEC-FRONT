@@ -10,19 +10,19 @@
    {
    <div class="filters mt-2" [formGroup]="form">
       <div class="flex flex-wrap -mx-2 gap-3 md:gap-0">
-         <div class="w-full md:w-8/12 px-2">
+         <div class="w-full lg:w-8/12 px-2" [ngClass]="{'md:w-8/12': !isSidemenuOpen, '': isSidemenuOpen }">
             <mat-label>Pesquisar</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <input matInput placeholder="Buscar pelo nome do político" formControlName="name"
                   (input)="filterPoliticians($event)">
             </mat-form-field>
          </div>
-         <div class="w-full md:w-4/12 px-2">
+         <div class="w-full lg:w-4/12 px-2" [ngClass]="{'md:w-4/12': !isSidemenuOpen, '': isSidemenuOpen }">
             <mat-label>Partido</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select placeholder="Selecione um partido" formControlName="party_id">
                   @for(party of parties; track party){
-                  <mat-option [value]="party.id">{{party.name}}</mat-option>
+                  <mat-option [value]="party.id">{{party.name}} ({{party.acronym}})</mat-option>
                   }
                </mat-select>
             </mat-form-field>
@@ -30,18 +30,18 @@
       </div>
 
       <div class="flex flex-wrap -mx-2 mt-3 gap-3 md:gap-0">
-         <div class="w-full md:w-4/12 px-2">
+         <div class="w-full lg:w-4/12 px-2" [ngClass]="{'md:w-4/12': !isSidemenuOpen, '': isSidemenuOpen }">
             <mat-label>Estado</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
                   (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
                   @for(state of states; track state){
-                  <mat-option [value]="state.id">{{state.name}} - {{state.uf}}</mat-option>
+                  <mat-option [value]="state.id">{{state.name}} ({{state.uf}})</mat-option>
                   }
                </mat-select>
             </mat-form-field>
          </div>
-         <div class="w-full md:w-4/12 px-2">
+         <div class="w-full lg:w-4/12 px-2" [ngClass]="{'md:w-4/12': !isSidemenuOpen, '': isSidemenuOpen }">
             <mat-label>Cidade</mat-label>
             <mat-form-field appearance="outline" class="w-full shadow-sm rounded bg-white">
                <mat-select placeholder="Selecione uma cidade" [disabled]="selectedStateId == null"
@@ -52,7 +52,8 @@
                </mat-select>
             </mat-form-field>
          </div>
-         <div class="w-full md:w-4/12 px-2 mt-2 md:mt-0 flex items-end">
+         <div class="w-full lg:w-4/12 px-2 mt-2 md:mt-3 flex items-end"
+            [ngClass]="{'md:w-4/12': !isSidemenuOpen, '': isSidemenuOpen }">
             <button mat-flat-button
                class="bg-[#315FA5] text-white w-full block mx-auto h-[56px] rounded-lg text-[16px] btn"
                (click)="applyFilter()">
@@ -69,19 +70,28 @@
          @for(user of politicians; track user) {
          <div class="col-span-1">
             <div class="card bg-white rounded-lg shadow cursor-pointer" (click)="openPoliticalPage(user)">
+               @if (user?.verified) {
                <img class="verify" src="/assets/img/icons/verified.svg" alt="Verified Icon" matTooltip="Verificado">
+               }
                <img [src]="user.image_url" alt="Placeholder Image"
                   class="politician-image w-full h-[300px] object-cover object-center">
                <div class="d-flex flex-column p-3 gap-2" style="height: 128px;">
                   <div>
                      <h2 class="text-[18px] font-bold">{{ user.name }}</h2>
                   </div>
+                  <div>
+                     <p class="text-[16px] text-gray-700">
+                        {{ user?.role === 'Representante de Partido' ? 'Repres. de Partido' : user?.role }}
+                     </p>
+                  </div>
                   <div class="pb-2">
-                     <p class="text-[16px] text-gray-700">{{ user.role }}</p>
+                     <p class="text-[14px] text-gray-700">{{ (user?.city?.name + ', ' + user?.city?.state?.uf) || 'Não
+                        informado' }}</p>
                   </div>
                   <div>
-                     <p class="text-[13px] text-gray-700">{{ user?.party?.name || 'Sem partido'}} - {{
-                        user?.party?.acronym || 'Sem Sigla'}}</p>
+                     <p class="text-[13px] text-gray-700">
+                        {{ (user?.party?.name + ' (' + user?.party?.acronym + ')') || 'Não
+                        informado' }}</p>
                   </div>
                </div>
             </div>

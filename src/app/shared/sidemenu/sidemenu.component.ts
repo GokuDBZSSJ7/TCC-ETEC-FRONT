@@ -111,7 +111,7 @@ export class SidemenuComponent implements OnInit {
 
   openPoliticalPage(item: any) {
 
-    
+
     const navigationExtras: NavigationExtras = {
       state: {
         political: item
@@ -172,75 +172,62 @@ export class SidemenuComponent implements OnInit {
           }
         ]
       },
-      // {
-      //   title: 'Módulos Administrativos',
-      //   contentMenus: [
-      //     {
-      //       label: 'Propostas do Político',
-      //       icon: 'proposals_icon',
-      //       tooltip: '',
-      //       route: '/'
-      //     },
-      //     {
-      //       label: 'Área do Político',
-      //       icon: 'candidate_icon',
-      //       route: '/'
-      //     }
-      //   ]
-      // }
       ];
     } else if (accessType === 3) {
-      return [{
-        title: 'Módulos Gerais',
-        contentMenus: [
-          {
-            label: 'Políticos',
-            icon: 'candidate_icon',
-            tooltip: '',
-            route: '/politicians'
-          }
-        ]
-      },
-      {
-        title: 'Módulos Administrativos',
-        contentMenus: [
-          {
-            label: 'Controle de Políticos',
-            icon: 'check_circle_icon',
-            tooltip: 'Aprovar político e designar a partido.',
-            route: '/approve-politician'
-          },
-        ]
-      }]
+      return [
+        {
+          title: 'Módulos Gerais',
+          contentMenus: [
+            {
+              label: 'Políticos',
+              icon: 'candidate_icon',
+              tooltip: '',
+              route: '/politicians'
+            }
+          ]
+        },
+        {
+          title: 'Módulos Administrativos',
+          contentMenus: [
+            {
+              label: 'Controle de Políticos',
+              icon: 'check_circle_icon',
+              tooltip: 'Aprovar político e designar a partido.',
+              route: '/approve-politician'
+            },
+          ]
+        }
+      ]
     } else {
-      return [{
-        title: 'Módulos Gerais',
-        contentMenus: [
-          {
-            label: 'Políticos',
-            icon: 'candidate_icon',
-            tooltip: '',
-            route: '/politicians'
-          }
-        ]
-      },
-      {
-        title: 'Módulos Administrativos',
-        contentMenus: [
-          {
-            label: 'Partidos',
-            icon: 'party_icon',
-            tooltip: '',
-            route: '/parties'
-          },
-          {
-            label: 'Controle de Políticos',
-            icon: 'check_circle_icon',
-            tooltip: 'Aprovar políticos e designar a partidos.',
-            route: '/approve-politician'
-          }
-        ]
-      }]
+      return [
+        {
+          title: 'Módulos Gerais',
+          contentMenus: [
+            {
+              label: 'Políticos',
+              icon: 'candidate_icon',
+              tooltip: '',
+              route: '/politicians'
+            }
+          ]
+        },
+        {
+          title: 'Módulos Administrativos',
+          contentMenus: [
+            {
+              label: 'Partidos',
+              icon: 'party_icon',
+              tooltip: '',
+              route: '/parties'
+            },
+            {
+              label: 'Controle de Políticos',
+              icon: 'check_circle_icon',
+              tooltip: 'Aprovar políticos e designar a partidos.',
+              route: '/approve-politician'
+            }
+          ]
+        }]
     }
   }
 

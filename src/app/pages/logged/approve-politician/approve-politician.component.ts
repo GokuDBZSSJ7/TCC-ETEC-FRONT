@@ -35,11 +35,9 @@ export class ApprovePoliticianComponent implements OnInit {
   dialog = inject(MatDialog);
 
   openDialog(data: any) {
-    // Define tamanho padrão para o modal
     let dialogWidth = '400px';
     let dialogHeight = 'auto';
 
-    // Define breakpoints e ajusta o tamanho do modal
     this.breakpointObserver.observe([
       Breakpoints.XSmall, // Tela pequena (celular)
       Breakpoints.Small,  // Tela média (tablet)
@@ -66,6 +64,10 @@ export class ApprovePoliticianComponent implements OnInit {
         maxWidth: '100vw',
         maxHeight: '100vh',
       });
+
+      dialogRef.afterClosed().subscribe(res => {
+        this.listUsers();
+      })
     })
   }
 

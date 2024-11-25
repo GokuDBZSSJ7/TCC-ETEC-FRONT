@@ -23,13 +23,15 @@
             <img src="/assets/img/icons/verified.svg" alt="Verified Icon" matTooltip="Verificado">
             }
          </h1>
-         <h2 class="role"><strong>Cargo: </strong>{{ user?.type === 5 ? 'Administrador' : user.role}}</h2>
-         <h2 class="city"><strong>Cidade e Estado: </strong>{{user?.city?.name || 'Sem Cidade Cadastrada'}} -
-            {{user?.city?.state?.uf || 'Sem Estado Cadastrado'}}</h2>
-         <h2><strong>Propostas: </strong>{{ proposalsWorking.length + proposalsFinisheds.length }}</h2>
+         <h2 class="role"><strong>Cargo: </strong>
+            {{ user?.type === 5 ? 'Administrador' : user.role}}</h2>
+         <h2 class="city"><strong>Cidade e Estado: </strong>
+            {{ (user?.city?.name || 'Não informados') + (user?.city?.name ? ', ' + user.city.state?.uf : '') }}
+         </h2>
          @if(user.type == 2) {
-         <h2 class="party"><strong>Partido: </strong>{{user?.party?.acronym}}
-            ({{user?.party?.name || 'Nenhum partido informado.'}})</h2>
+         <h2><strong>Propostas: </strong>{{ proposalsWorking.length + proposalsFinisheds.length }}</h2>
+         <h2 class="party"><strong>Partido: </strong>{{user?.party?.name || 'Nenhum partido informado.'}}
+            ({{user?.party?.acronym}})</h2>
          }
          @if(user.email == myUser.email) {
          <button class="edit-button mt-5" (click)="edit = !edit">Editar</button>
@@ -60,7 +62,7 @@
                   <mat-select [(ngModel)]="selectedStateId" placeholder="Selecione um estado"
                      (selectionChange)="onStateChange()" [ngModelOptions]="{standalone: true}">
                      @for(state of states; track state){
-                     <mat-option [value]="state.id">{{state?.name}} - {{state?.uf}}</mat-option>
+                     <mat-option [value]="state.id">{{state?.name}} ({{state?.uf}})</mat-option>
                      }
                   </mat-select>
                </mat-form-field>
@@ -76,7 +78,7 @@
                   </mat-select>
                </mat-form-field>
             </div>
-            <div class="col-span-12 flex gap-2 mt-2 sm:mt-4"
+            <div class="col-span-12 flex xl:col-span-4 gap-2 mt-2 sm:mt-4"
                [ngClass]="{'md:col-span-4': !isSidemenuOpen, 'md:col-span-12': isSidemenuOpen }">
                <button class="edit-button w-full" (click)="edit = !edit">Cancelar</button>
                <button class="confirm-button w-full" (click)="save()">Confirmar</button>
@@ -87,14 +89,14 @@
    </div>
    @if (!user?.verified && user.email == myUser.email) {
    <p class="verified-info-message">
-      <mat-icon fontSet="material-icons-outlined">info</mat-icon>
-      Entre em contato com o suporte por meio do e-mail
-      <strong>contato.propostapublica&#64;hotmail.com</strong>
-      para solicitar o símbolo de verificado em seu perfil.
+      <mat-icon fontSet="material-icons-outlined" class="flex-shrink-0">info</mat-icon>
+      Entre em contato com o suporte por meio do e-mail contato.propostapublica&#64;hotmail.com para solicitar o símbolo
+      de verificado em seu perfil.
    </p>
    }
    @if (user.type !== 1) {
    @if (!edit) {
+   @if (user.type === 2) {
    <div class="promisses mt-[56px]">
       @if ( proposalsWorking.length > 0 || proposalsFinisheds.length > 0) {
       <button class="generate-pdf mb-3" (click)="generateProposalsPDF()">
@@ -118,10 +120,15 @@
       <p>Não há propostas em andamento.</p>
       }
       <div class="promise cursor-pointer" (click)="openViewProposalDialog(proposal)">
-         <div class="p-4">
+         <div class="py-2">
             <div class="flex items-start">
-               <img [src]="proposal?.image_url || 'https://via.placeholder.com/96'" alt="Post Image"
-                  class="w-24 h-24 rounded-lg mr-4 object-cover object-center">
+               @if (proposal?.image_url !== 'http://127.0.0.1:8000/null') {
+               <img [src]="proposal?.image_url" alt="Post Image"
+                  class="w-24 h-24 rounded-lg mr-4 object-cover object-center flex-shrink-0">
+               } @else {
+               <img src="/assets/img/not-image.jpg" alt="Post Image"
+                  class="w-24 h-24 rounded-lg mr-4 object-cover object-center flex-shrink-0">
+               }
                <div class="flex justify-between w-full">
                   <div class="flex flex-col gap-2">
                      <div class="flex flex-col">
@@ -217,6 +224,7 @@
          <button mat-button (click)="openProposalsPage(user.id)">Visualizar todas as propostas</button>
       </div>
    </div>
+   }
    }
    }
 </div>

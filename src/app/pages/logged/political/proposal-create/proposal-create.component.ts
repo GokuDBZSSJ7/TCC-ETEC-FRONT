@@ -48,10 +48,9 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './proposal-create.component.scss'
 })
 export class ProposalCreateComponent implements OnInit {
-
   data = inject(MAT_DIALOG_DATA);
   imageUrl: string | ArrayBuffer | null = null;
-  partyId: any;
+  partyId: any = this.data?.party?.id;
   form!: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -71,7 +70,6 @@ export class ProposalCreateComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
-
     this.createForm();
     this.listAreas();
     this.listParties()
@@ -85,12 +83,11 @@ export class ProposalCreateComponent implements OnInit {
     })
   }
 
-
-
   listParties() {
     this.partyService.all().subscribe({
       next: res => {
-        this.parties = res
+        this.parties = res;
+        // this.parties = res.find((x: any) => x.id === this.data?.party?.id);
       }
     })
   }
@@ -107,6 +104,7 @@ export class ProposalCreateComponent implements OnInit {
       area_id: null,
       status: null
     });
+    console.log({ formValue: this.form.value });
   }
 
   save() {
@@ -129,7 +127,6 @@ export class ProposalCreateComponent implements OnInit {
       }
     });
   }
-
 
   autoGrow(event: Event): void {
     const textarea = event.target as HTMLTextAreaElement;

@@ -42,8 +42,7 @@ export class ApproveModalComponent implements OnInit {
   ngOnInit(): void {
     this.listParties();
     this.createForm();
-    console.log(this.data.data);
-
+    console.log(this.data);
   }
 
   listParties() {
@@ -56,7 +55,7 @@ export class ApproveModalComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      id: this.data.data.id,
+      id: this.data.id,
       role: null,
       party_id: null
     });
@@ -69,7 +68,8 @@ export class ApproveModalComponent implements OnInit {
   save() {
     this.userService.setPolitician(this.form.value).subscribe({
       next: res => {
-        console.log("TESTE");
+        console.log(this.form.value);
+        console.log("Salvo com sucesso!");
       }
     })
   }

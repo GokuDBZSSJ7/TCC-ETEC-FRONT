@@ -102,9 +102,7 @@ export class PoliticalComponent implements OnInit {
 
     this.sidemenuService.sidemenuSubject$.subscribe({
       next: res => {
-        console.log('sidemenuState: ', res)
         this.isSidemenuOpen = res;
-        console.log({ sidemenuState: this.isSidemenuOpen });
       }
     })
   }
@@ -150,7 +148,6 @@ export class PoliticalComponent implements OnInit {
     this.proposalService.all().subscribe({
       next: res => {
         this.proposals = res
-        console.log(this.proposals);
       }
     })
   }

@@ -51,7 +51,7 @@ export class CreatePartyComponent implements OnInit {
     private authService: AuthService,
     private partyService: PartyService,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +64,7 @@ export class CreatePartyComponent implements OnInit {
     this.userService.all().subscribe({
       next: res => {
         this.users = res
+        console.log(this.users);
       }
     })
   }
@@ -86,7 +87,7 @@ export class CreatePartyComponent implements OnInit {
     })
 
     console.log(this.selectedStateId);
-    
+
 
     if (this.selectedStateId) {
       this.cityService.all(this.selectedStateId).subscribe(data => {
@@ -126,13 +127,29 @@ export class CreatePartyComponent implements OnInit {
   create() {
     this.partyService.create(this.form.value).subscribe({
       next: res => {
-        this._snackBar.open('Partido Criado com sucesso!', 'Fechar', {
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-          panelClass: ['snackbar-success'],
-          duration: 4000,
-        });
-        this.router.navigate(['/parties']);
+        console.log(this.form.value);
+        this.partyService.all().subscribe({
+          next: (parties: any[]) => {
+            const user = this.users.find(x => x.id === this.form.value.leader_id);
+            const createdParty = parties.find(x => x.leader_id === user?.id);
+            console.log({ user: user, createdParty: createdParty })
+            if (user) {
+              user.type = 3;
+              this.userService.update({ type: 3, role: 'Representante de Partido', party_id: createdParty.id  }, user.id).subscribe({
+                next: res => {
+                  console.log(user);
+                  this._snackBar.open('Partido criado com sucesso!', 'Fechar', {
+                    horizontalPosition: this.horizontalPosition,
+                    verticalPosition: this.verticalPosition,
+                    panelClass: ['snackbar-success'],
+                    duration: 4000,
+                  });
+                  this.router.navigate(['/parties']);
+                }
+              })
+            }
+          }
+        })
       },
       error: (err: any) => {
         this._snackBar.open(`${err.error.message}`, 'X', {
@@ -144,5 +161,4 @@ export class CreatePartyComponent implements OnInit {
       }
     })
   }
-
 }

@@ -38,7 +38,8 @@ export class ViewProposalComponent implements OnInit {
   comments: any[] = [];
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  user = this.authService.getUser();
+  myUser = this.authService.getUser();
+  user: any;
   like: any
 
   constructor(
@@ -53,7 +54,8 @@ export class ViewProposalComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data);
     this.getCommentsByPromisseId();
-    this.getLike()
+    this.getLike();
+    this.getMyUser();
   }
 
   sendComment(commentary: string) {
@@ -81,6 +83,7 @@ export class ViewProposalComponent implements OnInit {
                 
               }
             })
+            this.getMyUser();
             return;
           }
   
@@ -153,6 +156,14 @@ export class ViewProposalComponent implements OnInit {
       next: res => {
         console.log(res);
         this.like = res[0]
+      }
+    })
+  }
+
+  getMyUser() {
+    this.userService.getUserById(this.myUser.id).subscribe({
+      next: res => {
+        this.user = res;
       }
     })
   }
